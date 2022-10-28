@@ -18,5 +18,11 @@ namespace RauCuXanh.Views
             InitializeComponent();
             BindingContext = new CheckingScreenViewModel(Navigation);
         }
+        protected async override void OnAppearing() { 
+            base.OnAppearing(); 
+            await Task.Delay(2000);
+            App.Current.MainPage = new AppShell();
+            await Navigation.PushAsync(new AppShell());
+        }
     }
 }

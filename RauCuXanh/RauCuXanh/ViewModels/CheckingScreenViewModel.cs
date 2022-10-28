@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -13,14 +14,14 @@ namespace RauCuXanh.ViewModels
 
         public CheckingScreenViewModel(INavigation navigation)
         {
-            App.Current.MainPage.DisplayAlert("Alert", "You have been alerted", "OK");
             Navigation = navigation;
-            Task.Run(async () => await CheckAndNavigate());
+            //CheckAndNavigate();
         }
 
-        private async Task CheckAndNavigate()
+        private void CheckAndNavigate()
         {
-            await Navigation.PushAsync(new AppShell());
+            Navigation.PushAsync(new AppShell());
+            App.Current.MainPage = new AppShell();
         }
     }
 }
