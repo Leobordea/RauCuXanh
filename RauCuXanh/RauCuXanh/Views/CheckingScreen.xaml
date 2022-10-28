@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:extensions="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="RauCuXanh.Views.CheckingScreen"
+             NavigationPage.HasNavigationBar="false"
+             xmlns:viewmodels="clr-namespace:RauCuXanh.ViewModels" 
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material" 
+             x:DataType="viewmodels:CheckingScreenViewModel"
+             >
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="{StaticResource Primary}">
+            <StackLayout HorizontalOptions="CenterAndExpand"
+                         VerticalOptions="CenterAndExpand">
+                <Frame CornerRadius="160"
+                       HeightRequest="425"
+                       WidthRequest="325"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="CenterAndExpand"
+                       Padding="0"
+                       IsClippedToBounds="True"
+                       BackgroundColor="#B5FFF5">
+                    <extensions:MediaElement Source="ms-appx:///plant_1.mp4" AutoPlay="True"
+              ShowsPlaybackControls="False" IsLooping="True" Aspect="AspectFill" />
+                </Frame>
+                <Label Text="ĐANG ĐĂNG NHẬP ..."
+                       HorizontalTextAlignment="Center"
+                       FontSize="33"
+                       FontAttributes="bold"
+                       TextColor="{StaticResource TextOnPrimary}"
+                       Margin="0, 35" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
