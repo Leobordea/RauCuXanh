@@ -28,6 +28,7 @@
                     TextColor="{StaticResource TextOnPrimary}"
                     CornerRadius="20" />
                 <Button Text="Bạn quên mật khẩu ?"
+                Command="{Binding ForgetPasswordBtn}"
                     BackgroundColor="Transparent"
                     CornerRadius="20"
                     TextColor="{StaticResource Primary}" />
@@ -37,6 +38,7 @@
                 <Label Text="Chưa có tài khoản ?"
                     TextColor="#BDBDBD" VerticalTextAlignment="Center"/>
                 <Button Text="Tạo tài khoản mới"
+                Command="{Binding RegisterBtn}"
                     HorizontalOptions="EndAndExpand"
                     BorderColor="Transparent"
                     BackgroundColor="Transparent"

@@ -10,15 +10,29 @@ namespace RauCuXanh.ViewModels
     public class LoginViewModel : BaseViewModel
     {
         public Command LoginBtn { get; }
+        public Command ForgetPasswordBtn { get; }
+        public Command RegisterBtn { get; }
         public INavigation Navigation { get; set; }
 
         public LoginViewModel(INavigation navigation)
         {
             Navigation = navigation;
             LoginBtn = new Command(async() => await OnLoginClicked());
+            ForgetPasswordBtn = new Command(async() => await OnForgetPasswordClicked());
+            RegisterBtn = new Command(async() => await OnRegisterClicked());
         }
 
-        public async Task OnLoginClicked()
+        private async Task OnRegisterClicked()
+        {
+            await Navigation.PushAsync(new RegisterPage());
+        }
+
+        private async Task OnForgetPasswordClicked()
+        {
+            await Navigation.PushAsync(new ForgetPassword());
+        }
+
+        private async Task OnLoginClicked()
         {
             await Navigation.PushAsync(new CheckingScreen());
         }

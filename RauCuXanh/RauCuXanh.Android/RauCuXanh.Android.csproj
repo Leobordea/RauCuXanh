@@ -111,15 +111,6 @@
     <AndroidResource Include="Resources\drawable\logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\plant_1.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\plant_2.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\plant_3.gif" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\raw\plant_2.mp4" />
   </ItemGroup>
   <ItemGroup>

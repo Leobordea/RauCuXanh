@@ -15,13 +15,14 @@ namespace RauCuXanh.ViewModels
         public CheckingScreenViewModel(INavigation navigation)
         {
             Navigation = navigation;
+            //move logic to CheckingScreen.xaml.cs
             //CheckAndNavigate();
         }
 
-        private void CheckAndNavigate()
-        {
-            Navigation.PushAsync(new AppShell());
-            App.Current.MainPage = new AppShell();
-        }
+        //private void CheckAndNavigate()
+        //{
+        //    Navigation.PushAsync(new AppShell());
+        //    App.Current.MainPage = new AppShell();
+        //}
     }
 }
