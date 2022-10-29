@@ -11,12 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace RauCuXanh.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CheckingScreen : ContentPage
+    public partial class CheckingPage : ContentPage
     {
-        public CheckingScreen()
+        public CheckingPage()
         {
             InitializeComponent();
-            BindingContext = new CheckingScreenViewModel(Navigation);
+            BindingContext = new CheckingPageViewModel(Navigation);
         }
         protected async override void OnAppearing() { 
             base.OnAppearing(); 

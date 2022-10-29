@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RauCuXanh.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace RauCuXanh.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SplashScreen : ContentPage
+    public partial class ForgetPasswordPage : ContentPage
     {
-        public SplashScreen()
+        public ForgetPasswordPage()
         {
             InitializeComponent();
+            BindingContext = new ForgetPasswordViewModel(Navigation);
         }
     }
 }

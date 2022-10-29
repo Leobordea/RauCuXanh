@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:extensions="http://xamarin.com/schemas/2020/toolkit"
              x:Class="RauCuXanh.Views.RegisterCompletedScreen"
-             Shell.NavBarIsVisible="False">
+             NavigationPage.HasNavigationBar="false"
+             >
     <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand">
             <Label Text="Đăng ký tài khoản thành công"
@@ -17,11 +18,13 @@
                    VerticalOptions="CenterAndExpand"
                    Padding="0"
                    HasShadow="False">
-                <Image Source="plant_1.gif"
+                <extensions:MediaElement Source="ms-appx:///plant_1.mp4" AutoPlay="True"
+              ShowsPlaybackControls="False" IsLooping="True" Aspect="AspectFill" />
+                <!--<Image Source="plant_1.gif"
                        HorizontalOptions="FillAndExpand"
                        VerticalOptions="FillAndExpand"
                        Aspect="AspectFill"
-                       IsAnimationPlaying="True"/>
+                       IsAnimationPlaying="True"/>-->
             </Frame>
             <Label Text="Hãy kiểm tra email của bạn để xác mình tài khoản."
                    Margin="70, 24"
@@ -29,7 +32,7 @@
                    FontAttributes="Bold"
                    TextColor="#BDBDBD" />
             <Button Text="Lấy lại mật khẩu"
-                    BackgroundColor="#5DB075"
+                    BackgroundColor="{StaticResource Primary}"
                     CornerRadius="20"
                     Margin="16,0" />
         </StackLayout>

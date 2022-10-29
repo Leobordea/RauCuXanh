@@ -29,12 +29,12 @@ namespace RauCuXanh.ViewModels
 
         private async Task OnForgetPasswordClicked()
         {
-            await Navigation.PushAsync(new ForgetPassword());
+            await Navigation.PushAsync(new ForgetPasswordPage());
         }
 
         private async Task OnLoginClicked()
         {
-            await Navigation.PushAsync(new CheckingScreen());
+            await Navigation.PushAsync(new CheckingPage());
         }
     }
 }

@@ -8,11 +8,11 @@ using Xamarin.Forms;
 
 namespace RauCuXanh.ViewModels
 {
-    public class CheckingScreenViewModel : BaseViewModel
+    public class CheckingPageViewModel : BaseViewModel
     {
         public INavigation Navigation { get; set; }
 
-        public CheckingScreenViewModel(INavigation navigation)
+        public CheckingPageViewModel(INavigation navigation)
         {
             Navigation = navigation;
             //move logic to CheckingScreen.xaml.cs

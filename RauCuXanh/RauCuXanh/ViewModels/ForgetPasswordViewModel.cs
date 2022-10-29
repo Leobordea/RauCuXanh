@@ -9,18 +9,18 @@ namespace RauCuXanh.ViewModels
 {
     public class ForgetPasswordViewModel : BaseViewModel
     {
-        public Command LoginBtn { get; }
+        public Command ResetPassBtn { get; }
         public INavigation Navigation { get; set; }
 
         public ForgetPasswordViewModel(INavigation navigation)
         {
             Navigation = navigation;
-            LoginBtn = new Command(async() => await OnLoginClicked());
+            ResetPassBtn = new Command(async() => await OnResetPassword());
         }
 
-        public async Task OnLoginClicked()
+        public async Task OnResetPassword()
         {
-            await Navigation.PushAsync(new CheckingScreen());
+            await Navigation.PopToRootAsync();
         }
     }
 }

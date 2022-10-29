@@ -12,4 +12,22 @@
     <PackageReference Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2515" />  
     <PackageReference Include="XF.Material" Version="1.8.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\CheckingPage.xaml.cs">
+      <DependentUpon>CheckingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ForgetPasswordPage.xaml.cs">
+      <DependentUpon>ForgetPasswordPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RecoveryMailSentPage.xaml.cs">
+      <DependentUpon>RecoveryMailSentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RegisterCompletedPage.xaml.cs">
+      <DependentUpon>RegisterCompletedPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SplashScreenPage.xaml.cs">
+      <DependentUpon>SplashScreenPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>
