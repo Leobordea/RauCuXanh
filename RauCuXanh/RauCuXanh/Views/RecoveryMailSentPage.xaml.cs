@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RauCuXanh.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace RauCuXanh.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RecoveryMailSentScreen : ContentPage
+    public partial class RecoveryMailSentPage : ContentPage
     {
-        public RecoveryMailSentScreen()
+        public RecoveryMailSentPage()
         {
             InitializeComponent();
+            BindingContext = new RecoveryMailSentViewModel(Navigation);
         }
     }
 }

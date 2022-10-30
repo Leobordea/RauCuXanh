@@ -11,7 +11,7 @@ namespace RauCuXanh.ViewModels
     {
         public Command LoginBtn { get; }
         public Command ForgetPasswordBtn { get; }
-        public Command RegisterBtn { get; }
+        public Command CreateNewAccountBtn { get; }
         public INavigation Navigation { get; set; }
 
         public LoginViewModel(INavigation navigation)
@@ -19,10 +19,10 @@ namespace RauCuXanh.ViewModels
             Navigation = navigation;
             LoginBtn = new Command(async() => await OnLoginClicked());
             ForgetPasswordBtn = new Command(async() => await OnForgetPasswordClicked());
-            RegisterBtn = new Command(async() => await OnRegisterClicked());
+            CreateNewAccountBtn = new Command(async() => await OnCreateNewAccountClicked());
         }
 
-        private async Task OnRegisterClicked()
+        private async Task OnCreateNewAccountClicked()
         {
             await Navigation.PushAsync(new RegisterPage());
         }

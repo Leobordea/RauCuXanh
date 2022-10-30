@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RauCuXanh.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace RauCuXanh.Views
         public RegisterPage()
         {
             InitializeComponent();
+            BindingContext = new RegisterViewModel(Navigation);
         }
     }
 }

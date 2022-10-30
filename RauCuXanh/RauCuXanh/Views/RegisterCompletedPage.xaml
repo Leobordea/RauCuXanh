@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:extensions="http://xamarin.com/schemas/2020/toolkit"
-             x:Class="RauCuXanh.Views.RegisterCompletedScreen"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:extensions="http://xamarin.com/schemas/2020/toolkit" 
+             xmlns:viewmodels="clr-namespace:RauCuXanh.ViewModels" 
+             x:DataType="viewmodels:RegisterCompletedViewModel"
+             x:Class="RauCuXanh.Views.RegisterCompletedPage"
              NavigationPage.HasNavigationBar="false"
              >
     <ContentPage.Content>
@@ -32,6 +35,7 @@
                    FontAttributes="Bold"
                    TextColor="#BDBDBD" />
             <Button Text="Lấy lại mật khẩu"
+                    Command="{Binding BackToLoginBtn}"
                     BackgroundColor="{StaticResource Primary}"
                     CornerRadius="20"
                     Margin="16,0" />

@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RauCuXanh.Views.RegisterPage"
-             xmlns:effects="clr-namespace:RauCuXanh.Effects"
+             xmlns:effects="clr-namespace:RauCuXanh.Effects" 
+             xmlns:viewmodels="clr-namespace:RauCuXanh.ViewModels" 
+             x:DataType="viewmodels:RegisterViewModel"
              NavigationPage.HasNavigationBar="false"
              >
     <ContentPage.Content>
@@ -77,7 +79,7 @@
                         <FormattedString>
                             <Span Text="Tôi đồng ý với " />
                             <Span Text="điểu khoản sử dụng"
-                                  TextColor="#5DB075">
+                                  TextColor="{StaticResource Primary}">
                                 <!--Span.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding TapCommand}"
                                               CommandParameter="https://learn.microsoft.com/xamarin/" />
@@ -88,7 +90,8 @@
                 </Label>
             </FlexLayout>
             <Button Text="Đăng ký"
-                    BackgroundColor="#5DB075"
+                    BackgroundColor="{StaticResource Primary}"
+                    Command="{Binding RegisterBtn}"
                     CornerRadius="20" 
                     Margin="16,0"/>
             <StackLayout Spacing="0" VerticalOptions="EndAndExpand">

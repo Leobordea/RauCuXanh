@@ -38,7 +38,7 @@
                 <Label Text="Chưa có tài khoản ?"
                     TextColor="#BDBDBD" VerticalTextAlignment="Center"/>
                 <Button Text="Tạo tài khoản mới"
-                Command="{Binding RegisterBtn}"
+                Command="{Binding CreateNewAccountBtn}"
                     HorizontalOptions="EndAndExpand"
                     BorderColor="Transparent"
                     BackgroundColor="Transparent"

@@ -20,7 +20,7 @@ namespace RauCuXanh.ViewModels
 
         public async Task OnResetPassword()
         {
-            await Navigation.PopToRootAsync();
+            await Navigation.PushAsync(new RecoveryMailSentPage());
         }
     }
 }
