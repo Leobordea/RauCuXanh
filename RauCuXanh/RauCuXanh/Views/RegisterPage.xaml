@@ -2,11 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RauCuXanh.Views.RegisterPage"
-             xmlns:effects="clr-namespace:RauCuXanh.Effects" 
-             xmlns:viewmodels="clr-namespace:RauCuXanh.ViewModels" 
+             xmlns:effects="clr-namespace:RauCuXanh.Effects"
+             xmlns:viewmodels="clr-namespace:RauCuXanh.ViewModels"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
              x:DataType="viewmodels:RegisterViewModel"
-             NavigationPage.HasNavigationBar="false"
-             >
+             NavigationPage.HasNavigationBar="false">
     <ContentPage.Content>
         <StackLayout Spacing="32"
                      Margin="0, 40, 0, 0">
@@ -14,65 +14,36 @@
                    HorizontalOptions="CenterAndExpand"
                    FontSize="30"
                    FontAttributes="Bold"
-                   TextColor="Black"/>
+                   TextColor="Black" />
             <StackLayout Spacing="16"
                          Margin="16, 0">
                 <Frame Padding="1"
                        BackgroundColor="#E8E8E8"
-                       CornerRadius="10"
-                       HasShadow="False">
-                    <Frame Padding="0"
-                           CornerRadius="10"
-                           HasShadow="False">
-                        <Entry Placeholder="Tên tài khoản"
-                               TextColor="Black"
-                               BackgroundColor="#F6F6F6"
-                               HeightRequest="50">
-                            <Entry.Effects>
-                                <effects:PlainEntry />
-                            </Entry.Effects>
-                        </Entry>
-                    </Frame>
+                       CornerRadius="10">
+                    <material:MaterialTextField Placeholder="Tên tài khoản"
+                                                ErrorText="Sai tài khoản"
+                                                TintColor="{StaticResource Primary}"/>
                 </Frame>
                 <Frame Padding="1"
                        BackgroundColor="#E8E8E8"
-                       CornerRadius="10"
-                       HasShadow="False">
-                    <Frame Padding="0"
-                           CornerRadius="10"
-                           HasShadow="False">
-                        <Entry Placeholder="Email"
-                               TextColor="Black"
-                               BackgroundColor="#F6F6F6"
-                               HeightRequest="50"
-                               Keyboard="Email">
-                            <Entry.Effects>
-                                <effects:PlainEntry />
-                            </Entry.Effects>
-                        </Entry>
-                    </Frame>
+                       CornerRadius="10">
+                    <material:MaterialTextField Placeholder="Email"
+                                                ErrorText="Sai email"
+                                                InputType="Email"
+                                                TintColor="{StaticResource Primary}" />
                 </Frame>
                 <Frame Padding="1"
                        BackgroundColor="#E8E8E8"
-                       CornerRadius="10"
-                       HasShadow="False">
-                    <Frame Padding="0"
-                           CornerRadius="10"
-                           HasShadow="False">
-                        <Entry Placeholder="Mật khẩu"
-                               TextColor="Black"
-                               BackgroundColor="#F6F6F6"
-                               HeightRequest="50"
-                               IsPassword="True">
-                            <Entry.Effects>
-                                <effects:PlainEntry />
-                            </Entry.Effects>
-                        </Entry>
-                    </Frame>
+                       CornerRadius="10">
+                    <material:MaterialTextField Placeholder="Mật khẩu"
+                                                ErrorText="Mật khẩu không hợp lệ"
+                                                InputType="Password"
+                                                TintColor="{StaticResource Primary}" />
                 </Frame>
             </StackLayout>
 
-            <FlexLayout AlignItems="Center" Margin="16, 0">
+            <FlexLayout AlignItems="Center"
+                        Margin="16, 0">
                 <CheckBox />
                 <Label FontSize="14">
                     <Label.FormattedText>
@@ -80,10 +51,10 @@
                             <Span Text="Tôi đồng ý với " />
                             <Span Text="điểu khoản sử dụng"
                                   TextColor="{StaticResource Primary}">
-                                <!--Span.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding TapCommand}"
-                                              CommandParameter="https://learn.microsoft.com/xamarin/" />
-                                </Span.GestureRecognizers-->
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OnClickTermOfUse}"
+                                                          CommandParameter="https://learn.microsoft.com/xamarin/" />
+                                </Span.GestureRecognizers>
                             </Span>
                         </FormattedString>
                     </Label.FormattedText>
@@ -91,10 +62,12 @@
             </FlexLayout>
             <Button Text="Đăng ký"
                     BackgroundColor="{StaticResource Primary}"
+                    TextColor="{StaticResource TextOnPrimary}"
                     Command="{Binding RegisterBtn}"
-                    CornerRadius="20" 
-                    Margin="16,0"/>
-            <StackLayout Spacing="0" VerticalOptions="EndAndExpand">
+                    CornerRadius="20"
+                    Margin="16,0" />
+            <StackLayout Spacing="0"
+                         VerticalOptions="EndAndExpand">
                 <Frame BorderColor="Transparent"
                        VerticalOptions="StartAndExpand">
                     <Frame.Background>

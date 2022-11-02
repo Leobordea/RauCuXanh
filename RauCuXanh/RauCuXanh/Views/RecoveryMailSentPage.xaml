@@ -21,13 +21,11 @@
                    VerticalOptions="CenterAndExpand"
                    Padding="0"
                    HasShadow="False">
-                <extensions:MediaElement Source="ms-appx:///plant_3.mp4" AutoPlay="True"        
-                                         ShowsPlaybackControls="False" IsLooping="True" Aspect="AspectFill" />
-                <!--<Image Source="plant_3.gif"
-                       HorizontalOptions="FillAndExpand"
-                       VerticalOptions="FillAndExpand"
-                       Aspect="AspectFill"
-                       IsAnimationPlaying="True"/>-->
+                <extensions:MediaElement Source="ms-appx:///plant_3.mp4"
+                                         AutoPlay="True"
+                                         ShowsPlaybackControls="False"
+                                         IsLooping="True"
+                                         Aspect="AspectFill" />
             </Frame>
             <Label Text="Hãy kiểm tra email của bạn để đặt lại mật khẩu."
                    Margin="70, 24"
@@ -37,6 +35,7 @@
             <Button Text="Quay lại đăng nhập"
                     Command="{Binding BackToLoginBtn}"
                     BackgroundColor="{StaticResource Primary}"
+                    TextColor="{StaticResource TextOnPrimary}"
                     CornerRadius="20"
                     Margin="16,0" />
         </StackLayout>
