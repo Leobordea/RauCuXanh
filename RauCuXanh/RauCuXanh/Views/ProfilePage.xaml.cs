@@ -20,8 +20,10 @@ namespace RauCuXanh.Views
         }
         void Logout(object sender, EventArgs args)
         {
-            App.Current.MainPage = new LoginPage();
-            Navigation.PushModalAsync(new LoginPage());
+            App.Current.MainPage = new NavigationPage(new LoginPage())
+            {
+                BackgroundColor = Color.White
+            };
         }
     }
 }

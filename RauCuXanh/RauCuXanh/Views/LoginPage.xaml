@@ -8,6 +8,7 @@
              x:DataType="viewmodels:LoginViewModel"
              mc:Ignorable="d"
              x:Class="RauCuXanh.Views.LoginPage"
+                          BackgroundColor="White"
              NavigationPage.HasNavigationBar="false"
              >
     <ContentPage.Content>

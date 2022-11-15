@@ -6,6 +6,7 @@
              xmlns:viewmodels="clr-namespace:RauCuXanh.ViewModels"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
              x:DataType="viewmodels:RegisterViewModel"
+                          BackgroundColor="White"
              NavigationPage.HasNavigationBar="false">
     <ContentPage.Content>
         <StackLayout Spacing="32"
@@ -48,7 +49,7 @@
                 <Label FontSize="14">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="Tôi đồng ý với " />
+                            <Span Text="Tôi đồng ý với " TextColor="{StaticResource TextOnSecondary}" />
                             <Span Text="điểu khoản sử dụng"
                                   TextColor="{StaticResource Primary}">
                                 <Span.GestureRecognizers>
@@ -80,7 +81,7 @@
                         </LinearGradientBrush>
                     </Frame.Background>
                 </Frame>
-                <Image VerticalOptions="EndAndExpand"
+                <Image Margin="-1" VerticalOptions="EndAndExpand"
                        Source="register_image.png" />
             </StackLayout>
         </StackLayout>

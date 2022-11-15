@@ -5,9 +5,10 @@
              xmlns:viewmodels="clr-namespace:RauCuXanh.ViewModels"
              x:DataType="viewmodels:RegisterCompletedViewModel"
              x:Class="RauCuXanh.Views.RegisterCompletedPage"
+                          BackgroundColor="White"
              NavigationPage.HasNavigationBar="false">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="CenterAndExpand">
+        <StackLayout VerticalOptions="CenterAndExpand" >
             <Label Text="Đăng ký tài khoản thành công"
                    HorizontalTextAlignment="Center"
                    FontSize="30"

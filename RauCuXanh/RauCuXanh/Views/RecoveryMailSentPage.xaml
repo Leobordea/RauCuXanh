@@ -6,9 +6,10 @@
              x:DataType="viewmodels:RecoveryMailSentViewModel"
              x:Class="RauCuXanh.Views.RecoveryMailSentPage"
              NavigationPage.HasNavigationBar="false"
+                          BackgroundColor="White"
              >
     <ContentPage.Content>
-        <StackLayout VerticalOptions="CenterAndExpand">
+        <StackLayout VerticalOptions="CenterAndExpand" >
             <Label Text="Gửi mail khôi phục thành công"
                    HorizontalTextAlignment="Center"
                    FontSize="30"
