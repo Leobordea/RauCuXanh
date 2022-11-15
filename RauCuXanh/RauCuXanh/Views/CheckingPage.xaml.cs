@@ -22,7 +22,7 @@ namespace RauCuXanh.Views
             base.OnAppearing(); 
             await Task.Delay(2000);
             App.Current.MainPage = new AppShell();
-            await Navigation.PushAsync(new AppShell());
+            await Navigation.PopToRootAsync();
         }
     }
 }

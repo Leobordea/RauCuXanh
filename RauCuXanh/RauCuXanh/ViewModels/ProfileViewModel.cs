@@ -4,18 +4,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using RauCuXanh.Views;
+using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms;
 
 namespace RauCuXanh.ViewModels
 {
     public class ProfileViewModel : BaseViewModel
     {
-        public INavigation Navigation { get; set; }
         public Command PersonalInformationButton { get; set; }
         public Command ChangePasswordButton { get; set; }
+        public INavigation Navigation { get; set; }
         public ProfileViewModel(INavigation navigation)
         {
-            Title = "Thông tin cá nhân";
+            Title = "Thông tin của tôi";
             Navigation = navigation;
             PersonalInformationButton = new Command(async () => await NavigateToPerInfoPage());
             ChangePasswordButton = new Command(async () => await NavigateToChangePassPage());
@@ -23,12 +24,12 @@ namespace RauCuXanh.ViewModels
 
         public async Task NavigateToPerInfoPage()
         {
-            await Navigation.PushAsync(new PersonalInformationPage());
+            await Shell.Current.GoToAsync(nameof(PersonalInformationPage));
         }
 
         public async Task NavigateToChangePassPage()
         {
-            await Navigation.PushAsync(new ChangePasswordPage());
+            await Shell.Current.GoToAsync(nameof(ChangePasswordPage));
         }
     }
 }
