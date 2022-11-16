@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RauCuXanh.Views.ProfilePage"
-             xmlns:vm="clr-namespace:RauCuXanh.ViewModels"
-             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-             x:DataType="vm:ProfileViewModel"
-             Title="{Binding Title}"
-             Shell.NavBarIsVisible="False">
+<ContentPage
+    x:Class="RauCuXanh.Views.ProfilePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+    xmlns:vm="clr-namespace:RauCuXanh.ViewModels"
+    Title="{Binding Title}"
+    x:DataType="vm:ProfileViewModel"
+    Shell.NavBarIsVisible="False">
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="25" />
+                <RowDefinition Height="33" />
                 <RowDefinition Height="1.5*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
@@ -19,132 +20,161 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="10" />
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Text="{Binding Title}"
-                       FontSize="18"
-                       FontAttributes="Bold"
-                       HorizontalTextAlignment="Center" />
-            <StackLayout Grid.Row="1" Orientation="Horizontal"
-                         Margin="20, 0, 20, 0">
-                <Frame CornerRadius="100" 
-           HeightRequest="100"
-           WidthRequest="100"
-           HorizontalOptions="Center"
-           VerticalOptions="Center"
-           Padding="0"
-           IsClippedToBounds="True">
-                    <Image Source="kha_banh_avatar.png" 
-                    Aspect="AspectFill"
-           HorizontalOptions="FillAndExpand"
-           VerticalOptions="FillAndExpand" />
+            <Label
+                Grid.Row="0"
+                Padding="0,0,0,10"
+                FontAttributes="Bold"
+                FontSize="18"
+                HorizontalTextAlignment="Center"
+                Text="{Binding Title}"
+                TextColor="{StaticResource TextOnSecondary}" />
+            <StackLayout
+                Grid.Row="1"
+                Margin="20,0,20,0"
+                Orientation="Horizontal">
+                <Frame
+                    Padding="0"
+                    CornerRadius="100"
+                    HeightRequest="100"
+                    HorizontalOptions="Center"
+                    IsClippedToBounds="True"
+                    VerticalOptions="Center"
+                    WidthRequest="100">
+                    <Image
+                        Aspect="AspectFill"
+                        HorizontalOptions="FillAndExpand"
+                        Source="kha_banh_avatar.png"
+                        VerticalOptions="FillAndExpand" />
                 </Frame>
-                <StackLayout VerticalOptions="Center"
-                                 Margin="20">
-                        <Label Text="Pretty Banh"
-                               FontSize="20"
-                               FontAttributes="Bold" />
-                        <Label Text="ngobakha@gmail.com" />
-                    </StackLayout>
+                <StackLayout Margin="20" VerticalOptions="Center">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Text="Pretty Banh"
+                        TextColor="{StaticResource TextOnSecondary}" />
+                    <Label Text="ngobakha@gmail.com" TextColor="{StaticResource TextOnSecondary}" />
                 </StackLayout>
-                <material:MaterialCard Grid.Row="2" CornerRadius="2"
-                                       Elevation="2"
-                                       HeightRequest="30"
-                                       HorizontalOptions="FillAndExpand"
-                                       Margin="20, 0, 20, 10"
-                                       IsClickable="True"
-                                       ClickCommand="{Binding PersonalInformationButton}">
-                    <FlexLayout JustifyContent="SpaceBetween"
-                                AlignItems="Center">
-                        <StackLayout>
-                            <Label Text="Đơn hàng"
-                                   FontSize="20"
-                                   FontAttributes="Bold" />
-                            <Label Text="Xem lịch sử mua hàng của bạn" />
-                        </StackLayout>
-                        <Image Source="arrow_icon.png"
-                               WidthRequest="20"
-                               HeightRequest="20" />
-                    </FlexLayout>
-                </material:MaterialCard>
-                <material:MaterialCard Grid.Row="3" CornerRadius="2"
-                                       Elevation="2"
-                                       HeightRequest="30"
-                                       HorizontalOptions="FillAndExpand"
-                                       Margin="20, 0, 20, 10"
-                                       IsClickable="True"
-                                       ClickCommand="{Binding PersonalInformationButton}">
-                    <FlexLayout JustifyContent="SpaceBetween"
-                                AlignItems="Center">
-                        <StackLayout>
-                            <Label Text="Đổi thông tin cá nhân"
-                                   FontSize="20"
-                                   FontAttributes="Bold" />
-                            <Label Text="Thay đổi tên, số điện thoại, email..." />
-                        </StackLayout>
-                        <Image Source="arrow_icon.png"
-                               WidthRequest="20"
-                               HeightRequest="20" />
-                    </FlexLayout>
-                </material:MaterialCard>
-                <material:MaterialCard Grid.Row="4" CornerRadius="2"
-                                       Elevation="2"
-                                       HeightRequest="30"
-                                       HorizontalOptions="FillAndExpand"
-                                       Margin="20, 0, 20, 10"
-                                       IsClickable="True"
-                                       ClickCommand="{Binding PersonalInformationButton}">
-                    <FlexLayout JustifyContent="SpaceBetween"
-                                AlignItems="Center">
-                        <StackLayout>
-                            <Label Text="Thống kê"
-                                   FontSize="20"
-                                   FontAttributes="Bold" />
-                            <Label Text="Doanh thu của bạn trong tháng" />
-                        </StackLayout>
-                        <Image Source="arrow_icon.png"
-                               WidthRequest="20"
-                               HeightRequest="20" />
-                    </FlexLayout>
-                </material:MaterialCard>
-                <material:MaterialCard Grid.Row="5" CornerRadius="2"
-                                       Elevation="2"
-                                       HeightRequest="30"
-                                       HorizontalOptions="FillAndExpand"
-                                       Margin="20, 0, 20, 10"
-                                       IsClickable="True"
-                                       ClickCommand="{Binding ChangePasswordButton}">
-                    <FlexLayout JustifyContent="SpaceBetween"
-                                AlignItems="Center">
-                        <StackLayout>
-                            <Label Text="Bảo mật"
-                                   FontSize="20"
-                                   FontAttributes="Bold" />
-                            <Label Text="Thay đổi mật khẩu" />
-                        </StackLayout>
-                        <Image Source="arrow_icon.png"
-                               WidthRequest="20"
-                               HeightRequest="20" />
-                    </FlexLayout>
-                </material:MaterialCard>
-                <material:MaterialCard Grid.Row="6" CornerRadius="2"
-                                       Elevation="2"
-                                       HeightRequest="30"
-                                       HorizontalOptions="FillAndExpand"
-                                       Margin="20, 0, 20, 10"
-                                       IsClickable="True"
-                                       Clicked="Logout">
-                    <FlexLayout JustifyContent="SpaceBetween"
-                                AlignItems="Center">
-                        <StackLayout>
-                            <Label Text="Đăng xuất"
-                                   FontSize="20"
-                                   FontAttributes="Bold" />
-                            <Label Text="Thoát ra màn hình đăng nhập" />
-                        </StackLayout>
-                        <Image Source="arrow_icon.png"
-                               WidthRequest="20"
-                               HeightRequest="20" />
-                    </FlexLayout>
-                </material:MaterialCard>
+            </StackLayout>
+            <material:MaterialCard
+                Grid.Row="2"
+                Margin="20,0,20,10"
+                ClickCommand="{Binding PersonalInformationButton}"
+                CornerRadius="2"
+                Elevation="2"
+                HeightRequest="30"
+                HorizontalOptions="FillAndExpand"
+                IsClickable="True">
+                <FlexLayout AlignItems="Center" JustifyContent="SpaceBetween">
+                    <StackLayout>
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Đơn hàng"
+                            TextColor="{StaticResource TextOnSecondary}" />
+                        <Label Text="Xem lịch sử mua hàng của bạn" TextColor="{StaticResource TextOnSecondary}" />
+                    </StackLayout>
+                    <Image
+                        HeightRequest="20"
+                        Source="arrow_icon.png"
+                        WidthRequest="20" />
+                </FlexLayout>
+            </material:MaterialCard>
+            <material:MaterialCard
+                Grid.Row="3"
+                Margin="20,0,20,10"
+                ClickCommand="{Binding PersonalInformationButton}"
+                CornerRadius="2"
+                Elevation="2"
+                HeightRequest="30"
+                HorizontalOptions="FillAndExpand"
+                IsClickable="True">
+                <FlexLayout AlignItems="Center" JustifyContent="SpaceBetween">
+                    <StackLayout>
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Đổi thông tin cá nhân"
+                            TextColor="{StaticResource TextOnSecondary}" />
+                        <Label Text="Thay đổi tên, số điện thoại, email..." TextColor="{StaticResource TextOnSecondary}" />
+                    </StackLayout>
+                    <Image
+                        HeightRequest="20"
+                        Source="arrow_icon.png"
+                        WidthRequest="20" />
+                </FlexLayout>
+            </material:MaterialCard>
+            <material:MaterialCard
+                Grid.Row="4"
+                Margin="20,0,20,10"
+                ClickCommand="{Binding PersonalInformationButton}"
+                CornerRadius="2"
+                Elevation="2"
+                HeightRequest="30"
+                HorizontalOptions="FillAndExpand"
+                IsClickable="True">
+                <FlexLayout AlignItems="Center" JustifyContent="SpaceBetween">
+                    <StackLayout>
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Thống kê"
+                            TextColor="{StaticResource TextOnSecondary}" />
+                        <Label Text="Doanh thu của bạn trong tháng" TextColor="{StaticResource TextOnSecondary}" />
+                    </StackLayout>
+                    <Image
+                        HeightRequest="20"
+                        Source="arrow_icon.png"
+                        WidthRequest="20" />
+                </FlexLayout>
+            </material:MaterialCard>
+            <material:MaterialCard
+                Grid.Row="5"
+                Margin="20,0,20,10"
+                ClickCommand="{Binding ChangePasswordButton}"
+                CornerRadius="2"
+                Elevation="2"
+                HeightRequest="30"
+                HorizontalOptions="FillAndExpand"
+                IsClickable="True">
+                <FlexLayout AlignItems="Center" JustifyContent="SpaceBetween">
+                    <StackLayout>
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Bảo mật"
+                            TextColor="{StaticResource TextOnSecondary}" />
+                        <Label Text="Thay đổi mật khẩu" TextColor="{StaticResource TextOnSecondary}" />
+                    </StackLayout>
+                    <Image
+                        HeightRequest="20"
+                        Source="arrow_icon.png"
+                        WidthRequest="20" />
+                </FlexLayout>
+            </material:MaterialCard>
+            <material:MaterialCard
+                Grid.Row="6"
+                Margin="20,0,20,10"
+                Clicked="Logout"
+                CornerRadius="2"
+                Elevation="2"
+                HeightRequest="30"
+                HorizontalOptions="FillAndExpand"
+                IsClickable="True">
+                <FlexLayout AlignItems="Center" JustifyContent="SpaceBetween">
+                    <StackLayout>
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Đăng xuất"
+                            TextColor="{StaticResource TextOnSecondary}" />
+                        <Label Text="Thoát ra màn hình đăng nhập" TextColor="{StaticResource TextOnSecondary}" />
+                    </StackLayout>
+                    <Image
+                        HeightRequest="20"
+                        Source="arrow_icon.png"
+                        WidthRequest="20" />
+                </FlexLayout>
+            </material:MaterialCard>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -1,43 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:extensions="http://xamarin.com/schemas/2020/toolkit"
-             xmlns:viewmodels="clr-namespace:RauCuXanh.ViewModels"
-             x:DataType="viewmodels:RegisterCompletedViewModel"
-             x:Class="RauCuXanh.Views.RegisterCompletedPage"
-                          BackgroundColor="White"
-             NavigationPage.HasNavigationBar="false">
+<ContentPage
+    x:Class="RauCuXanh.Views.RegisterCompletedPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:extensions="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:viewmodels="clr-namespace:RauCuXanh.ViewModels"
+    x:DataType="viewmodels:RegisterCompletedViewModel"
+    BackgroundColor="White"
+    NavigationPage.HasNavigationBar="false">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="CenterAndExpand" >
-            <Label Text="Đăng ký tài khoản thành công"
-                   HorizontalTextAlignment="Center"
-                   FontSize="30"
-                   FontAttributes="bold"
-                   TextColor="Black"
-                   Margin="60, 0" />
-            <Frame HeightRequest="425"
-                   WidthRequest="325"
-                   HorizontalOptions="CenterAndExpand"
-                   VerticalOptions="CenterAndExpand"
-                   Padding="0"
-                   HasShadow="False">
-                <extensions:MediaElement Source="ms-appx:///plant_1.mp4"
-                                         AutoPlay="True"
-                                         ShowsPlaybackControls="False"
-                                         IsLooping="True"
-                                         Aspect="AspectFill" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.2*" />
+                <RowDefinition Height="5.8*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="0.8*" />
+                <RowDefinition Height="10" />
+            </Grid.RowDefinitions>
+            <Label
+                Grid.Row="0"
+                Margin="60,0"
+                FontAttributes="bold"
+                FontSize="30"
+                HorizontalTextAlignment="Center"
+                Text="Đăng ký tài khoản thành công"
+                TextColor="Black" />
+            <Frame
+                Grid.Row="1"
+                Padding="0"
+                HasShadow="False">
+                <extensions:MediaElement
+                    Aspect="AspectFill"
+                    AutoPlay="True"
+                    IsLooping="True"
+                    ShowsPlaybackControls="False"
+                    Source="ms-appx:///plant_1.mp4" />
             </Frame>
-            <Label Text="Hãy kiểm tra email của bạn để xác mình tài khoản."
-                   Margin="70, 24"
-                   HorizontalTextAlignment="Center"
-                   FontAttributes="Bold"
-                   TextColor="#BDBDBD" />
-            <Button Text="Lấy lại mật khẩu"
-                    Command="{Binding BackToLoginBtn}"
-                    BackgroundColor="{StaticResource Primary}"
-                    TextColor="{StaticResource TextOnPrimary}"
-                    CornerRadius="20"
-                    Margin="16,0" />
-        </StackLayout>
+            <Label
+                Grid.Row="2"
+                Margin="70,0"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Center"
+                Text="Hãy kiểm tra email của bạn để xác mình tài khoản."
+                TextColor="#BDBDBD" />
+            <Button
+                Grid.Row="3"
+                Margin="16,0"
+                BackgroundColor="{StaticResource Primary}"
+                Command="{Binding BackToLoginBtn}"
+                CornerRadius="20"
+                Text="Quay lại đăng nhập"
+                TextColor="{StaticResource TextOnPrimary}" />
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -1,88 +1,89 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RauCuXanh.Views.RegisterPage"
-             xmlns:effects="clr-namespace:RauCuXanh.Effects"
-             xmlns:viewmodels="clr-namespace:RauCuXanh.ViewModels"
-             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-             x:DataType="viewmodels:RegisterViewModel"
-                          BackgroundColor="White"
-             NavigationPage.HasNavigationBar="false">
+<ContentPage
+    x:Class="RauCuXanh.Views.RegisterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:effects="clr-namespace:RauCuXanh.Effects"
+    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+    xmlns:viewmodels="clr-namespace:RauCuXanh.ViewModels"
+    x:DataType="viewmodels:RegisterViewModel"
+    BackgroundColor="White"
+    NavigationPage.HasNavigationBar="false">
     <ContentPage.Content>
-        <StackLayout Spacing="32"
-                     Margin="0, 40, 0, 0">
-            <Label Text="Tạo tài khoản mới"
-                   HorizontalOptions="CenterAndExpand"
-                   FontSize="30"
-                   FontAttributes="Bold"
-                   TextColor="Black" />
-            <StackLayout Spacing="16"
-                         Margin="16, 0">
-                <Frame Padding="1"
-                       BackgroundColor="#E8E8E8"
-                       CornerRadius="10">
-                    <material:MaterialTextField Placeholder="Tên tài khoản"
-                                                ErrorText="Sai tài khoản"
-                                                TintColor="{StaticResource Primary}"/>
+        <StackLayout Margin="0,40,0,0" Spacing="32">
+            <Label
+                FontAttributes="Bold"
+                FontSize="30"
+                HorizontalOptions="CenterAndExpand"
+                Text="Tạo tài khoản mới"
+                TextColor="Black" />
+            <StackLayout Margin="16,0" Spacing="16">
+                <Frame
+                    Padding="1"
+                    BackgroundColor="#E8E8E8"
+                    CornerRadius="10">
+                    <material:MaterialTextField
+                        ErrorText="Sai tài khoản"
+                        Placeholder="Tên tài khoản"
+                        TintColor="{StaticResource Primary}" />
                 </Frame>
-                <Frame Padding="1"
-                       BackgroundColor="#E8E8E8"
-                       CornerRadius="10">
-                    <material:MaterialTextField Placeholder="Email"
-                                                ErrorText="Sai email"
-                                                InputType="Email"
-                                                TintColor="{StaticResource Primary}" />
+                <Frame
+                    Padding="1"
+                    BackgroundColor="#E8E8E8"
+                    CornerRadius="10">
+                    <material:MaterialTextField
+                        ErrorText="Sai email"
+                        InputType="Email"
+                        Placeholder="Email"
+                        TintColor="{StaticResource Primary}" />
                 </Frame>
-                <Frame Padding="1"
-                       BackgroundColor="#E8E8E8"
-                       CornerRadius="10">
-                    <material:MaterialTextField Placeholder="Mật khẩu"
-                                                ErrorText="Mật khẩu không hợp lệ"
-                                                InputType="Password"
-                                                TintColor="{StaticResource Primary}" />
+                <Frame
+                    Padding="1"
+                    BackgroundColor="#E8E8E8"
+                    CornerRadius="10">
+                    <material:MaterialTextField
+                        ErrorText="Mật khẩu không hợp lệ"
+                        InputType="Password"
+                        Placeholder="Mật khẩu"
+                        TintColor="{StaticResource Primary}" />
                 </Frame>
             </StackLayout>
 
-            <FlexLayout AlignItems="Center"
-                        Margin="16, 0">
+            <FlexLayout Margin="16,0" AlignItems="Center">
                 <CheckBox />
                 <Label FontSize="14">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="Tôi đồng ý với " TextColor="{StaticResource TextOnSecondary}" />
-                            <Span Text="điểu khoản sử dụng"
-                                  TextColor="{StaticResource Primary}">
+                            <Span Text="điểu khoản sử dụng" TextColor="{StaticResource Primary}">
                                 <Span.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding OnClickTermOfUse}"
-                                                          CommandParameter="https://learn.microsoft.com/xamarin/" />
+                                    <TapGestureRecognizer Command="{Binding OnClickTermOfUse}" CommandParameter="https://learn.microsoft.com/xamarin/" />
                                 </Span.GestureRecognizers>
                             </Span>
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
             </FlexLayout>
-            <Button Text="Đăng ký"
-                    BackgroundColor="{StaticResource Primary}"
-                    TextColor="{StaticResource TextOnPrimary}"
-                    Command="{Binding RegisterBtn}"
-                    CornerRadius="20"
-                    Margin="16,0" />
-            <StackLayout Spacing="0"
-                         VerticalOptions="EndAndExpand">
-                <Frame BorderColor="Transparent"
-                       VerticalOptions="StartAndExpand">
+            <Button
+                Margin="16,0"
+                BackgroundColor="{StaticResource Primary}"
+                Command="{Binding RegisterBtn}"
+                CornerRadius="20"
+                Text="Đăng ký"
+                TextColor="{StaticResource TextOnPrimary}" />
+            <StackLayout Spacing="0" VerticalOptions="EndAndExpand">
+                <Frame BorderColor="Transparent" VerticalOptions="StartAndExpand">
                     <Frame.Background>
-                        <LinearGradientBrush StartPoint="0,0"
-                                             EndPoint="0,1">
-                            <GradientStop Color="#FFFFFF"
-                                          Offset="0.1" />
-                            <GradientStop Color="#D6ECE4"
-                                          Offset="1.0" />
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Offset="0.1" Color="#FFFFFF" />
+                            <GradientStop Offset="1.0" Color="#D6ECE4" />
                         </LinearGradientBrush>
                     </Frame.Background>
                 </Frame>
-                <Image Margin="-1" VerticalOptions="EndAndExpand"
-                       Source="register_image.png" />
+                <Image
+                    Margin="-1"
+                    Source="register_image.png"
+                    VerticalOptions="EndAndExpand" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
