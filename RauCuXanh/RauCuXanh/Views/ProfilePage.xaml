@@ -78,7 +78,7 @@
                                        HorizontalOptions="FillAndExpand"
                                        Margin="20, 0, 20, 15"
                                        IsClickable="True"
-                                       ClickCommand="{Binding PersonalInformationButton}">
+                                       ClickCommand="{Binding InsightsButton}">
                     <FlexLayout JustifyContent="SpaceBetween"
                                 AlignItems="Center">
                         <StackLayout>

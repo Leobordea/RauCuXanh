@@ -31,7 +31,7 @@
                    HorizontalTextAlignment="Center"
                    FontAttributes="Bold"
                    TextColor="#BDBDBD" />
-            <Button Text="Lấy lại mật khẩu"
+            <Button Text="Quay lại đăng nhập"
                     Command="{Binding BackToLoginBtn}"
                     BackgroundColor="{StaticResource Primary}"
                     TextColor="{StaticResource TextOnPrimary}"

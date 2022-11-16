@@ -2,12 +2,114 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RauCuXanh.Views.PersonalInformationPage"
-             Title="Thông tin cá nhân">
+             xmlns:vm="clr-namespace:RauCuXanh.ViewModels"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:DataType="vm:PersonalInformationViewModel"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <vm:PersonalInformationViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Frame CornerRadius="50"
+                   HeightRequest="100"
+                   WidthRequest="100"
+                   Padding="0"
+                   IsClippedToBounds="True"
+                   HorizontalOptions="Center">
+                <Image Source="kha_banh_avatar.webp"
+                       Aspect="AspectFill" />
+            </Frame>
+            <Label Text="Pretty Banh"
+                   HorizontalOptions="Center"
+                   FontSize="24"
+                   FontAttributes="Bold" />
+            <material:MaterialCard CornerRadius="2"
+                                   Elevation="2"
+                                   HeightRequest="40"
+                                   HorizontalOptions="FillAndExpand"
+                                   Margin="20, 0, 20, 15">
+                <FlexLayout AlignItems="Center">
+                    <Label Text="Họ Tên:"
+                           TextColor="#B0B0B0"
+                           FontSize="16" />
+                    <material:MaterialTextField Text="Pretty Banh"
+                                                FlexLayout.Grow="1"
+                                                BackgroundColor="White"
+                                                Margin="0, 0, 0, 4"
+                                                ShouldAnimateUnderline="False"
+                                                FloatingPlaceholderEnabled="False" />
+                </FlexLayout>
+            </material:MaterialCard>
+            <material:MaterialCard CornerRadius="2"
+                                   Elevation="2"
+                                   HeightRequest="40"
+                                   HorizontalOptions="FillAndExpand"
+                                   Margin="20, 0, 20, 15">
+                <FlexLayout AlignItems="Center">
+                    <Label Text="Email:"
+                           TextColor="#B0B0B0"
+                           FontSize="16" />
+                    <material:MaterialTextField Text="ngobakha@gmail.com"
+                                                FlexLayout.Grow="1"
+                                                BackgroundColor="White"
+                                                Margin="0, 0, 0, 4"
+                                                ShouldAnimateUnderline="False"
+                                                FloatingPlaceholderEnabled="False"
+                                                InputType="Email" />
+                </FlexLayout>
+            </material:MaterialCard>
+            <material:MaterialCard CornerRadius="2"
+                                   Elevation="2"
+                                   HeightRequest="40"
+                                   HorizontalOptions="FillAndExpand"
+                                   Margin="20, 0, 20, 15">
+                <FlexLayout AlignItems="Center">
+                    <Image Source="country_flag.png" />
+                    <BoxView WidthRequest="1"
+                             Margin="5"
+                             Color="#C7CAD3" />
+                    <material:MaterialTextField Text="0912345678"
+                                                FlexLayout.Grow="1"
+                                                BackgroundColor="White"
+                                                Margin="0, 0, 0, 4"
+                                                ShouldAnimateUnderline="False"
+                                                FloatingPlaceholderEnabled="False"
+                                                InputType="Telephone" />
+                </FlexLayout>
+            </material:MaterialCard>
+
+            <material:MaterialCard CornerRadius="2"
+                                   Elevation="2"
+                                   HeightRequest="40"
+                                   HorizontalOptions="FillAndExpand"
+                                   Margin="20, 0, 20, 15">
+                <FlexLayout AlignItems="Center">
+                    <Label Text="Giới tính:"
+                           TextColor="#B0B0B0"
+                           FontSize="16" />
+                    <material:MaterialTextField Text="Male"
+                                                FlexLayout.Grow="1"
+                                                BackgroundColor="White"
+                                                Margin="0, 0, 0, 4"
+                                                ShouldAnimateUnderline="False"
+                                                FloatingPlaceholderEnabled="False"
+                                                InputType="Choice"
+                                                Choices="{Binding Sex}" />
+                </FlexLayout>
+            </material:MaterialCard>
+            <material:MaterialCard CornerRadius="2"
+                                   Elevation="2"
+                                   HeightRequest="40"
+                                   HorizontalOptions="FillAndExpand"
+                                   Margin="20, 0, 20, 15">
+                <FlexLayout AlignItems="Center">
+                    <Label Text="Ngày sinh:"
+                           TextColor="#B0B0B0"
+                           FontSize="16" />
+                    <DatePicker FlexLayout.Grow="1"/>
+                </FlexLayout>
+            </material:MaterialCard>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
