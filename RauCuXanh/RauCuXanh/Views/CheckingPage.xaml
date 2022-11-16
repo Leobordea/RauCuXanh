@@ -1,33 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:extensions="http://xamarin.com/schemas/2020/toolkit"
-             x:Class="RauCuXanh.Views.CheckingPage"
-             NavigationPage.HasNavigationBar="false"
-             xmlns:viewmodels="clr-namespace:RauCuXanh.ViewModels" 
-             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material" 
-             x:DataType="viewmodels:CheckingPageViewModel"
-             >
+<ContentPage
+    x:Class="RauCuXanh.Views.CheckingPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:extensions="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+    xmlns:viewmodels="clr-namespace:RauCuXanh.ViewModels"
+    x:DataType="viewmodels:CheckingPageViewModel"
+    NavigationPage.HasNavigationBar="false">
     <ContentPage.Content>
         <StackLayout BackgroundColor="{StaticResource Primary}">
-            <StackLayout HorizontalOptions="CenterAndExpand"
-                         VerticalOptions="CenterAndExpand">
-                <Frame CornerRadius="160"
-                       HeightRequest="425"
-                       WidthRequest="325"
-                       HorizontalOptions="CenterAndExpand"
-                       VerticalOptions="CenterAndExpand"
-                       Padding="0"
-                       IsClippedToBounds="True"
-                       BackgroundColor="#B5FFF5">
-                    <extensions:MediaElement Source="ms-appx:///plant_2.mp4" AutoPlay="True"
-              ShowsPlaybackControls="False" IsLooping="True" Aspect="AspectFill" />
+            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                <Frame
+                    Padding="0"
+                    BackgroundColor="#B5FFF5"
+                    CornerRadius="160"
+                    HeightRequest="425"
+                    HorizontalOptions="CenterAndExpand"
+                    IsClippedToBounds="True"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="325">
+                    <extensions:MediaElement
+                        Aspect="AspectFill"
+                        AutoPlay="True"
+                        IsLooping="True"
+                        ShowsPlaybackControls="False"
+                        Source="ms-appx:///plant_2.mp4" />
                 </Frame>
-                <Label Text="ĐANG ĐĂNG NHẬP ..."
-                       HorizontalTextAlignment="Center"
-                       FontSize="33"
-                       FontAttributes="bold"
-                       TextColor="{StaticResource TextOnPrimary}"
-                       Margin="0, 35" />
+                <Label
+                    Margin="0,35"
+                    FontAttributes="bold"
+                    FontSize="33"
+                    HorizontalTextAlignment="Center"
+                    Text="ĐANG ĐĂNG NHẬP ..."
+                    TextColor="{StaticResource TextOnPrimary}" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
