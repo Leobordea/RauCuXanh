@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RauCuXanh.Views.MyOrderPage"
+             xmlns:vm="clr-namespace:RauCuXanh.ViewModels"
+             xmlns:model="clr-namespace:RauCuXanh.Models"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:DataType="vm:OrderViewModel"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <vm:OrderViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <CollectionView ItemsSource="{Binding Orders}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Order">
+                        <StackLayout>
+                            <material:MaterialCard CornerRadius="2"
+                                                   Elevation="8"
+                                                   HeightRequest="120"
+                                                   BackgroundColor="Red">
+                                <Grid Padding="10"
+                                      BackgroundColor="Yellow">
+                                    <FlexLayout Grid.Row="0"
+                                                JustifyContent="SpaceBetween"
+                                                AlignItems="Center">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Don so " />
+                                            <Label Text="{Binding OrderID}" />
+                                        </StackLayout>
+                                        <Label Text="{Binding OrderDate}" />
+                                    </FlexLayout>
+                                    <FlexLayout JustifyContent="SpaceBetween"
+                                                AlignItems="Center"
+                                                Grid.Row="1">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="So luong: " />
+                                            <Label Text="{Binding OrderQuantity}" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Tong tien: " />
+                                            <Label Text="{Binding OrderPrice}" />
+                                        </StackLayout>
+                                    </FlexLayout>
+                                    <FlexLayout JustifyContent="SpaceBetween"
+                                                AlignItems="Center"
+                                                Grid.Row="3">
+                                        <material:MaterialButton HorizontalOptions="Center"
+                                                                 Text="Chi tiet"
+                                                                 BackgroundColor="{StaticResource Primary}"
+                                                                 TextColor="{StaticResource TextOnPrimary}"
+                                                                 VerticalOptions="Center" />
+                                        <Label Text="{Binding OrderStatus}" />
+                                    </FlexLayout>
+                                </Grid>
+                            </material:MaterialCard>
+                            <Frame HeightRequest="10"></Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

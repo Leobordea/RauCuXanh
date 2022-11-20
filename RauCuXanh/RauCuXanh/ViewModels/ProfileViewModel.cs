@@ -11,6 +11,7 @@ namespace RauCuXanh.ViewModels
 {
     public class ProfileViewModel : BaseViewModel
     {
+        public Command MyOrderButton { get; set; }
         public Command PersonalInformationButton { get; set; }
         public Command InsightsButton { get; set; }
         public Command ChangePasswordButton { get; set; }
@@ -19,14 +20,20 @@ namespace RauCuXanh.ViewModels
         {
             Title = "Thông tin của tôi";
             Navigation = navigation;
+            MyOrderButton = new Command(async () => await NavigateToOrderPage());
             PersonalInformationButton = new Command(async () => await NavigateToPerInfoPage());
             InsightsButton = new Command(async () => await NavigateToInsights());
             ChangePasswordButton = new Command(async () => await NavigateToChangePassPage());
         }
 
+        public async Task NavigateToOrderPage()
+        {
+            await Navigation.PushAsync(new MyOrderPage());
+        }
+
         public async Task NavigateToPerInfoPage()
         {
-            await Shell.Current.GoToAsync(nameof(PersonalInformationPage));
+            await Navigation.PushAsync(new PersonalInformationPage());
         }
 
         public async Task NavigateToInsights()
@@ -36,7 +43,7 @@ namespace RauCuXanh.ViewModels
 
         public async Task NavigateToChangePassPage()
         {
-            await Shell.Current.GoToAsync(nameof(ChangePasswordPage));
+            await Navigation.PushAsync(new ChangePasswordPage());
         }
     }
 }
