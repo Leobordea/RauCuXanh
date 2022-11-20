@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace RauCuXanh.Views
+namespace RauCuXanh.Views.MyOrderViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MyOrderPage : ContentPage
+    public partial class DeliveredOrder : ContentPage
     {
-        public MyOrderPage()
+        public DeliveredOrder()
         {
             InitializeComponent();
         }

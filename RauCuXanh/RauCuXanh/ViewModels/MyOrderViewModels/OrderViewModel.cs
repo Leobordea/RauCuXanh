@@ -4,7 +4,7 @@ using System.Text;
 using RauCuXanh.Models;
 using Xamarin.CommunityToolkit.ObjectModel;
 
-namespace RauCuXanh.ViewModels
+namespace RauCuXanh.ViewModels.MyOrderViewModels
 {
     public class OrderViewModel : BaseViewModel
     {
@@ -13,7 +13,7 @@ namespace RauCuXanh.ViewModels
         public OrderViewModel()
         {
             Title = "Đơn hàng của tôi";
-            Orders = new ObservableRangeCollection<Order> { 
+            Orders = new ObservableRangeCollection<Order> {
                 new Order {OrderID="1", OrderDate="20/03/2020", OrderQuantity=3, OrderPrice=150000, OrderStatus="Dang giao"},
                 new Order {OrderID="2", OrderDate="20/03/2020", OrderQuantity=3, OrderPrice=150000, OrderStatus="Dang giao"},
                 new Order {OrderID="3", OrderDate="20/03/2020", OrderQuantity=3, OrderPrice=150000, OrderStatus="Dang giao"},

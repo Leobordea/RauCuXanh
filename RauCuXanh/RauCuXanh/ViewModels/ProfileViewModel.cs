@@ -28,7 +28,7 @@ namespace RauCuXanh.ViewModels
 
         public async Task NavigateToOrderPage()
         {
-            await Navigation.PushAsync(new MyOrderPage());
+            await Navigation.PushAsync(new Views.MyOrderViews.MyOrderPage());
         }
 
         public async Task NavigateToPerInfoPage()

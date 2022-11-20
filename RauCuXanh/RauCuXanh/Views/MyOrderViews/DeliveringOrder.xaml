@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RauCuXanh.Views.MyOrderViews.DeliveringOrder"
+             xmlns:vm="clr-namespace:RauCuXanh.ViewModels.MyOrderViewModels"
+             xmlns:model="clr-namespace:RauCuXanh.Models"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:DataType="vm:DeliveringOrderViewModel"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <vm:DeliveringOrderViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <CollectionView ItemsSource="{Binding DeliveringOrders}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Order">
+                        <StackLayout>
+                            <material:MaterialCard Elevation="8"
+                                                   CornerRadius="10"
+                                                   HeightRequest="140"
+                                                   Margin="20"
+                                                   HasShadow="True"
+                                                   Padding="10">
+                                <Grid RowDefinitions="auto, 1, *, *">
+                                    <FlexLayout Grid.Row="0"
+                                                JustifyContent="SpaceBetween"
+                                                AlignItems="Center"
+                                                HeightRequest="20">
+                                        <FlexLayout AlignItems="Center"
+                                                    FlexLayout.Grow="1">
+                                            <Label Text="Đơn số "
+                                                   FontAttributes="Bold"
+                                                   FontSize="18" />
+                                            <Label Text="{Binding OrderID}"
+                                                   FontAttributes="Bold"
+                                                   FontSize="18" />
+                                        </FlexLayout>
+                                        <Label Text="{Binding OrderDate}" />
+                                    </FlexLayout>
+                                    <BoxView Grid.Row="1"
+                                             Color="Gray"
+                                             HeightRequest="1" />
+                                    <FlexLayout JustifyContent="SpaceBetween"
+                                                AlignItems="Center"
+                                                Grid.Row="2">
+                                        <Label LineBreakMode="WordWrap"
+                                               FontSize="18"
+                                               HeightRequest="50"
+                                               HorizontalTextAlignment="Start"
+                                               FlexLayout.Grow="1">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Số lượng: " />
+                                                    <Span Text="{Binding OrderQuantity}"
+                                                          FontAttributes="Bold"
+                                                          FontSize="18" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label LineBreakMode="WordWrap"
+                                               FontSize="18"
+                                               HeightRequest="50"
+                                               HorizontalTextAlignment="End"
+                                               FlexLayout.Grow="1">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Tổng tiền: " />
+                                                    <Span Text="{Binding OrderPrice, StringFormat='{0:0,0 vnd}'}"
+                                                          FontAttributes="Bold"
+                                                          FontSize="18" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </FlexLayout>
+                                    <FlexLayout JustifyContent="SpaceBetween"
+                                                AlignItems="Center"
+                                                Grid.Row="3">
+                                        <material:MaterialButton HorizontalOptions="Center"
+                                                                 Text="Chi tiet"
+                                                                 BackgroundColor="{StaticResource Primary}"
+                                                                 TextColor="{StaticResource TextOnPrimary}"
+                                                                 VerticalOptions="Center"
+                                                                 Margin="-10, 0, 0, 0" />
+                                        <Label Text="{Binding OrderStatus}"
+                                               FontAttributes="Bold"
+                                               FontSize="20"
+                                               TextColor="Orange"/>
+                                    </FlexLayout>
+                                </Grid>
+                            </material:MaterialCard>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
