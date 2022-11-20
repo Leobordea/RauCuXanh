@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RauCuXanh.Views.HomePageViews.HomePage"
+             xmlns:vm="clr-namespace:RauCuXanh.ViewModels.HomePageViewModels"
+             xmlns:model="clr-namespace:RauCuXanh.Models"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:DataType="vm:HomeViewModel"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <vm:HomeViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid RowDefinitions="auto, auto">
+                <material:MaterialButton Text="Rau"
+                                         Grid.Column="0"
+                                         BackgroundColor="{StaticResource Primary}"
+                                         TextColor="{StaticResource TextOnPrimary}" />
+                <material:MaterialButton Text="Củ"
+                                         Grid.Column="1"
+                                         BackgroundColor="{StaticResource Primary}"
+                                         TextColor="{StaticResource TextOnPrimary}" />
+                <material:MaterialButton Text="Trái cây"
+                                         Grid.Column="2"
+                                         BackgroundColor="{StaticResource Primary}"
+                                         TextColor="{StaticResource TextOnPrimary}" />
+                <material:MaterialButton Text="Gia vị"
+                                         Grid.Column="3"
+                                         BackgroundColor="{StaticResource Primary}"
+                                         TextColor="{StaticResource TextOnPrimary}" />
+                <material:MaterialButton Text="Khuyến mãi"
+                                         Grid.Column="0"
+                                         Grid.Row="1"
+                                         BackgroundColor="{StaticResource Primary}"
+                                         TextColor="{StaticResource TextOnPrimary}" />
+                <material:MaterialButton Text="Trending"
+                                         Grid.Column="1"
+                                         Grid.Row="1"
+                                         BackgroundColor="{StaticResource Primary}"
+                                         TextColor="{StaticResource TextOnPrimary}" />
+                <material:MaterialButton Text="Đã mua"
+                                         Grid.Column="2"
+                                         Grid.Row="1"
+                                         BackgroundColor="{StaticResource Primary}"
+                                         TextColor="{StaticResource TextOnPrimary}" />
+                <material:MaterialButton Text="Sắp xếp"
+                                         Grid.Column="3"
+                                         Grid.Row="1"
+                                         BackgroundColor="{StaticResource Primary}"
+                                         TextColor="{StaticResource TextOnPrimary}"/>
+            </Grid>
+            <Label Text="Các sản phẩm nổi bật trong ngày"
+                   FontAttributes="Bold"
+                   FontSize="20 " />
+            <CollectionView x:Name="ItemsListView"
+                            ItemsSource="{Binding Products}"
+                            SelectionMode="None"
+                            ItemsLayout="VerticalGrid, 2">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10"
+                              x:DataType="model:Product"
+                              RowDefinitions="auto, 80">
+                            <Image Source="{Binding ProductImage}"
+                                   Aspect="AspectFill"
+                                   HeightRequest="120" />
+                            <StackLayout Grid.Row="1">
+                                <Label Text="{Binding ProductName}"
+                                       FontAttributes="Bold"
+                                       FontSize="16" />
+                                <FlexLayout AlignItems="Center"
+                                            JustifyContent="SpaceBetween">
+                                    <Label Text="{Binding ProductPrice, StringFormat='{0:0,0 vnd}'}" />
+                                    <!--<StackLayout Orientation="Horizontal"
+                                                 Spacing="5">
+                                        <Image Source="favouritered"
+                                               HeightRequest="14" />
+                                        <Image Source="addtocarticon"
+                                               HeightRequest="14" />
+                                    </StackLayout>-->
+                                </FlexLayout>
+                            </StackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

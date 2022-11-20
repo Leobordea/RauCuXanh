@@ -30,7 +30,7 @@
     </Shell.Resources>
 
     <TabBar>
-        <ShellContent Icon="home_icon.png" ContentTemplate="{DataTemplate local:ProfilePage}" />
+        <ShellContent Icon="home_icon.png" ContentTemplate="{DataTemplate local:HomePageViews.HomePage}" />
         <ShellContent Icon="bookmark_icon.png" ContentTemplate="{DataTemplate local:ProfilePage}" />
         <ShellContent Icon="notification_bell_icon.png" ContentTemplate="{DataTemplate local:ProfilePage}" />
         <ShellContent Icon="profile_icon.png" ContentTemplate="{DataTemplate local:ProfilePage}" />
