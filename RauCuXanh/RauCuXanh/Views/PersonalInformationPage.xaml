@@ -1,108 +1,124 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RauCuXanh.Views.PersonalInformationPage"
-             Title="Thông tin cá nhân"
-             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material">
+<ContentPage
+    x:Class="RauCuXanh.Views.PersonalInformationPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+    Title="Thông tin cá nhân">
     <ContentPage.Content>
         <StackLayout>
-            <Frame CornerRadius="50"
-                   HeightRequest="100"
-                   WidthRequest="100"
-                   Padding="0"
-                   IsClippedToBounds="True"
-                   HorizontalOptions="Center">
-                <Image Source="kha_banh_avatar.webp"
-                       Aspect="AspectFill" />
+            <Frame
+                Padding="0"
+                CornerRadius="50"
+                HeightRequest="100"
+                HorizontalOptions="Center"
+                IsClippedToBounds="True"
+                WidthRequest="100">
+                <Image Aspect="AspectFill" Source="kha_banh_avatar.png" />
             </Frame>
-            <Label Text="Pretty Banh"
-                   HorizontalOptions="Center"
-                   FontSize="24"
-                   FontAttributes="Bold" />
-            <material:MaterialCard CornerRadius="2"
-                                   Elevation="2"
-                                   HeightRequest="40"
-                                   HorizontalOptions="FillAndExpand"
-                                   Margin="20, 0, 20, 15">
+            <Label
+                FontAttributes="Bold"
+                FontSize="24"
+                HorizontalOptions="Center"
+                Text="Pretty Banh" />
+            <material:MaterialCard
+                Margin="20,0,20,15"
+                CornerRadius="2"
+                Elevation="2"
+                HeightRequest="40"
+                HorizontalOptions="FillAndExpand">
                 <FlexLayout AlignItems="Center">
-                    <Label Text="Họ Tên:"
-                           TextColor="#B0B0B0"
-                           FontSize="16" />
-                    <material:MaterialTextField Text="Pretty Banh"
-                                                FlexLayout.Grow="1"
-                                                BackgroundColor="White"
-                                                Margin="0, 0, 0, 4"
-                                                ShouldAnimateUnderline="False"
-                                                FloatingPlaceholderEnabled="False" />
+                    <Label
+                        FontSize="16"
+                        Text="Họ Tên:"
+                        TextColor="#B0B0B0" />
+                    <material:MaterialTextField
+                        Margin="0,0,0,4"
+                        BackgroundColor="White"
+                        FlexLayout.Grow="1"
+                        FloatingPlaceholderEnabled="False"
+                        ShouldAnimateUnderline="False"
+                        Text="Pretty Banh" />
                 </FlexLayout>
             </material:MaterialCard>
-            <material:MaterialCard CornerRadius="2"
-                                   Elevation="2"
-                                   HeightRequest="40"
-                                   HorizontalOptions="FillAndExpand"
-                                   Margin="20, 0, 20, 15">
+            <material:MaterialCard
+                Margin="20,0,20,15"
+                CornerRadius="2"
+                Elevation="2"
+                HeightRequest="40"
+                HorizontalOptions="FillAndExpand">
                 <FlexLayout AlignItems="Center">
-                    <Label Text="Email:"
-                           TextColor="#B0B0B0"
-                           FontSize="16" />
-                    <material:MaterialTextField Text="ngobakha@gmail.com"
-                                                FlexLayout.Grow="1"
-                                                BackgroundColor="White"
-                                                Margin="0, 0, 0, 4"
-                                                ShouldAnimateUnderline="False"
-                                                FloatingPlaceholderEnabled="False"
-                                                InputType="Email" />
+                    <Label
+                        FontSize="16"
+                        Text="Email:"
+                        TextColor="#B0B0B0" />
+                    <material:MaterialTextField
+                        Margin="0,0,0,4"
+                        BackgroundColor="White"
+                        FlexLayout.Grow="1"
+                        FloatingPlaceholderEnabled="False"
+                        InputType="Email"
+                        ShouldAnimateUnderline="False"
+                        Text="ngobakha@gmail.com" />
                 </FlexLayout>
             </material:MaterialCard>
-            <material:MaterialCard CornerRadius="2"
-                                   Elevation="2"
-                                   HeightRequest="40"
-                                   HorizontalOptions="FillAndExpand"
-                                   Margin="20, 0, 20, 15">
+            <material:MaterialCard
+                Margin="20,0,20,15"
+                CornerRadius="2"
+                Elevation="2"
+                HeightRequest="40"
+                HorizontalOptions="FillAndExpand">
                 <FlexLayout AlignItems="Center">
                     <Image Source="country_flag.png" />
-                    <BoxView WidthRequest="1"
-                             Margin="5"
-                             Color="#C7CAD3" />
-                    <material:MaterialTextField Text="0912345678"
-                                                FlexLayout.Grow="1"
-                                                BackgroundColor="White"
-                                                Margin="0, 0, 0, 4"
-                                                ShouldAnimateUnderline="False"
-                                                FloatingPlaceholderEnabled="False"
-                                                InputType="Telephone" />
+                    <BoxView
+                        Margin="5"
+                        WidthRequest="1"
+                        Color="#C7CAD3" />
+                    <material:MaterialTextField
+                        Margin="0,0,0,4"
+                        BackgroundColor="White"
+                        FlexLayout.Grow="1"
+                        FloatingPlaceholderEnabled="False"
+                        InputType="Telephone"
+                        ShouldAnimateUnderline="False"
+                        Text="0912345678" />
                 </FlexLayout>
             </material:MaterialCard>
 
-            <material:MaterialCard CornerRadius="2"
-                                   Elevation="2"
-                                   HeightRequest="40"
-                                   HorizontalOptions="FillAndExpand"
-                                   Margin="20, 0, 20, 15">
+            <material:MaterialCard
+                Margin="20,0,20,15"
+                CornerRadius="2"
+                Elevation="2"
+                HeightRequest="40"
+                HorizontalOptions="FillAndExpand">
                 <FlexLayout AlignItems="Center">
-                    <Label Text="Giới tính:"
-                           TextColor="#B0B0B0"
-                           FontSize="16" />
-                    <material:MaterialTextField Text="Male"
-                                                FlexLayout.Grow="1"
-                                                BackgroundColor="White"
-                                                Margin="0, 0, 0, 4"
-                                                ShouldAnimateUnderline="False"
-                                                FloatingPlaceholderEnabled="False"
-                                                InputType="Choice"
-                                                Choices="{Binding Sex}" />
+                    <Label
+                        FontSize="16"
+                        Text="Giới tính:"
+                        TextColor="#B0B0B0" />
+                    <material:MaterialTextField
+                        Margin="0,0,0,4"
+                        BackgroundColor="White"
+                        Choices="{Binding Sex}"
+                        FlexLayout.Grow="1"
+                        FloatingPlaceholderEnabled="False"
+                        InputType="Choice"
+                        ShouldAnimateUnderline="False"
+                        Text="Male" />
                 </FlexLayout>
             </material:MaterialCard>
-            <material:MaterialCard CornerRadius="2"
-                                   Elevation="2"
-                                   HeightRequest="40"
-                                   HorizontalOptions="FillAndExpand"
-                                   Margin="20, 0, 20, 15">
+            <material:MaterialCard
+                Margin="20,0,20,15"
+                CornerRadius="2"
+                Elevation="2"
+                HeightRequest="40"
+                HorizontalOptions="FillAndExpand">
                 <FlexLayout AlignItems="Center">
-                    <Label Text="Ngày sinh:"
-                           TextColor="#B0B0B0"
-                           FontSize="16" />
-                    <DatePicker FlexLayout.Grow="1"/>
+                    <Label
+                        FontSize="16"
+                        Text="Ngày sinh:"
+                        TextColor="#B0B0B0" />
+                    <DatePicker FlexLayout.Grow="1" />
                 </FlexLayout>
             </material:MaterialCard>
         </StackLayout>

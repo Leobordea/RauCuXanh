@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RauCuXanh.App">
+<Application
+    x:Class="RauCuXanh.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <!--
         Define global resources and styles here, that apply to all pages in your app.
     -->
     <Application.Resources>
-        <!--Bảng màu :-->
-        <!--https://m2.material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=1B5E20&secondary.color=c7e5c8&primary.text.color=ffffff-->
+        <!--  Bảng màu :  -->
+        <!--  https://m2.material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=1B5E20&secondary.color=c7e5c8&primary.text.color=ffffff  -->
         <Color x:Key="Primary">#2e7d32</Color>
         <Color x:Key="PrimaryLight">#60ad5e</Color>
         <Color x:Key="PrimaryDark">#005005</Color>
@@ -16,5 +17,6 @@
         <Color x:Key="SecondaryDark">#96b397</Color>
         <Color x:Key="TextOnPrimary">#ffffff</Color>
         <Color x:Key="TextOnSecondary">#000000</Color>
+        <Color x:Key="ButtonColor">#5DB075</Color>
     </Application.Resources>
 </Application>
