@@ -18,16 +18,16 @@
     <Compile Update="Views\CheckingPage.xaml.cs">
       <DependentUpon>CheckingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\ForgetPasswordPage.xaml.cs">
+    <Compile Update="Views\LoginViews\ForgetPasswordPage.xaml.cs">
       <DependentUpon>ForgetPasswordPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\NotificationPageViews\NotificationPage.xaml.cs">
       <DependentUpon>NotificationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\RecoveryMailSentPage.xaml.cs">
+    <Compile Update="Views\LoginViews\RecoveryMailSentPage.xaml.cs">
       <DependentUpon>RecoveryMailSentPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\RegisterCompletedPage.xaml.cs">
+    <Compile Update="Views\LoginViews\RegisterCompletedPage.xaml.cs">
       <DependentUpon>RegisterCompletedPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\SplashScreenPage.xaml.cs">
@@ -36,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\ChangePasswordPage.xaml">
+    <EmbeddedResource Update="Views\MyProfilePageViews\ChangePasswordPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\HomePageViews\HomePage.xaml">
@@ -57,10 +57,10 @@
     <EmbeddedResource Update="Views\MyOrderViews\DeliveringOrder.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\PersonalInformationPage.xaml">
+    <EmbeddedResource Update="Views\MyProfilePageViews\PersonalInformationPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\ProfilePage.xaml">
+    <EmbeddedResource Update="Views\MyProfilePageViews\ProfilePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\TestAPI.xaml">
