@@ -1,13 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
-       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:local="clr-namespace:RauCuXanh.Views"
-       Title="RauCuXanh"
-       x:Class="RauCuXanh.AppShell">
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="RauCuXanh.AppShell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:RauCuXanh.Views"
+    Title="RauCuXanh">
 
     <!--
         The overall app visual hierarchy is defined here, along with navigation.
-    
+        
         https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
     -->
 
@@ -20,20 +21,20 @@
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
                 <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
-                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
-                <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+                <Setter Property="Shell.TabBarForegroundColor" Value="White" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarTitleColor" Value="White" />
             </Style>
-            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
-            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="TabBar" />
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="FlyoutItem" />
         </ResourceDictionary>
     </Shell.Resources>
 
     <TabBar>
-        <ShellContent Icon="home_icon.png" ContentTemplate="{DataTemplate local:HomePageViews.HomePage}" />
-        <ShellContent Icon="bookmark_icon.png" ContentTemplate="{DataTemplate local:ProfilePage}" />
-        <ShellContent Icon="notification_bell_icon.png" ContentTemplate="{DataTemplate local:ProfilePage}" />
-        <ShellContent Icon="profile_icon.png" ContentTemplate="{DataTemplate local:ProfilePage}" />
+        <ShellContent ContentTemplate="{DataTemplate local:HomePageViews.HomePage}" Icon="home_icon.png" />
+        <ShellContent ContentTemplate="{DataTemplate local:NotificationPage}" Icon="bookmark_icon.png" />
+        <ShellContent ContentTemplate="{DataTemplate local:TestAPI}" Icon="notification_bell_icon.png" />
+        <ShellContent ContentTemplate="{DataTemplate local:ProfilePage}" Icon="profile_icon.png" />
     </TabBar>
 
     <!--
@@ -41,7 +42,7 @@
         await Shell.Current.GoToAsync("//LoginPage");
     -->
     <TabBar>
-        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
+        <ShellContent ContentTemplate="{DataTemplate local:LoginPage}" Route="LoginPage" />
     </TabBar>
 
 
