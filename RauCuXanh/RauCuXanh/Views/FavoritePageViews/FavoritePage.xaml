@@ -39,7 +39,7 @@
                                 Source="{Binding Thumbnail}"
                                 VerticalOptions="Center"
                                 WidthRequest="100" />
-                            <StackLayout HorizontalOptions="StartAndExpand" VerticalOptions="Center">
+                            <StackLayout HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                                 <Label
                                     FontAttributes="Bold"
                                     FontSize="Medium"

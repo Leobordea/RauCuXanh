@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RauCuXanh.ViewModels.MyProfilePageViewModels
+namespace RauCuXanh.ViewModels
 {
     public class InsightsViewModel : BaseViewModel
     {

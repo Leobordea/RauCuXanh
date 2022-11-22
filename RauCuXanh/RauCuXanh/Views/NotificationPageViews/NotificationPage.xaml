@@ -47,7 +47,7 @@
                                 <Label
                                     HorizontalOptions="End"
                                     Text="{Binding Genre}"
-                                    TextColor="{StaticResource TextOnSecondary}" />
+                                    TextColor="{StaticResource PrimaryLight}" />
                             </StackLayout>
                         </StackLayout>
                     </material:MaterialCard>
