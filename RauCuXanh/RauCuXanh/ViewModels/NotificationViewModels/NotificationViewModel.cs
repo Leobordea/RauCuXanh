@@ -18,7 +18,7 @@ namespace RauCuXanh.ViewModels.NotificationViewModels
 
         public NotificationViewModel()
         {
-            Title = "Browse";
+            Title = "Notifications";
             Games = new ObservableCollection<Game>();
             LoadGamesCommand = new Command(async () => await ExecuteLoadGamesCommand());
         }

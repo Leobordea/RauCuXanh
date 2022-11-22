@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RauCuXanh.Views.InsightsPage"
+             xmlns:vm="clr-namespace:RauCuXanh.ViewModels"
+             x:DataType="vm:InsightsViewModel"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <vm:InsightsViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <DatePicker />
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

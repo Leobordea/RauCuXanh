@@ -18,6 +18,9 @@
     <Compile Update="Views\CheckingPage.xaml.cs">
       <DependentUpon>CheckingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\FavoritePageViews\FavoritePage.xaml.cs">
+      <DependentUpon>FavoritePage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\LoginViews\ForgetPasswordPage.xaml.cs">
       <DependentUpon>ForgetPasswordPage.xaml</DependentUpon>
     </Compile>
@@ -42,7 +45,7 @@
     <EmbeddedResource Update="Views\HomePageViews\HomePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\InsightsPage.xaml">
+    <EmbeddedResource Update="Views\MyProfilePageViews\InsightsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MyOrderViews\MyOrderPage.xaml">
@@ -63,7 +66,7 @@
     <EmbeddedResource Update="Views\MyProfilePageViews\ProfilePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\TestAPI.xaml">
+    <EmbeddedResource Update="Views\SampleViews\TestAPI.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
