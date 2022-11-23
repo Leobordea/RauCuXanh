@@ -9,6 +9,6 @@ namespace RauCuXanh.Services
 {
     public class RestClient
     {
-        public static string BaseUrl => "https://www.freetogame.com/api";
+        public static string BaseUrl => "http://192.168.42.253:5000/api";
     }
 }

@@ -16,16 +16,16 @@
     -->
     <RefreshView
         x:DataType="local:FavoriteViewModel"
-        Command="{Binding LoadGamesCommand}"
+        Command="{Binding LoadRaucusCommand}"
         IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <CollectionView
             x:Name="ItemsListView"
-            ItemsSource="{Binding Games}"
+            ItemsSource="{Binding Raucus}"
             SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <material:MaterialCard
-                        x:DataType="model:Game"
+                        x:DataType="model:Raucu"
                         CornerRadius="2"
                         Elevation="1"
                         HeightRequest="120"
@@ -36,14 +36,14 @@
                                 Aspect="AspectFill"
                                 HeightRequest="120"
                                 HorizontalOptions="Center"
-                                Source="{Binding Thumbnail}"
+                                Source="{Binding Product_pic}"
                                 VerticalOptions="Center"
                                 WidthRequest="100" />
                             <StackLayout HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                                 <Label
                                     FontAttributes="Bold"
                                     FontSize="Medium"
-                                    Text="{Binding Title}"
+                                    Text="{Binding Name}"
                                     TextColor="{StaticResource TextOnSecondary}" />
                                 <Label
                                     FontAttributes="Bold"

@@ -12,4 +12,9 @@ namespace RauCuXanh.Services
         [Get("/games?sort-by=alphabetical")]
         Task<List<Game>> GetF2PAsync();
     }
+    public interface IRaucuApi
+    {
+        [Get("/rauculist")]
+        Task<List<Raucu>> GetRaucuList();
+    }
 }

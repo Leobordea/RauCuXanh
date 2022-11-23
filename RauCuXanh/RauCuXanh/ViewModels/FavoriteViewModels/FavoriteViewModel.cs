@@ -13,27 +13,27 @@ namespace RauCuXanh.ViewModels.FavoriteViewModels
 {
     public class FavoriteViewModel : BaseViewModel
     {
-        public Command LoadGamesCommand { get; }
-        public ObservableCollection<Game> Games { get; }
+        public Command LoadRaucusCommand { get; }
+        public ObservableCollection<Raucu> Raucus { get; }
 
         public FavoriteViewModel()
         {
             Title = "Favorite";
-            Games = new ObservableCollection<Game>();
-            LoadGamesCommand = new Command(async () => await ExecuteLoadGamesCommand());
+            Raucus = new ObservableCollection<Raucu>();
+            LoadRaucusCommand = new Command(async () => await ExecuteLoadRaucusCommand());
         }
 
-        async Task ExecuteLoadGamesCommand()
+        async Task ExecuteLoadRaucusCommand()
         {
             IsBusy = true;
             try
             {
-                Games.Clear();
-                var apiClient = RestService.For<IFreeToPlayApi>(BaseFreeToPlayApi.BaseUrl);
-                var games = await apiClient.GetF2PAsync();
-                foreach (var game in games)
+                Raucus.Clear();
+                var apiClient = RestService.For<IRaucuApi>(RestClient.BaseUrl);
+                var raucus = await apiClient.GetRaucuList();
+                foreach (var raucu in raucus)
                 {
-                    Games.Add(game);
+                    Raucus.Add(raucu);
                 }
             }
             catch (Exception ex)
