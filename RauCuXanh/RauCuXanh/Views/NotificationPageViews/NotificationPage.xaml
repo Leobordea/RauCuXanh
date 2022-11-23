@@ -34,14 +34,20 @@
                         <StackLayout Orientation="Horizontal">
                             <Image
                                 Aspect="AspectFill"
-                                HeightRequest="45"
                                 HorizontalOptions="Center"
                                 Source="{Binding Thumbnail}"
                                 VerticalOptions="Center"
                                 WidthRequest="100" />
                             <StackLayout>
                                 <Label Text="{Binding Id, StringFormat='Đơn hàng {0} đang được giao'}" TextColor="{StaticResource TextOnSecondary}" />
-                                <Label Text="{Binding Short_description}" TextColor="{StaticResource TextOnSecondary}" />
+                                <Label
+                                    HeightRequest="20"
+                                    Text="{Binding Short_description}"
+                                    TextColor="{StaticResource TextOnSecondary}" />
+                                <Label
+                                    HorizontalOptions="End"
+                                    Text="{Binding Genre}"
+                                    TextColor="{StaticResource PrimaryLight}" />
                             </StackLayout>
                         </StackLayout>
                     </material:MaterialCard>
