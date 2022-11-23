@@ -1,21 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Text;
 using RauCuXanh.Models;
+using RauCuXanh.Views.HomePageViews;
+using Xamarin.Forms;
 
 namespace RauCuXanh.ViewModels.HomePageViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
-        private string _selectedOption;
-        public string SelectedOption
+        private Product _selectedProduct;
+        public Product SelectedProduct
         {
-            get { return _selectedOption; }
-            set { SetProperty(ref _selectedOption, value); }
+            get { return _selectedProduct; }
+            set { SetProperty(ref _selectedProduct, value); }
         }
         public ObservableCollection<Product> Products { get; set; }
         public List<string> PickerOptions { get; set; }
+        public Command ButtonCommand { get; set; }
+        public Command NavigateToDetailPage { get; set; }
         public HomeViewModel()
         {
             Title = "Trang chủ";
@@ -36,6 +42,19 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             {
                 "Giá tăng dần", "Giá giảm dần", "Mới nhất", "Cũ nhất"
             };
+            ButtonCommand = new Command<object>(ExecuteButtonCommand);
+            NavigateToDetailPage = new Command<Product>(ExecuteNavToDetailPage); 
+        }
+
+        public async void ExecuteButtonCommand(object o)
+        {
+            var button = o as Button;
+            await App.Current.MainPage.Navigation.PushAsync(new SpecificPage(button.Text));
+        }
+
+        public async void ExecuteNavToDetailPage(Product p)
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new Views.HomePageViews.ProductDetailPage(p));
         }
     }
 }

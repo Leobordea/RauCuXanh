@@ -13,75 +13,114 @@
     <ContentPage.Content>
         <StackLayout>
             <Grid RowDefinitions="auto, auto">
-                <material:MaterialButton Text="Rau"
+                <material:MaterialButton x:Name="myButton"
+                                         Text="Rau"
                                          Grid.Column="0"
+                                         AllCaps="False"
                                          BackgroundColor="{StaticResource Primary}"
-                                         TextColor="{StaticResource TextOnPrimary}" />
-                <material:MaterialButton Text="Củ"
+                                         TextColor="{StaticResource TextOnPrimary}"
+                                         Command="{Binding ButtonCommand}"
+                                         CommandParameter="{x:Reference myButton}" />
+                <material:MaterialButton x:Name="myButton1"
+                                         Text="Củ"
                                          Grid.Column="1"
+                                         AllCaps="False"
                                          BackgroundColor="{StaticResource Primary}"
-                                         TextColor="{StaticResource TextOnPrimary}" />
-                <material:MaterialButton Text="Trái cây"
+                                         TextColor="{StaticResource TextOnPrimary}"
+                                         Command="{Binding ButtonCommand}"
+                                         CommandParameter="{x:Reference myButton1}" />
+                <material:MaterialButton x:Name="myButton2"
+                                         Text="Trái cây"
                                          Grid.Column="2"
+                                         AllCaps="False"
                                          BackgroundColor="{StaticResource Primary}"
-                                         TextColor="{StaticResource TextOnPrimary}" />
-                <material:MaterialButton Text="Gia vị"
+                                         TextColor="{StaticResource TextOnPrimary}"
+                                         Command="{Binding ButtonCommand}"
+                                         CommandParameter="{x:Reference myButton2}" />
+                <material:MaterialButton x:Name="myButton3"
+                                         Text="Gia vị"
                                          Grid.Column="3"
+                                         AllCaps="False"
                                          BackgroundColor="{StaticResource Primary}"
-                                         TextColor="{StaticResource TextOnPrimary}" />
-                <material:MaterialButton Text="Khuyến mãi"
+                                         TextColor="{StaticResource TextOnPrimary}"
+                                         Command="{Binding ButtonCommand}"
+                                         CommandParameter="{x:Reference myButton3}" />
+                <material:MaterialButton x:Name="myButton4"
+                                         Text="Khuyến mãi"
                                          Grid.Column="0"
                                          Grid.Row="1"
+                                         AllCaps="False"
                                          BackgroundColor="{StaticResource Primary}"
-                                         TextColor="{StaticResource TextOnPrimary}" />
-                <material:MaterialButton Text="Trending"
+                                         TextColor="{StaticResource TextOnPrimary}"
+                                         Command="{Binding ButtonCommand}"
+                                         CommandParameter="{x:Reference myButton4}" />
+                <material:MaterialButton x:Name="myButton5"
+                                         Text="Trending"
                                          Grid.Column="1"
                                          Grid.Row="1"
+                                         AllCaps="False"
                                          BackgroundColor="{StaticResource Primary}"
-                                         TextColor="{StaticResource TextOnPrimary}" />
-                <material:MaterialButton Text="Đã mua"
+                                         TextColor="{StaticResource TextOnPrimary}"
+                                         Command="{Binding ButtonCommand}"
+                                         CommandParameter="{x:Reference myButton5}" />
+                <material:MaterialButton x:Name="myButton6"
+                                         Text="Đã mua"
                                          Grid.Column="2"
                                          Grid.Row="1"
+                                         AllCaps="False"
                                          BackgroundColor="{StaticResource Primary}"
-                                         TextColor="{StaticResource TextOnPrimary}" />
-                <material:MaterialButton Text="Sắp xếp"
+                                         TextColor="{StaticResource TextOnPrimary}"
+                                         Command="{Binding ButtonCommand}"
+                                         CommandParameter="{x:Reference myButton6}" />
+                <material:MaterialButton x:Name="myButton7"
+                                         Text="Sắp xếp"
                                          Grid.Column="3"
                                          Grid.Row="1"
+                                         AllCaps="False"
                                          BackgroundColor="{StaticResource Primary}"
-                                         TextColor="{StaticResource TextOnPrimary}"/>
+                                         TextColor="{StaticResource TextOnPrimary}"
+                                         Command="{Binding ButtonCommand}"
+                                         CommandParameter="{x:Reference myButton7}" />
             </Grid>
             <Label Text="Các sản phẩm nổi bật trong ngày"
                    FontAttributes="Bold"
                    FontSize="20 " />
             <CollectionView x:Name="ItemsListView"
                             ItemsSource="{Binding Products}"
-                            SelectionMode="None"
-                            ItemsLayout="VerticalGrid, 2">
+                            ItemsLayout="VerticalGrid, 2"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedProduct}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Padding="10"
-                              x:DataType="model:Product"
-                              RowDefinitions="auto, 80">
-                            <Image Source="{Binding ProductImage}"
-                                   Aspect="AspectFill"
-                                   HeightRequest="120" />
-                            <StackLayout Grid.Row="1">
-                                <Label Text="{Binding ProductName}"
-                                       FontAttributes="Bold"
-                                       FontSize="16" />
-                                <FlexLayout AlignItems="Center"
-                                            JustifyContent="SpaceBetween">
-                                    <Label Text="{Binding ProductPrice, StringFormat='{0:0,0 vnd}'}" />
-                                    <!--<StackLayout Orientation="Horizontal"
+                        <Frame Padding="0">
+                            <Grid Padding="10"
+                                  x:DataType="model:Product"
+                                  RowDefinitions="auto, 80">
+                                <Image Source="{Binding ProductImage}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="120" />
+                                <StackLayout Grid.Row="1">
+                                    <Label Text="{Binding ProductName}"
+                                           FontAttributes="Bold"
+                                           FontSize="16" />
+                                    <FlexLayout AlignItems="Center"
+                                                JustifyContent="SpaceBetween">
+                                        <Label Text="{Binding ProductPrice, StringFormat='{0:0,0 vnd}'}" />
+                                        <!--<StackLayout Orientation="Horizontal"
                                                  Spacing="5">
                                         <Image Source="favouritered"
                                                HeightRequest="14" />
                                         <Image Source="addtocarticon"
                                                HeightRequest="14" />
                                     </StackLayout>-->
-                                </FlexLayout>
-                            </StackLayout>
-                        </Grid>
+                                    </FlexLayout>
+                                </StackLayout>
+                            </Grid>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}}"
+                                                      CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Product}}}" />
+                            </Frame.GestureRecognizers>
+                        </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

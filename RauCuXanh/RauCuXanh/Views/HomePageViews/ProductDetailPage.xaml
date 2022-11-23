@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RauCuXanh.Views.HomePageViews.ProductDetailPage"
+             xmlns:vm="clr-namespace:RauCuXanh.ViewModels.HomePageViewModels"
+             xmlns:model="clr-namespace:RauCuXanh.Models"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:DataType="vm:ProductDetailViewModel"
+             Shell.TabBarIsVisible="False"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <vm:ProductDetailViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Margin="10">
+                <Grid ColumnDefinitions="1.5*, *">
+                    <Image Source="{Binding Product.ProductImage}"
+                           Aspect="AspectFill"
+                           Grid.Column="0" />
+                    <StackLayout  Grid.Column="1">
+                        <Label Text="{Binding Product.ProductName}"
+                               FontAttributes="Bold"
+                               FontSize="20"
+                               LineBreakMode="WordWrap" />
+                        <Label Text="{Binding Product.ProductPrice, StringFormat='{0:0,0 vnd}' }"
+                               FontAttributes="Bold"
+                               FontSize="18"
+                               TextColor="Red" />
+                        <StackLayout Orientation="Horizontal">
+                            <Button Text="-"
+                                    Command="{Binding DecreaseQuantity}"
+                                    WidthRequest="40" />
+                            <Label Text="{Binding Quantity}"
+                                   VerticalTextAlignment="Center" />
+                            <Button Text="+"
+                                    Command="{Binding IncreaseQuantity}"
+                                    WidthRequest="40" />
+                        </StackLayout>
+                        <Frame Padding="0"
+                               HasShadow="False">
+                            <StackLayout Orientation="Horizontal">
+                                <Image Source="shop_icon.png"
+                                       WidthRequest="20" />
+                                <Label Text="Bách hóa xanh" />
+                            </StackLayout>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer />
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </StackLayout>
+                </Grid>
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="CenterAndExpand">
+                    <material:MaterialButton ButtonType="Outlined"
+                                             Text="Thêm vào giỏ hàng"
+                                             TextColor="Red"
+                                             AllCaps="False"
+                                             BorderColor="Red" />
+                    <material:MaterialButton Text="Mua ngay"
+                                             BackgroundColor="Red"
+                                             AllCaps="False" />
+                </StackLayout>
+                <Label Text="Thông tin sản phẩm"
+                       FontAttributes="Bold"
+                       FontSize="18" 
+                       Margin="0,10"/>
+                <Label Text="   Với vị cay nồng, thơm, kích thích vị giác của người ăn, ớt là một trong những gia vị không thể thiếu trong nấu ăn cũng như mâm cơm của người Việt. Ớt hiểm của Bách Hóa Xanh luôn giữ được độ tươi mỗi ngày, được nuôi trồng theo quy trình nghiêm ngặt, bảo đảm các chỉ tiêu về an toàn và chất lượng."
+                       FontSize="14"
+                       LineHeight="1.2" />
+                <Label Text="Đánh giá sản phẩm"
+                       FontAttributes="Bold"
+                       FontSize="18"
+                       Margin="0,10" />
+                <Label Text="Bình luận"
+                       FontAttributes="Bold"
+                       FontSize="20"
+                       Margin="0,10" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

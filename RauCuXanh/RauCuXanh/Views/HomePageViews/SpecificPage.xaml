@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RauCuXanh.Views.HomePageViews.SpecificPage"
+             xmlns:vm="clr-namespace:RauCuXanh.ViewModels.HomePageViewModels"
+             xmlns:model="clr-namespace:RauCuXanh.Models"
+             x:DataType="vm:SpecificViewModel"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <RefreshView Command="{Binding LoadSpecificProductsCommand}"
+                     IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                     BackgroundColor="Red">
+            <StackLayout>
+                <CollectionView x:Name="ItemsListView"
+                                ItemsSource="{Binding SpecificProducts}"
+                                SelectionMode="None"
+                                ItemsLayout="VerticalGrid, 2">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10"
+                                  x:DataType="model:Product"
+                                  RowDefinitions="auto, 80">
+                                <Image Source="{Binding ProductImage}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="120" />
+                                <StackLayout Grid.Row="1">
+                                    <Label Text="{Binding ProductName}"
+                                           FontAttributes="Bold"
+                                           FontSize="16" />
+                                    <FlexLayout AlignItems="Center"
+                                                JustifyContent="SpaceBetween">
+                                        <Label Text="{Binding ProductPrice, StringFormat='{0:0,0 vnd}'}" />
+                                        <!--<StackLayout Orientation="Horizontal"
+                                                 Spacing="5">
+                                        <Image Source="favouritered"
+                                               HeightRequest="14" />
+                                        <Image Source="addtocarticon"
+                                               HeightRequest="14" />
+                                    </StackLayout>-->
+                                    </FlexLayout>
+                                </StackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>
