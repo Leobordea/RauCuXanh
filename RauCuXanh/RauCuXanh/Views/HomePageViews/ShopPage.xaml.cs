@@ -22,5 +22,25 @@ namespace RauCuXanh.Views.HomePageViews
             InitializeComponent();
             BindingContext = new ShopViewModel(s);
         }
+        private void Tab1Clicked(object sender, EventArgs e)
+        {
+            stkTab1.IsVisible = true;
+            stkTab2.IsVisible = false;
+            stkTab3.IsVisible = false;
+        }
+
+        private void Tab2Clicked(object sender, EventArgs e)
+        {
+            stkTab1.IsVisible = false;
+            stkTab2.IsVisible = true;
+            stkTab3.IsVisible = false;
+        }
+
+        private void Tab3Clicked(object sender, EventArgs e)
+        {
+            stkTab1.IsVisible = false;
+            stkTab2.IsVisible = false;
+            stkTab3.IsVisible = true;
+        }
     }
 }

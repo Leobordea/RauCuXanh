@@ -17,29 +17,39 @@
                                 ItemsLayout="VerticalGrid, 2">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Padding="10"
-                                  x:DataType="model:Raucu"
-                                  RowDefinitions="auto, 80">
-                                <Image Source="{Binding Product_pic}"
-                                       Aspect="AspectFill"
-                                       HeightRequest="120" />
-                                <StackLayout Grid.Row="1">
-                                    <Label Text="{Binding Name}"
-                                           FontAttributes="Bold"
-                                           FontSize="16" />
-                                    <FlexLayout AlignItems="Center"
-                                                JustifyContent="SpaceBetween">
-                                        <Label Text="{Binding Price, StringFormat='{0:0,0 vnd}'}" />
-                                        <!--<StackLayout Orientation="Horizontal"
-                                                 Spacing="5">
-                                        <Image Source="favouritered"
-                                               HeightRequest="14" />
-                                        <Image Source="addtocarticon"
-                                               HeightRequest="14" />
-                                    </StackLayout>-->
-                                    </FlexLayout>
-                                </StackLayout>
-                            </Grid>
+                            <Frame Padding="0">
+                                <Grid Padding="10"
+                                      x:DataType="model:Raucu"
+                                      RowDefinitions="auto, 80">
+                                    <AbsoluteLayout>
+                                        <Frame Padding="0"
+                                               HasShadow="False"
+                                               CornerRadius="15">
+                                            <Image Source="{Binding Product_pic}"
+                                                   Aspect="AspectFill"
+                                                   HeightRequest="240" />
+                                        </Frame>
+                                        <Image Source="shopping_bag_icon2.png"
+                                               HeightRequest="40"
+                                               HorizontalOptions="End"
+                                               AbsoluteLayout.LayoutFlags="All"
+                                               AbsoluteLayout.LayoutBounds="0.95, 1.01, 0.25, 0.25" />
+                                    </AbsoluteLayout>
+                                    <StackLayout Grid.Row="1">
+                                        <Label Text="{Binding Name}"
+                                               FontAttributes="Bold"
+                                               FontSize="16" />
+                                        <FlexLayout AlignItems="Center"
+                                                    JustifyContent="SpaceBetween">
+                                            <Label Text="{Binding Price, StringFormat='{0:0,0 vnd}'}" />
+                                        </FlexLayout>
+                                    </StackLayout>
+                                </Grid>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}}"
+                                                          CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Raucu}}}" />
+                                </Frame.GestureRecognizers>
+                            </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

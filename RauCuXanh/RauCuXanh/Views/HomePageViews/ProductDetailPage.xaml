@@ -14,10 +14,14 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Margin="10">
-                <Grid ColumnDefinitions="1.5*, *">
-                    <Image Source="{Binding Product.Product_pic}"
-                           Aspect="AspectFill"
-                           Grid.Column="0" />
+                <Grid ColumnDefinitions="*, *">
+                    <Frame Padding="0"
+                           HasShadow="False"
+                           CornerRadius="5">
+                        <Image Source="{Binding Product.Product_pic}"
+                               Aspect="AspectFill"
+                               Grid.Column="0" />
+                    </Frame>
                     <StackLayout  Grid.Column="1">
                         <Label Text="{Binding Product.Name}"
                                FontAttributes="Bold"
@@ -38,7 +42,8 @@
                                     WidthRequest="40" />
                         </StackLayout>
                         <Frame Padding="0"
-                               HasShadow="False">
+                               HasShadow="False"
+                               VerticalOptions="EndAndExpand">
                             <StackLayout Orientation="Horizontal">
                                 <Image Source="shop_icon.png"
                                        WidthRequest="20" />
@@ -46,7 +51,7 @@
                             </StackLayout>
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding NavToShopCommand, Source={RelativeSource AncestorType={x:Type vm:ProductDetailViewModel}}}"
-                                                      CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Shop}}}"/>
+                                                      CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Shop}}}" />
                             </Frame.GestureRecognizers>
                         </Frame>
                     </StackLayout>
@@ -64,8 +69,8 @@
                 </StackLayout>
                 <Label Text="Thông tin sản phẩm"
                        FontAttributes="Bold"
-                       FontSize="18" 
-                       Margin="0,10"/>
+                       FontSize="18"
+                       Margin="0,10" />
                 <Label Text="{Binding Product.Description, StringFormat'    {0}'}"
                        FontSize="14"
                        LineHeight="1.2" />

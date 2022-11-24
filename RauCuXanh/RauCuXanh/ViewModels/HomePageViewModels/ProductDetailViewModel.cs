@@ -44,7 +44,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             Product = p;
             foreach (Shop s in Shops)
             {
-                if (s.Id == p.Id)
+                if (s.Id == p.Shop_id)
                 {
                     Shop = s;
                     break;

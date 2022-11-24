@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:RauCuXanh.ViewModels.HomePageViewModels"
              xmlns:model="clr-namespace:RauCuXanh.Models"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
              x:Class="RauCuXanh.Views.HomePageViews.ShopPage"
              x:DataType="vm:ShopViewModel"
              Shell.TabBarIsVisible="False"
@@ -11,27 +12,195 @@
         <vm:ShopViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Grid ColumnDefinitions="*, 4*">
-                <Image Source="{Binding Shop.Profile_pic}"
-                       Grid.Column="0" />
-                <Label Text="{Binding Shop.Name}"
-                       Grid.Column="1" />
-            </Grid>
+        <ScrollView>
             <StackLayout>
-                <FlexLayout AlignItems="Center">
-                    <Image Source="location_icon.png" />
-                    <Label Text="{Binding Shop.Address}" />
-                </FlexLayout>
-                <FlexLayout AlignItems="Center">
-                    <Image Source="phone_icon.png" />
-                    <Label Text="{Binding Shop.Phone_no}" />
-                </FlexLayout>
-                <FlexLayout AlignItems="Center">
-                    <Image Source="smile_icon.png" />
-                    <Label Text="(Static) 80% đánh giá tích cực" />
-                </FlexLayout>
+                <AbsoluteLayout>
+                    <Frame WidthRequest="1000"
+                           HeightRequest="100"
+                           BackgroundColor="{StaticResource Primary}"
+                           Padding="0" />
+                    <Grid ColumnDefinitions="*, 3*"
+                          AbsoluteLayout.LayoutBounds="0, 30"
+                          Padding="10, 0">
+                        <Image Source="{Binding Shop.Profile_pic}"
+                               WidthRequest="100"
+                               Grid.Column="0" />
+                        <Label Text="{Binding Shop.Name}"
+                               Grid.Column="1"
+                               Grid.Row="0"
+                               VerticalTextAlignment="Center"
+                               TextColor="{StaticResource TextOnPrimary}"
+                               FontSize="20"
+                               FontAttributes="Bold" />
+                    </Grid>
+                </AbsoluteLayout>
+                <Grid ColumnDefinitions="30, *"
+                      Padding="20">
+                    <Image Source="location_icon.png"
+                           Grid.Column="0"
+                           Grid.Row="0"/>
+                    <Label Text="{Binding Shop.Address}"
+                           Grid.Column="1"
+                           Grid.Row="0"
+                           Padding="10,0,0,0"
+                           VerticalTextAlignment="Center"/>
+                    <Image Source="phone_icon.png"
+                           Grid.Column="0"
+                           Grid.Row="1" />
+                    <Label Text="{Binding Shop.Phone_no}"
+                           Grid.Column="1"
+                           Grid.Row="1"
+                           Padding="10,0,0,0"
+                           VerticalTextAlignment="Center" />
+                    <Image Source="smile_icon.png"
+                           Grid.Column="0"
+                           Grid.Row="2" />
+                    <Label Text="80% đánh giá tích cực"
+                           Grid.Column="1"
+                           Grid.Row="2"
+                           Padding="10,0,0,0"
+                           VerticalTextAlignment="Center" />
+                </Grid>
+                <StackLayout Orientation="Horizontal">
+                    <Grid HorizontalOptions="FillAndExpand"
+                          VerticalOptions="FillAndExpand"
+                          Padding="0"
+                          ColumnSpacing="0"
+                          RowDefinitions="auto"
+                          ColumnDefinitions="*, *, *">
+
+                        <!--Details Tab-->
+                        <material:MaterialButton Clicked="Tab1Clicked"
+                                                 Grid.Row="0"
+                                                 Grid.Column="0"
+                                                 Text="Đang bán"
+                                                 ButtonType="Outlined"
+                                                 Padding="0"
+                                                 AllCaps="False"
+                                                 TextColor="{StaticResource Primary}"/>
+                        <!-- Tab 2 -->
+                        <material:MaterialButton Clicked="Tab2Clicked"
+                                                 Grid.Row="0"
+                                                 Grid.Column="1"
+                                                 Text="Khuyến mãi"
+                                                 ButtonType="Outlined"
+                                                 Padding="0"
+                                                 AllCaps="False"
+                                                 TextColor="{StaticResource Primary}"/>
+                        <!-- Tab 3 -->
+                        <material:MaterialButton Clicked="Tab3Clicked"
+                                                 Grid.Row="0"
+                                                 Grid.Column="2"
+                                                 Text="Đánh giá"
+                                                 ButtonType="Outlined"
+                                                 AllCaps="False"
+                                                 TextColor="{StaticResource Primary}"/>
+                    </Grid>
+                </StackLayout>
+
+                <!-- tab 1 container -->
+                <StackLayout x:Name="stkTab1">
+                    <RefreshView Command="{Binding LoadRaucuCommand}"
+                                 IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                        <CollectionView ItemsSource="{Binding DangBan}"
+                                        ItemsLayout="VerticalGrid, 2"
+                                        SelectionMode="Single">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Padding="0">
+                                        <Grid Padding="10"
+                                              x:DataType="model:Raucu"
+                                              RowDefinitions="auto, 80">
+                                            <AbsoluteLayout>
+                                                <Frame Padding="0"
+                                                       HasShadow="False"
+                                                       CornerRadius="15">
+                                                    <Image Source="{Binding Product_pic}"
+                                                           Aspect="AspectFill"
+                                                           HeightRequest="240" />
+                                                </Frame>
+                                                <Image Source="shopping_bag_icon2.png"
+                                                       HeightRequest="40"
+                                                       HorizontalOptions="End"
+                                                       AbsoluteLayout.LayoutFlags="All"
+                                                       AbsoluteLayout.LayoutBounds="0.95, 1.01, 0.25, 0.25" />
+                                            </AbsoluteLayout>
+                                            <StackLayout Grid.Row="1">
+                                                <Label Text="{Binding Name}"
+                                                       FontAttributes="Bold"
+                                                       FontSize="16" />
+                                                <FlexLayout AlignItems="Center"
+                                                            JustifyContent="SpaceBetween">
+                                                    <Label Text="{Binding Price, StringFormat='{0:0,0 vnd}'}" />
+                                                </FlexLayout>
+                                            </StackLayout>
+                                        </Grid>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}}"
+                                                                  CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Raucu}}}" />
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </RefreshView>
+                </StackLayout>
+
+                <!-- tab 2 container -->
+                <StackLayout x:Name="stkTab2"
+                             IsVisible="false">
+                    <RefreshView Command="{Binding LoadRaucuCommand}"
+                                 IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                        <CollectionView ItemsSource="{Binding KhuyenMai}"
+                                        ItemsLayout="VerticalGrid, 2"
+                                        SelectionMode="Single">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Padding="0">
+                                        <Grid Padding="10"
+                                              x:DataType="model:Raucu"
+                                              RowDefinitions="auto, 80">
+                                            <AbsoluteLayout>
+                                                <Frame Padding="0"
+                                                       HasShadow="False"
+                                                       CornerRadius="15">
+                                                    <Image Source="{Binding Product_pic}"
+                                                           Aspect="AspectFill"
+                                                           HeightRequest="240" />
+                                                </Frame>
+                                                <Image Source="shopping_bag_icon2.png"
+                                                       HeightRequest="40"
+                                                       HorizontalOptions="End"
+                                                       AbsoluteLayout.LayoutFlags="All"
+                                                       AbsoluteLayout.LayoutBounds="0.95, 1.01, 0.25, 0.25" />
+                                            </AbsoluteLayout>
+                                            <StackLayout Grid.Row="1">
+                                                <Label Text="{Binding Name}"
+                                                       FontAttributes="Bold"
+                                                       FontSize="16" />
+                                                <FlexLayout AlignItems="Center"
+                                                            JustifyContent="SpaceBetween">
+                                                    <Label Text="{Binding Price, StringFormat='{0:0,0 vnd}'}" />
+                                                </FlexLayout>
+                                            </StackLayout>
+                                        </Grid>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:ShopViewModel}}}"
+                                                                  CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Raucu}}}" />
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </RefreshView>
+                </StackLayout>
+
+                <!-- tab 3 container -->
+                <StackLayout x:Name="stkTab3"
+                             IsVisible="false">
+                    <Label Text="This is tab 3" />
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
