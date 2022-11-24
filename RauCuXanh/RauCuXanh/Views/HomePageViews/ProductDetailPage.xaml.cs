@@ -18,7 +18,7 @@ namespace RauCuXanh.Views.HomePageViews
             InitializeComponent();
         }
 
-        public ProductDetailPage(Product p)
+        public ProductDetailPage(Raucu p)
         {
             InitializeComponent();
             BindingContext = new ProductDetailViewModel(p);

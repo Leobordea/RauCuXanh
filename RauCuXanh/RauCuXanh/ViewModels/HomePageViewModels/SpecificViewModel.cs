@@ -10,13 +10,13 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
 {
     public class SpecificViewModel : HomeViewModel
     {
-        public ObservableCollection<Product> SpecificProducts { get; set; }
+        public ObservableCollection<Raucu> SpecificProducts { get; set; }
         public Command LoadSpecificProductsCommand { get; set; }
         public SpecificViewModel() { }
         public SpecificViewModel(string str)
         {
             Title = str;
-            SpecificProducts = new ObservableCollection<Product>();
+            SpecificProducts = new ObservableCollection<Raucu>();
             LoadSpecificProductsCommand = new Command(async () => await ExecuteLoadProductsCommand(str));
             _ = ExecuteLoadProductsCommand(str);
 
@@ -27,9 +27,9 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             IsBusy = true;
             await Task.Delay(2000);
             SpecificProducts.Clear();
-            foreach (Product product in Products)
+            foreach (Raucu product in Products)
             {
-                if (product.ProductType == str)
+                if (product.Raucu_type == str)
                 {
                     SpecificProducts.Add(product);
                 }

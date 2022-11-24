@@ -94,18 +94,18 @@
                     <DataTemplate>
                         <Frame Padding="0">
                             <Grid Padding="10"
-                                  x:DataType="model:Product"
+                                  x:DataType="model:Raucu"
                                   RowDefinitions="auto, 80">
-                                <Image Source="{Binding ProductImage}"
+                                <Image Source="{Binding Product_pic}"
                                        Aspect="AspectFill"
                                        HeightRequest="120" />
                                 <StackLayout Grid.Row="1">
-                                    <Label Text="{Binding ProductName}"
+                                    <Label Text="{Binding Name}"
                                            FontAttributes="Bold"
                                            FontSize="16" />
                                     <FlexLayout AlignItems="Center"
                                                 JustifyContent="SpaceBetween">
-                                        <Label Text="{Binding ProductPrice, StringFormat='{0:0,0 vnd}'}" />
+                                        <Label Text="{Binding Price, StringFormat='{0:0,0 vnd}'}" />
                                         <!--<StackLayout Orientation="Horizontal"
                                                  Spacing="5">
                                         <Image Source="favouritered"
@@ -118,7 +118,7 @@
                             </Grid>
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}}"
-                                                      CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Product}}}" />
+                                                      CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Raucu}}}" />
                             </Frame.GestureRecognizers>
                         </Frame>
                     </DataTemplate>

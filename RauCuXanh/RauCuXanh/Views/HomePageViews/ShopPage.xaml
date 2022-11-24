@@ -1,12 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RauCuXanh.Views.HomePageViews.ShopPage">
+             xmlns:vm="clr-namespace:RauCuXanh.ViewModels.HomePageViewModels"
+             xmlns:model="clr-namespace:RauCuXanh.Models"
+             x:Class="RauCuXanh.Views.HomePageViews.ShopPage"
+             x:DataType="vm:ShopViewModel"
+             Shell.TabBarIsVisible="False"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <vm:ShopViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Grid ColumnDefinitions="*, 4*">
+                <Image Source="{Binding Shop.Profile_pic}"
+                       Grid.Column="0" />
+                <Label Text="{Binding Shop.Name}"
+                       Grid.Column="1" />
+            </Grid>
+            <StackLayout>
+                <FlexLayout AlignItems="Center">
+                    <Image Source="location_icon.png" />
+                    <Label Text="{Binding Shop.Address}" />
+                </FlexLayout>
+                <FlexLayout AlignItems="Center">
+                    <Image Source="phone_icon.png" />
+                    <Label Text="{Binding Shop.Phone_no}" />
+                </FlexLayout>
+                <FlexLayout AlignItems="Center">
+                    <Image Source="smile_icon.png" />
+                    <Label Text="(Static) 80% đánh giá tích cực" />
+                </FlexLayout>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
