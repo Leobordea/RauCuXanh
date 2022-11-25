@@ -14,16 +14,20 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Margin="10">
-                <Grid ColumnDefinitions="1.5*, *">
-                    <Image Source="{Binding Product.ProductImage}"
-                           Aspect="AspectFill"
-                           Grid.Column="0" />
+                <Grid ColumnDefinitions="*, *">
+                    <Frame Padding="0"
+                           HasShadow="False"
+                           CornerRadius="5">
+                        <Image Source="{Binding Product.Product_pic}"
+                               Aspect="AspectFill"
+                               Grid.Column="0" />
+                    </Frame>
                     <StackLayout  Grid.Column="1">
-                        <Label Text="{Binding Product.ProductName}"
+                        <Label Text="{Binding Product.Name}"
                                FontAttributes="Bold"
                                FontSize="20"
                                LineBreakMode="WordWrap" />
-                        <Label Text="{Binding Product.ProductPrice, StringFormat='{0:0,0 vnd}' }"
+                        <Label Text="{Binding Product.Price, StringFormat='{0:0,0 vnd}' }"
                                FontAttributes="Bold"
                                FontSize="18"
                                TextColor="Red" />
@@ -38,14 +42,16 @@
                                     WidthRequest="40" />
                         </StackLayout>
                         <Frame Padding="0"
-                               HasShadow="False">
+                               HasShadow="False"
+                               VerticalOptions="EndAndExpand">
                             <StackLayout Orientation="Horizontal">
                                 <Image Source="shop_icon.png"
                                        WidthRequest="20" />
-                                <Label Text="Bách hóa xanh" />
+                                <Label Text="{Binding Shop.Name}" />
                             </StackLayout>
                             <Frame.GestureRecognizers>
-                                <TapGestureRecognizer />
+                                <TapGestureRecognizer Command="{Binding NavToShopCommand, Source={RelativeSource AncestorType={x:Type vm:ProductDetailViewModel}}}"
+                                                      CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Shop}}}" />
                             </Frame.GestureRecognizers>
                         </Frame>
                     </StackLayout>
@@ -63,9 +69,9 @@
                 </StackLayout>
                 <Label Text="Thông tin sản phẩm"
                        FontAttributes="Bold"
-                       FontSize="18" 
-                       Margin="0,10"/>
-                <Label Text="   Với vị cay nồng, thơm, kích thích vị giác của người ăn, ớt là một trong những gia vị không thể thiếu trong nấu ăn cũng như mâm cơm của người Việt. Ớt hiểm của Bách Hóa Xanh luôn giữ được độ tươi mỗi ngày, được nuôi trồng theo quy trình nghiêm ngặt, bảo đảm các chỉ tiêu về an toàn và chất lượng."
+                       FontSize="18"
+                       Margin="0,10" />
+                <Label Text="{Binding Product.Description, StringFormat'    {0}'}"
                        FontSize="14"
                        LineHeight="1.2" />
                 <Label Text="Đánh giá sản phẩm"

@@ -7,43 +7,40 @@ using System.Text;
 using RauCuXanh.Models;
 using RauCuXanh.Views.HomePageViews;
 using Xamarin.Forms;
+using Xamarin.Forms.Shapes;
 
 namespace RauCuXanh.ViewModels.HomePageViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
-        private Product _selectedProduct;
-        public Product SelectedProduct
+        private Raucu _selectedProduct;
+        public Raucu SelectedProduct
         {
             get { return _selectedProduct; }
             set { SetProperty(ref _selectedProduct, value); }
         }
-        public ObservableCollection<Product> Products { get; set; }
-        public List<string> PickerOptions { get; set; }
+        public ObservableCollection<Raucu> Products { get; set; }
+        public ObservableCollection<Shop> Shops { get; set; }
         public Command ButtonCommand { get; set; }
         public Command NavigateToDetailPage { get; set; }
         public HomeViewModel()
         {
             Title = "Trang chủ";
-            Products = new ObservableCollection<Product>()
+            Products = new ObservableCollection<Raucu>()
             {
-                new Product(1, "Nấm kim châm (500g)", "Rau", 50000, "https://cdn.tgdd.vn/Files/2020/12/08/1312301/11-cach-lam-nam-kim-cham-xao-thom-ngon-don-gian-tai-nha-202201071113027145.jpg", 1),
-                new Product(2, "Ớt (500g)", "Gia vị", 50000, "https://suckhoedoisong.qltns.mediacdn.vn/thumb_w/640/324455921873985536/2022/6/18/cach-an-che-bien-bao-quan-ot-2-1655566236587196946971.jpg", 2),
-                new Product(3, "Cà rốt (500g)", "Củ", 50000, "https://image.thanhnien.vn/w1024/Uploaded/2022/wpxlcqjwq/2022_03_03/ca-rot-2275.jpg", 3),
-                new Product(4, "Nấm kim châm (500g)", "Rau", 50000, "https://cdn.tgdd.vn/Files/2020/12/08/1312301/11-cach-lam-nam-kim-cham-xao-thom-ngon-don-gian-tai-nha-202201071113027145.jpg", 1),
-                new Product(5, "Nấm kim châm (500g)", "Rau", 50000, "https://cdn.tgdd.vn/Files/2020/12/08/1312301/11-cach-lam-nam-kim-cham-xao-thom-ngon-don-gian-tai-nha-202201071113027145.jpg", 2),
-                new Product(6, "Nấm kim châm (500g)", "Rau", 50000, "https://cdn.tgdd.vn/Files/2020/12/08/1312301/11-cach-lam-nam-kim-cham-xao-thom-ngon-don-gian-tai-nha-202201071113027145.jpg", 3),
-                new Product(7, "Nấm kim châm (500g)", "Rau", 50000, "https://cdn.tgdd.vn/Files/2020/12/08/1312301/11-cach-lam-nam-kim-cham-xao-thom-ngon-don-gian-tai-nha-202201071113027145.jpg", 3),
-                new Product(8, "Nấm kim châm (500g)", "Rau", 50000, "https://cdn.tgdd.vn/Files/2020/12/08/1312301/11-cach-lam-nam-kim-cham-xao-thom-ngon-don-gian-tai-nha-202201071113027145.jpg", 3),
-                new Product(9, "Nấm kim châm (500g)", "Rau", 50000, "https://cdn.tgdd.vn/Files/2020/12/08/1312301/11-cach-lam-nam-kim-cham-xao-thom-ngon-don-gian-tai-nha-202201071113027145.jpg", 3),
-                new Product(10, "Nấm kim châm (500g)", "Rau", 50000, "https://cdn.tgdd.vn/Files/2020/12/08/1312301/11-cach-lam-nam-kim-cham-xao-thom-ngon-don-gian-tai-nha-202201071113027145.jpg", 3),
+                new Raucu(1, "Nấm kim châm (500g)", "Nấm kim châm 500g", "Rau", 50000, 20, "https://cdn.tgdd.vn/Files/2020/12/08/1312301/11-cach-lam-nam-kim-cham-xao-thom-ngon-don-gian-tai-nha-202201071113027145.jpg", 1, 1, "24-11-2022"),
+                new Raucu(2, "Ớt (500g)", "Ớt 500g", "Gia vị", 50000, 10, "https://suckhoedoisong.qltns.mediacdn.vn/thumb_w/640/324455921873985536/2022/6/18/cach-an-che-bien-bao-quan-ot-2-1655566236587196946971.jpg", 2, 1, "24-11-2022"),
+                new Raucu(3, "Cà rốt (500g)", "Cà rốt 500g", "Củ", 50000, 20, "https://image.thanhnien.vn/w1024/Uploaded/2022/wpxlcqjwq/2022_03_03/ca-rot-2275.jpg", 3, 1, "24-11-2022"),
+                new Raucu(4, "Nấm kim châm (1000g)", "Nấm kim châm 500g", "Rau", 50000, 0, "https://cdn.tgdd.vn/Files/2020/12/08/1312301/11-cach-lam-nam-kim-cham-xao-thom-ngon-don-gian-tai-nha-202201071113027145.jpg", 4, 1, "24-11-2022"),
+                new Raucu(5, "Ớt (1000g)", "Ớt 500g", "Gia vị", 50000, 0, "https://suckhoedoisong.qltns.mediacdn.vn/thumb_w/640/324455921873985536/2022/6/18/cach-an-che-bien-bao-quan-ot-2-1655566236587196946971.jpg", 5, 1, "24-11-2022"),
+                new Raucu(6, "Cà rốt (1000g)", "Cà rốt 500g", "Củ", 50000, 0, "https://image.thanhnien.vn/w1024/Uploaded/2022/wpxlcqjwq/2022_03_03/ca-rot-2275.jpg", 6, 1, "24-11-2022"),
             };
-            PickerOptions = new List<string>()
+            Shops = new ObservableCollection<Shop>()
             {
-                "Giá tăng dần", "Giá giảm dần", "Mới nhất", "Cũ nhất"
+                new Shop(1, "Bách hóa xanh", "244 Huỳnh Văn Bánh, Phường 11, Phú Nhuận, Thành phố Hồ Chí Minh", "1900 1908", "bach_hoa_xanh.png", 100, 473, 1, "24-11-2022"),
             };
             ButtonCommand = new Command<object>(ExecuteButtonCommand);
-            NavigateToDetailPage = new Command<Product>(ExecuteNavToDetailPage); 
+            NavigateToDetailPage = new Command<Raucu>(ExecuteNavToDetailPage); 
         }
 
         public async void ExecuteButtonCommand(object o)
@@ -52,7 +49,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             await App.Current.MainPage.Navigation.PushAsync(new SpecificPage(button.Text));
         }
 
-        public async void ExecuteNavToDetailPage(Product p)
+        public async void ExecuteNavToDetailPage(Raucu p)
         {
             await App.Current.MainPage.Navigation.PushAsync(new Views.HomePageViews.ProductDetailPage(p));
         }
