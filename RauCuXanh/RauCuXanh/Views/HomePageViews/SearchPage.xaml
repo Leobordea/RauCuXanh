@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RauCuXanh.Views.HomePageViews.SearchPage"
+             xmlns:vm="clr-namespace:RauCuXanh.ViewModels.HomePageViewModels"
+             xmlns:model="clr-namespace:RauCuXanh.Models"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:DataType="vm:SearchViewModel"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <vm:SearchViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame Padding="0"
+                   HasShadow="False"
+                   CornerRadius="20"
+                   Margin="5, 20"
+                   HeightRequest="40">
+                <SearchBar x:Name="searchBar"
+                           Placeholder="Rau dền, măng tây, súp lơ xanh..."
+                           CancelButtonColor="Gray"
+                           PlaceholderColor="Gray"
+                           TextColor="Black"
+                           FontSize="16"
+                           TextChanged="SearchBar_TextChanged"
+                           Text="{Binding SearchText}" />
+            </Frame>
+
+
+            <StackLayout x:Name="SearchSuggestion"
+                         IsVisible="false"
+                         Spacing="20">
+                <StackLayout Margin="20, 0">
+                    <Label Text="Tìm kiếm gần đây"
+                           FontSize="18"
+                           TextColor="Black"
+                           FontAttributes="Bold"
+                           Margin="20,0,0,0" />
+                </StackLayout>
+                <BoxView Color="Black"
+                         HeightRequest="1"
+                         Opacity="0.1"
+                         Margin="10, 0" />
+                <StackLayout Margin="20, 0">
+                    <Label Text="Tìm kiếm phổ biến"
+                           FontSize="18"
+                           TextColor="Black"
+                           FontAttributes="Bold"
+                           Margin="20,0,0,0" />
+                    <FlexLayout Wrap="Wrap">
+                        <material:MaterialButton ButtonType="Outlined"
+                                                 TextColor="Black"
+                                                 Text="rau cải thìa"
+                                                 Clicked="MaterialButton_Clicked"/>
+                        <material:MaterialButton ButtonType="Outlined"
+                                                 TextColor="Black"
+                                                 Text="rau húng quế"
+                                                 Clicked="MaterialButton_Clicked"/>
+                        <material:MaterialButton ButtonType="Outlined"
+                                                 TextColor="Black"
+                                                 Text="súp lơ"
+                                                 Clicked="MaterialButton_Clicked" />
+                        <material:MaterialButton ButtonType="Outlined"
+                                                 TextColor="Black"
+                                                 Text="rau bắp cải"
+                                                 Clicked="MaterialButton_Clicked" />
+                        <material:MaterialButton ButtonType="Outlined"
+                                                 TextColor="Black"
+                                                 Text="cây rau mùi"
+                                                 Clicked="MaterialButton_Clicked" />
+                    </FlexLayout>
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout BackgroundColor="Red">
+                <ListView x:Name="SearchResult"
+                          VerticalOptions="Start"
+                          BackgroundColor="White"
+                          RowHeight="100"
+                          IsVisible="false">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Raucu">
+                            <ViewCell>
+                                <Grid ColumnDefinitions="auto, *">
+                                    <Image Grid.Column="0"
+                                           Aspect="AspectFill"
+                                           WidthRequest="100"
+                                           Source="{Binding Product_pic}"
+                                           Margin="10" />
+                                    <StackLayout Grid.Column="1"
+                                                 VerticalOptions="Center">
+                                        <Label Text="{Binding Name}"
+                                               VerticalTextAlignment="Center"
+                                               FontAttributes="Bold"
+                                               FontSize="18" />
+                                        <Label Text="{Binding Price, StringFormat='{0:0,0 vnd}'}"
+                                               FontSize="16"
+                                               TextColor="Red" />
+                                    </StackLayout>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}}"
+                                                              CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Raucu}}}" />
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
