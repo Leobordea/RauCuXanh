@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 using RauCuXanh.Models;
 using RauCuXanh.Views.HomePageViews;
@@ -36,6 +37,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         public Command IncreaseQuantity { get; set; }
         public Command DecreaseQuantity { get; set; }
         public Command NavToShopCommand { get; set; }
+        public Command AddToCart { get; set; }
 
         public ProductDetailViewModel() { }
         public ProductDetailViewModel(Raucu p)
@@ -53,6 +55,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             IncreaseQuantity = new Command(ExeIncreaseQuantity);
             DecreaseQuantity = new Command(ExeDecreaseQuantity);
             NavToShopCommand = new Command(ExeNavToShop);
+            AddToCart = new Command(ExeAddToCart);
         }
 
         public void ExeIncreaseQuantity()
@@ -68,6 +71,12 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         public async void ExeNavToShop()
         {
             await App.Current.MainPage.Navigation.PushAsync(new ShopPage(Shop));
+        }
+
+        public async void ExeAddToCart()
+        {
+            ReceiptList.Add(new Receipt_list() { RaucuId = Product.Id, Quantity = Quantity });
+            await App.Current.MainPage.DisplayAlert("success", "them vao gio hang thanh cong", "ok");
         }
     }
 }

@@ -1,0 +1,44 @@
+﻿<xct:Popup xmlns="http://xamarin.com/schemas/2014/forms"
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+           xmlns:local="clr-namespace:RauCuXanh.Views.HomePageViews"
+           xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+           x:Class="RauCuXanh.Views.HomePageViews.CartMoneyDetailPopup"
+           Size="{x:Static local:PopupSize.Custom}">
+
+    <StackLayout>
+        <StackLayout Spacing="0"
+                     VerticalOptions="EndAndExpand">
+            <FlexLayout JustifyContent="SpaceBetween"
+                        Padding="10">
+                <Label Text="Tong tien hang"
+                       FontSize="18" />
+                <Label Text="30.000 vnd"
+                       FontSize="18" />
+            </FlexLayout>
+            <FlexLayout JustifyContent="SpaceBetween"
+                        Padding="10">
+                <Label Text="Phi van chuyen"
+                       FontSize="18" />
+                <Label Text="40.000 vnd"
+                       FontSize="18" />
+            </FlexLayout>
+            <FlexLayout JustifyContent="SpaceBetween"
+                        Padding="10">
+                <Label Text="Giam gia san pham"
+                       FontSize="18" />
+                <Label Text="-2.000 vnd"
+                       FontSize="18"
+                       TextColor="Red" />
+            </FlexLayout>
+            <FlexLayout JustifyContent="SpaceBetween"
+                        Padding="10">
+                <Label Text="Tong so tien"
+                       FontSize="20" />
+                <Label Text="68.000 vnd"
+                       FontSize="20" />
+            </FlexLayout>
+        </StackLayout>
+    </StackLayout>
+
+</xct:Popup>

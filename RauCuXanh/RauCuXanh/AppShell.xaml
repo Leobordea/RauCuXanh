@@ -31,10 +31,10 @@
     </Shell.Resources>
 
     <TabBar>
-        <ShellContent ContentTemplate="{DataTemplate local:HomePageViews.HomePage}" Icon="home_icon.png" />
-        <ShellContent ContentTemplate="{DataTemplate local:FavoritePage}" Icon="bookmark_icon.png" />
-        <ShellContent ContentTemplate="{DataTemplate local:NotificationPage}" Icon="notification_bell_icon.png" />
-        <ShellContent ContentTemplate="{DataTemplate local:ProfilePage}" Icon="profile_icon.png" />
+        <ShellContent Route="HomePage" ContentTemplate="{DataTemplate local:HomePageViews.HomePage}" Icon="home_icon.png" />
+        <ShellContent Route="FavoritePage" ContentTemplate="{DataTemplate local:FavoritePage}" Icon="bookmark_icon.png" />
+        <ShellContent Route="NotificationPage" ContentTemplate="{DataTemplate local:NotificationPage}" Icon="notification_bell_icon.png" />
+        <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate local:ProfilePage}" Icon="profile_icon.png" />
     </TabBar>
 
     <!--

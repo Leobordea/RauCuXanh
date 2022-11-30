@@ -16,7 +16,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         public ObservableCollection<Raucu> DangBan { get; set; }
         public ObservableCollection<Raucu> KhuyenMai { get; set; }
         public Command LoadRaucuCommand { get; set; }
-
+ 
         public ShopViewModel() { }
         public ShopViewModel(Shop s) 
         {

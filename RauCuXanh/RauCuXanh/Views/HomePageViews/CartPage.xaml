@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RauCuXanh.Views.HomePageViews.CartPage"
+             xmlns:vm="clr-namespace:RauCuXanh.ViewModels.HomePageViewModels"
+             xmlns:model="clr-namespace:RauCuXanh.Models"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:DataType="vm:CartViewModel"
+             Shell.TabBarIsVisible="False"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <StackLayout>
+            <RefreshView Command="{Binding LoadCart}"
+                         IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                <StackLayout>
+                    <CollectionView ItemsSource="{Binding CartProducts}"
+                                    SelectionMode="Single">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:Raucu">
+                                <Frame Padding="0, 20">
+                                    <Grid ColumnDefinitions="50,*,1.2*"
+                                          RowDefinitions="150">
+                                        <CheckBox HorizontalOptions="Center" />
+                                        <Frame Padding="0"
+                                               HasShadow="False"
+                                               CornerRadius="5"
+                                               Grid.Column="1">
+                                            <Image Source="{Binding Product_pic}"
+                                                   Aspect="AspectFill"
+                                                   Grid.Column="0" />
+                                        </Frame>
+                                        <StackLayout  Grid.Column="2">
+                                            <Label Text="{Binding Name}"
+                                                   FontAttributes="Bold"
+                                                   FontSize="20"
+                                                   LineBreakMode="WordWrap" />
+                                            <Label Text="{Binding Price, StringFormat='{0:0,0 vnd}' }"
+                                                   FontAttributes="Bold"
+                                                   FontSize="18"
+                                                   TextColor="Red" />
+                                            <StackLayout Orientation="Horizontal">
+                                                <Button Text="-"
+                                                        WidthRequest="40"
+                                                        Command="{Binding DecreaseQuantity, Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}}" />
+                                                <Label Text="1"
+                                                       VerticalTextAlignment="Center" />
+                                                <Button Text="+"
+                                                        WidthRequest="40"
+                                                        Command="{Binding IncreaseQuantity, Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}}" />
+                                            </StackLayout>
+                                            <Label Text="(Thong tin chi tiet)">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding NavToDetailPage ,Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}}" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                        </StackLayout>
+                                    </Grid>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}}"
+                                                              CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Raucu}}}" />
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <StackLayout Spacing="0">
+                        <BoxView HeightRequest="1"
+                                 BackgroundColor="Black"
+                                 Margin="0" />
+                        <StackLayout Orientation="Horizontal"
+                                     Padding="10">
+                            <Label Text="Voucher"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="Gold" />
+                            <Label Text="(Ap dung ma giam gia)" />
+                            <Switch />
+                        </StackLayout>
+                        <BoxView HeightRequest="1"
+                                 BackgroundColor="Black" />
+                        <StackLayout Orientation="Horizontal">
+                            <CheckBox />
+                            <Label Text="Chọn tất cả"
+                                   VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout 
+                                     Orientation="Horizontal"
+                                     IsVisible="true">
+                            <Label Text="Tổng số tiền"
+                                   VerticalTextAlignment="Center" />
+                            <StackLayout Spacing="0"
+                                         x:Name="Indicator">
+                                <Label Text="68.000 vnđ"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="Red"
+                                       VerticalTextAlignment="Center" />
+                                <Image Source="arrow_up.png"
+                                       WidthRequest="30"
+                                       HorizontalOptions="EndAndExpand" />
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OpenPopup}"
+                                                          CommandParameter="{x:Reference Indicator}" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                            <material:MaterialButton Text="Mua hàng"
+                                                     BackgroundColor="Red"
+                                                     HorizontalOptions="EndAndExpand" />
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
