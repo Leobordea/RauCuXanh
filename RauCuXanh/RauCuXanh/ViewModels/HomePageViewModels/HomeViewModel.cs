@@ -25,6 +25,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         }
         public ObservableCollection<Raucu> Products { get; set; }
         public ObservableCollection<Raucu> SuggestionCollection { get; set; }
+        public ObservableCollection<Receipt_list> ReceiptList { get; set; }
         public ObservableCollection<Shop> Shops { get; set; }
         public Command ButtonCommand { get; set; }
         public Command NavigateToDetailPage { get; set; }
@@ -59,6 +60,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             PerformSearch = new Command<string>(ExePerformSearch);
             NavToProfile = new Command(ExeNavToProfile);
             NavToCart = new Command(ExeNavToCart);
+            ReceiptList = new ObservableCollection<Receipt_list>();
         }
 
         public async void ExecuteButtonCommand(object o)
@@ -79,7 +81,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
 
         public async void ExeNavToProfile()
         {
-            
+            await Shell.Current.GoToAsync("//ProfilePage");
         }
 
         public async void ExeNavToCart()

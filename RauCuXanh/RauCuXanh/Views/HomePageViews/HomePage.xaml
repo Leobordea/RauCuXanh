@@ -19,6 +19,7 @@
                                  HorizontalOptions="StartAndExpand"
                                  Grid.Column="0">
                         <Frame Padding="0"
+                               HasShadow="False"
                                CornerRadius="40"
                                HeightRequest="40"
                                HorizontalOptions="Center"
@@ -30,7 +31,7 @@
                                    Source="kha_banh_avatar.png"
                                    VerticalOptions="FillAndExpand" />
                             <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="" />
+                                <TapGestureRecognizer Command="{Binding NavToProfile}"/>
                             </Frame.GestureRecognizers>
                         </Frame>
                         <Label Text="Thanh"
@@ -44,7 +45,9 @@
                                FontSize="18"
                                FontAttributes="Bold" />
                     </StackLayout>
-                    <Frame>
+                    <Frame Padding="0"
+                           HasShadow="False"
+                           Grid.Column="2">
                         <Image Source="cart_icon.png"
                                HeightRequest="30"
                                HorizontalOptions="EndAndExpand"

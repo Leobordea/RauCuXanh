@@ -12,77 +12,93 @@
         <vm:ProductDetailViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout Margin="10">
-                <Grid ColumnDefinitions="*, *">
-                    <Frame Padding="0"
-                           HasShadow="False"
-                           CornerRadius="5">
-                        <Image Source="{Binding Product.Product_pic}"
-                               Aspect="AspectFill"
-                               Grid.Column="0" />
-                    </Frame>
-                    <StackLayout  Grid.Column="1">
-                        <Label Text="{Binding Product.Name}"
-                               FontAttributes="Bold"
-                               FontSize="20"
-                               LineBreakMode="WordWrap" />
-                        <Label Text="{Binding Product.Price, StringFormat='{0:0,0 vnd}' }"
-                               FontAttributes="Bold"
-                               FontSize="18"
-                               TextColor="Red" />
-                        <StackLayout Orientation="Horizontal">
-                            <Button Text="-"
-                                    Command="{Binding DecreaseQuantity}"
-                                    WidthRequest="40" />
-                            <Label Text="{Binding Quantity}"
-                                   VerticalTextAlignment="Center" />
-                            <Button Text="+"
-                                    Command="{Binding IncreaseQuantity}"
-                                    WidthRequest="40" />
-                        </StackLayout>
+        <StackLayout>
+            <ScrollView>
+                <StackLayout Margin="10">
+                    <Grid ColumnDefinitions="*, *">
                         <Frame Padding="0"
                                HasShadow="False"
-                               VerticalOptions="EndAndExpand">
-                            <StackLayout Orientation="Horizontal">
-                                <Image Source="shop_icon.png"
-                                       WidthRequest="20" />
-                                <Label Text="{Binding Shop.Name}" />
-                            </StackLayout>
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding NavToShopCommand, Source={RelativeSource AncestorType={x:Type vm:ProductDetailViewModel}}}"
-                                                      CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Shop}}}" />
-                            </Frame.GestureRecognizers>
+                               CornerRadius="5">
+                            <Image Source="{Binding Product.Product_pic}"
+                                   Aspect="AspectFill"
+                                   Grid.Column="0" />
                         </Frame>
+                        <StackLayout  Grid.Column="1">
+                            <Label Text="{Binding Product.Name}"
+                                   FontAttributes="Bold"
+                                   FontSize="20"
+                                   LineBreakMode="WordWrap" />
+                            <Label Text="{Binding Product.Price, StringFormat='{0:0,0 vnd}' }"
+                                   FontAttributes="Bold"
+                                   FontSize="18"
+                                   TextColor="Red" />
+                            <StackLayout Orientation="Horizontal">
+                                <Button Text="-"
+                                        Command="{Binding DecreaseQuantity}"
+                                        WidthRequest="40" />
+                                <Label Text="{Binding Quantity}"
+                                       VerticalTextAlignment="Center" />
+                                <Button Text="+"
+                                        Command="{Binding IncreaseQuantity}"
+                                        WidthRequest="40" />
+                            </StackLayout>
+                            <Frame Padding="0"
+                                   HasShadow="False"
+                                   VerticalOptions="EndAndExpand">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="shop_icon.png"
+                                           WidthRequest="20" />
+                                    <Label Text="{Binding Shop.Name}" />
+                                </StackLayout>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding NavToShopCommand, Source={RelativeSource AncestorType={x:Type vm:ProductDetailViewModel}}}"
+                                                          CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Shop}}}" />
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                        </StackLayout>
+                    </Grid>
+                    <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="CenterAndExpand">
+                        <material:MaterialButton ButtonType="Outlined"
+                                                 Text="Thêm vào giỏ hàng"
+                                                 TextColor="Red"
+                                                 AllCaps="False"
+                                                 BorderColor="Red"
+                                                 Command="{Binding AddToCart}" />
+                        <material:MaterialButton Text="Mua ngay"
+                                                 BackgroundColor="Red"
+                                                 AllCaps="False" />
                     </StackLayout>
-                </Grid>
-                <StackLayout Orientation="Horizontal"
-                             HorizontalOptions="CenterAndExpand">
-                    <material:MaterialButton ButtonType="Outlined"
-                                             Text="Thêm vào giỏ hàng"
-                                             TextColor="Red"
-                                             AllCaps="False"
-                                             BorderColor="Red" />
-                    <material:MaterialButton Text="Mua ngay"
-                                             BackgroundColor="Red"
-                                             AllCaps="False" />
+                    <Label Text="Thông tin sản phẩm"
+                           FontAttributes="Bold"
+                           FontSize="18"
+                           Margin="0,10" />
+                    <Label Text="{Binding Product.Description, StringFormat='    {0}'}"
+                           FontSize="14"
+                           LineHeight="1.2" />
+                    <Label Text="Đánh giá sản phẩm"
+                           FontAttributes="Bold"
+                           FontSize="18"
+                           Margin="0,10" />
+                    <Label Text="Bình luận"
+                           FontAttributes="Bold"
+                           FontSize="20"
+                           Margin="0,10" />
                 </StackLayout>
-                <Label Text="Thông tin sản phẩm"
-                       FontAttributes="Bold"
-                       FontSize="18"
-                       Margin="0,10" />
-                <Label Text="{Binding Product.Description, StringFormat'    {0}'}"
-                       FontSize="14"
-                       LineHeight="1.2" />
-                <Label Text="Đánh giá sản phẩm"
-                       FontAttributes="Bold"
-                       FontSize="18"
-                       Margin="0,10" />
-                <Label Text="Bình luận"
-                       FontAttributes="Bold"
-                       FontSize="20"
-                       Margin="0,10" />
-            </StackLayout>
-        </ScrollView>
+            </ScrollView>
+            <Frame Padding="0"
+                   HasShadow="False"
+                   BackgroundColor="Gold"
+                   CornerRadius="20"
+                   HeightRequest="50"
+                   VerticalOptions="EndAndExpand">
+                <FlexLayout HorizontalOptions="CenterAndExpand"
+                            JustifyContent="Center">
+                    <Image Source="bookmark_with_heart.png" />
+                    <Label Text="Yeu thich"
+                           VerticalTextAlignment="Center" />
+                </FlexLayout>
+            </Frame>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
