@@ -1,9 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using RauCuXanh.Models;
+using RauCuXanh.Services;
 using RauCuXanh.Views.HomePageViews;
+using Refit;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace RauCuXanh.ViewModels.HomePageViewModels
 {
@@ -23,10 +28,10 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                 SetProperty(ref _selectedProduct, value); 
             }
         }
-        public ObservableCollection<Raucu> Products { get; set; }
+        public ObservableCollection<Raucu> Raucus { get; set; }
         public ObservableCollection<Raucu> SuggestionCollection { get; set; }
         public ObservableCollection<Receipt_list> ReceiptList { get; set; }
-        public ObservableCollection<Shop> Shops { get; set; }
+        public Command LoadRaucusCommand { get; }
         public Command ButtonCommand { get; set; }
         public Command NavigateToDetailPage { get; set; }
         public Command PerformSearch { get; set; }
@@ -36,31 +41,42 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         public HomeViewModel()
         {
             Title = "Trang chủ";
-            Products = new ObservableCollection<Raucu>()
-            {
-                new Raucu(1, "Nấm kim châm (500g)", "Nấm kim châm 500g", "Rau", 50000, 20, "https://cdn.tgdd.vn/Files/2020/12/08/1312301/11-cach-lam-nam-kim-cham-xao-thom-ngon-don-gian-tai-nha-202201071113027145.jpg", 1, 1, "24-11-2022"),
-                new Raucu(2, "Ớt (500g)", "Ớt 500g", "Gia vị", 50000, 10, "https://suckhoedoisong.qltns.mediacdn.vn/thumb_w/640/324455921873985536/2022/6/18/cach-an-che-bien-bao-quan-ot-2-1655566236587196946971.jpg", 2, 1, "24-11-2022"),
-                new Raucu(3, "Cà rốt (500g)", "Cà rốt 500g", "Củ", 50000, 20, "https://image.thanhnien.vn/w1024/Uploaded/2022/wpxlcqjwq/2022_03_03/ca-rot-2275.jpg", 3, 1, "24-11-2022"),
-                new Raucu(4, "Nấm kim châm (1000g)", "Nấm kim châm 500g", "Rau", 50000, 0, "https://cdn.tgdd.vn/Files/2020/12/08/1312301/11-cach-lam-nam-kim-cham-xao-thom-ngon-don-gian-tai-nha-202201071113027145.jpg", 4, 1, "24-11-2022"),
-                new Raucu(5, "Ớt (1000g)", "Ớt 500g", "Gia vị", 50000, 0, "https://suckhoedoisong.qltns.mediacdn.vn/thumb_w/640/324455921873985536/2022/6/18/cach-an-che-bien-bao-quan-ot-2-1655566236587196946971.jpg", 5, 1, "24-11-2022"),
-                new Raucu(6, "Cà rốt (1000g)", "Cà rốt 500g", "Củ", 50000, 0, "https://image.thanhnien.vn/w1024/Uploaded/2022/wpxlcqjwq/2022_03_03/ca-rot-2275.jpg", 6, 1, "24-11-2022"),
-            };
-            Shops = new ObservableCollection<Shop>()
-            {
-                new Shop(1, "Bách hóa xanh", "244 Huỳnh Văn Bánh, Phường 11, Phú Nhuận, Thành phố Hồ Chí Minh", "1900 1908", "bach_hoa_xanh.png", 100, 473, 1, "24-11-2022"),
-            };
+            Raucus = new ObservableCollection<Raucu>();
+            LoadRaucusCommand = new Command(async () => await ExecuteLoadRaucusCommand());
             ButtonCommand = new Command<object>(ExecuteButtonCommand);
             NavigateToDetailPage = new Command<Raucu>(ExecuteNavToDetailPage);
-            SuggestionCollection = new ObservableCollection<Raucu>
-            {
-                new Raucu(1, "Nấm kim châm (500g)", "Nấm kim châm 500g", "Rau", 50000, 20, "https://cdn.tgdd.vn/Files/2020/12/08/1312301/11-cach-lam-nam-kim-cham-xao-thom-ngon-don-gian-tai-nha-202201071113027145.jpg", 1, 1, "24-11-2022"),
-                new Raucu(2, "Ớt (500g)", "Ớt 500g", "Gia vị", 50000, 10, "https://suckhoedoisong.qltns.mediacdn.vn/thumb_w/640/324455921873985536/2022/6/18/cach-an-che-bien-bao-quan-ot-2-1655566236587196946971.jpg", 2, 1, "24-11-2022"),
-                new Raucu(3, "Cà rốt (500g)", "Cà rốt 500g", "Củ", 50000, 20, "https://image.thanhnien.vn/w1024/Uploaded/2022/wpxlcqjwq/2022_03_03/ca-rot-2275.jpg", 3, 1, "24-11-2022"),
-            };
+            SuggestionCollection = new ObservableCollection<Raucu>();
             PerformSearch = new Command<string>(ExePerformSearch);
             NavToProfile = new Command(ExeNavToProfile);
             NavToCart = new Command(ExeNavToCart);
             ReceiptList = new ObservableCollection<Receipt_list>();
+        }
+
+        async Task ExecuteLoadRaucusCommand()
+        {
+            IsBusy = true;
+            try
+            {
+                Raucus.Clear();
+                var apiClient = RestService.For<IRaucuApi>(RestClient.BaseUrl);
+                var raucus = await apiClient.GetRaucuList();
+                foreach (var raucu in raucus)
+                {
+                    Raucus.Add(raucu);
+                }
+            }
+            catch (Exception ex)
+            {
+                await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public void OnAppearing()
+        {
+            IsBusy = true;
         }
 
         public async void ExecuteButtonCommand(object o)

@@ -12,9 +12,19 @@ namespace RauCuXanh.Views.HomePageViews
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomePage : ContentPage
     {
+        HomeViewModel _viewModel;
+
         public HomePage()
         {
             InitializeComponent();
+
+            BindingContext = _viewModel = new HomeViewModel();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewModel.OnAppearing();
         }
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -29,7 +39,7 @@ namespace RauCuXanh.Views.HomePageViews
             }
             else
             {
-                var itemsource = _container.Products.Where(i => i.Name.ToLower().Contains(e.NewTextValue.ToLower()));
+                var itemsource = _container.Raucus.Where(i => i.Name.ToLower().Contains(e.NewTextValue.ToLower()));
                 SearchSuggestion.ItemsSource = itemsource;
                 SearchSuggestion.HeightRequest = Math.Min(60 * itemsource.Count(), 240);
                 SearchSuggestion.IsVisible = true;

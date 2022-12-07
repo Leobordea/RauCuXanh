@@ -20,6 +20,12 @@ namespace RauCuXanh.Views.HomePageViews
             BindingContext = _viewModel = new CartViewModel();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewModel.OnAppearing();
+        }
+
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
 

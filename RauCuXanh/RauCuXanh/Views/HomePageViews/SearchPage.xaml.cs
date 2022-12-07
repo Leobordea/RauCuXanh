@@ -35,7 +35,7 @@ namespace RauCuXanh.Views.HomePageViews
             }
             else
             {
-                var itemsource = _container.Products.Where(i => i.Name.ToLower().Contains(e.NewTextValue.ToLower()));
+                var itemsource = _container.Raucus.Where(i => i.Name.ToLower().Contains(e.NewTextValue.ToLower()));
                 SearchResult.ItemsSource = itemsource;
                 SearchResult.IsVisible = true;
                 SearchSuggestion.IsVisible = false;

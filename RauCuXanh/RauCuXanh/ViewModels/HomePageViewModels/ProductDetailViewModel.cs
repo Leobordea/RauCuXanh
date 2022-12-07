@@ -2,19 +2,23 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 using RauCuXanh.Models;
+using RauCuXanh.Services;
 using RauCuXanh.Views.HomePageViews;
+using Refit;
 using Xamarin.Forms;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace RauCuXanh.ViewModels.HomePageViewModels
 {
-    public class ProductDetailViewModel : HomeViewModel
+    public class ProductDetailViewModel : BaseViewModel
     {
-        private Raucu _product;
-        public Raucu Product
+        private Raucu _raucu;
+        public Raucu Raucu
         {
-            get { return _product; }
-            set { SetProperty(ref _product, value); }
+            get { return _raucu; }
+            set { SetProperty(ref _raucu, value); }
         }
 
         private int _quantity = 1;
@@ -33,7 +37,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             get { return _shop; }
             set { SetProperty(ref _shop, value); }
         }
-
+        public Command LoadShopCommand { get; set; }
         public Command IncreaseQuantity { get; set; }
         public Command DecreaseQuantity { get; set; }
         public Command NavToShopCommand { get; set; }
@@ -43,19 +47,30 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         public ProductDetailViewModel(Raucu p)
         {
             Title = "Chi tiết sản phẩm";
-            Product = p;
-            foreach (Shop s in Shops)
-            {
-                if (s.Id == p.Shop_id)
-                {
-                    Shop = s;
-                    break;
-                }
-            }
+            Raucu = p;
+            LoadShopCommand = new Command(async () => await ExeLoadShopCommand());
             IncreaseQuantity = new Command(ExeIncreaseQuantity);
             DecreaseQuantity = new Command(ExeDecreaseQuantity);
             NavToShopCommand = new Command(ExeNavToShop);
             AddToCart = new Command(ExeAddToCart);
+        }
+
+        async Task ExeLoadShopCommand()
+        {
+            IsBusy = true;
+            try
+            {
+                var apiClient = RestService.For<IShopApi>(RestClient.BaseUrl);
+                Shop = await apiClient.GetShopById(Raucu.Id);
+            } 
+            catch (Exception ex)
+            {
+                await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+            } 
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         public void ExeIncreaseQuantity()
@@ -75,8 +90,11 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
 
         public async void ExeAddToCart()
         {
-            ReceiptList.Add(new Receipt_list() { RaucuId = Product.Id, Quantity = Quantity });
-            await App.Current.MainPage.DisplayAlert("success", "them vao gio hang thanh cong", "ok");
+        }
+
+        public void OnAppearing()
+        {
+            IsBusy = true;
         }
     }
 }

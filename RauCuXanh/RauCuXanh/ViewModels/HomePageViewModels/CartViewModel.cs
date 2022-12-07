@@ -4,9 +4,12 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 using RauCuXanh.Models;
+using RauCuXanh.Services;
 using RauCuXanh.Views.HomePageViews;
+using Refit;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace RauCuXanh.ViewModels.HomePageViewModels
 {
@@ -25,28 +28,40 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             IncreaseQuantity = new Command<int>(ExeIncrease);
             DecreaseQuantity = new Command<int>(ExeDecrease);
             OpenPopup = new Command<View>(ExeOpenPopup);
-            _ = ExeLoadCart();
         }
 
         async Task ExeLoadCart()
         {
             IsBusy = true;
-            await Task.Delay(2000);
-            CartProducts.Clear();
-
-            foreach (Raucu rc in Products)
+            try
             {
-                CartProducts.Add(rc);
+                CartProducts.Clear();
+                var apiClient = RestService.For<ICartApi>(RestClient.BaseUrl);
+                var obj = apiClient.GetCarts();
+
+                foreach (Raucu rc in Raucus)
+                {
+                    CartProducts.Add(rc);
+                }
             }
-            IsBusy = false;
+            catch (Exception ex)
+            {
+                await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         INavigation Navigation => Application.Current.MainPage.Navigation;
 
         public void ExeOpenPopup(View anchor)
         {
-            var popup = new CartMoneyDetailPopup();
-            popup.Anchor = anchor;
+            var popup = new CartMoneyDetailPopup
+            {
+                Anchor = anchor
+            };
             Navigation.ShowPopup(popup);
         }
 
@@ -58,6 +73,11 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         public void ExeDecrease(int quantity)
         {
 
+        }
+
+        public new void OnAppearing()
+        {
+            IsBusy = true;
         }
     }
 }

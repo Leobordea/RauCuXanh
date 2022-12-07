@@ -13,6 +13,8 @@ namespace RauCuXanh.Views.HomePageViews
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProductDetailPage : ContentPage
     {
+        ProductDetailViewModel _viewmodel;
+
         public ProductDetailPage()
         {
             InitializeComponent();
@@ -21,7 +23,13 @@ namespace RauCuXanh.Views.HomePageViews
         public ProductDetailPage(Raucu p)
         {
             InitializeComponent();
-            BindingContext = new ProductDetailViewModel(p);
+            BindingContext = _viewmodel = new ProductDetailViewModel(p);
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewmodel.OnAppearing();
         }
     }
 }

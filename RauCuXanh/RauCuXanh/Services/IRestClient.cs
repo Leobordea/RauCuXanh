@@ -17,4 +17,17 @@ namespace RauCuXanh.Services
         [Get("/rauculist")]
         Task<List<Raucu>> GetRaucuList();
     }
+    public interface IShopApi
+    {
+        [Get("/shops")]
+        Task<List<Shop>> GetShops();
+
+        [Get("/shop/{id}")]
+        Task<Shop> GetShopById(int id);
+    }
+    public interface ICartApi
+    {
+        [Get("/carts")]
+        Task<List<Object>> GetCarts();
+    }
 }

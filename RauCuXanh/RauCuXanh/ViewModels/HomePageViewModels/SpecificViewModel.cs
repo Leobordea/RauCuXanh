@@ -27,7 +27,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             IsBusy = true;
             await Task.Delay(2000);
             SpecificProducts.Clear();
-            foreach (Raucu product in Products)
+            foreach (Raucu product in Raucus)
             {
                 if (product.Raucu_type == str)
                 {
