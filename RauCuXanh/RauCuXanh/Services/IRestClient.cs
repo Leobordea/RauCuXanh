@@ -10,7 +10,7 @@ namespace RauCuXanh.Services
     public interface IUserApi
     {
         [Get("/user/{id}")]
-        Task<List<User>> GetUserById(int id);
+        Task<User> GetUserById(int id);
     }
     public interface IRaucuApi
     {
