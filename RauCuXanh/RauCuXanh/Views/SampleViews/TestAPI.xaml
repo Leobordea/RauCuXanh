@@ -12,7 +12,7 @@
                 CornerRadius="10"
                 Text="GetList"
                 TextColor="#FFFFFF" />
-            <CollectionView
+            <!--<CollectionView
                 x:Name="StacklayoutListF2P"
                 Margin="10"
                 x:DataType="models:Game">
@@ -46,7 +46,7 @@
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-            </CollectionView>
+            </CollectionView>-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
