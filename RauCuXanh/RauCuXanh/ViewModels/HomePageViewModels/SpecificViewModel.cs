@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RauCuXanh.Models;
 using Xamarin.Forms;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace RauCuXanh.ViewModels.HomePageViewModels
 {
@@ -18,23 +19,36 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             Title = str;
             SpecificProducts = new ObservableCollection<Raucu>();
             LoadSpecificProductsCommand = new Command(async () => await ExecuteLoadProductsCommand(str));
-            _ = ExecuteLoadProductsCommand(str);
-
         }
 
         async Task ExecuteLoadProductsCommand(string str)
         {
             IsBusy = true;
-            await Task.Delay(2000);
-            SpecificProducts.Clear();
-            foreach (Raucu product in Raucus)
+            try
             {
-                if (product.Raucu_type == str)
+                await ExecuteLoadRaucusCommand();
+                SpecificProducts.Clear();
+                foreach (Raucu product in Raucus)
                 {
-                    SpecificProducts.Add(product);
+                    if (product.Raucu_type == str)
+                    {
+                        SpecificProducts.Add(product);
+                    }
                 }
             }
-            IsBusy = false;
+            catch (Exception ex)
+            {
+                await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        public new void OnAppearing()
+        {
+            IsBusy = true;
         }
     }
 }

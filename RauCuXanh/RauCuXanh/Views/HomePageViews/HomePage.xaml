@@ -36,7 +36,7 @@
                                     <TapGestureRecognizer Command="{Binding NavToProfile}" />
                                 </Frame.GestureRecognizers>
                             </Frame>
-                            <Label Text="Thanh"
+                            <Label Text="Banh"
                                    VerticalTextAlignment="Center" />
                         </StackLayout>
                         <StackLayout HorizontalOptions="CenterAndExpand"
@@ -80,7 +80,7 @@
                         <StackLayout>
                             <Grid RowDefinitions="auto, auto">
                                 <material:MaterialButton x:Name="myButton"
-                                                         Text="Rau"
+                                                         Text="rau xanh"
                                                          Grid.Column="0"
                                                          AllCaps="False"
                                                          BackgroundColor="{StaticResource Primary}"
@@ -104,7 +104,7 @@
                                                          Command="{Binding ButtonCommand}"
                                                          CommandParameter="{x:Reference myButton2}" />
                                 <material:MaterialButton x:Name="myButton3"
-                                                         Text="Gia vị"
+                                                         Text="gia vi"
                                                          Grid.Column="3"
                                                          AllCaps="False"
                                                          BackgroundColor="{StaticResource Primary}"

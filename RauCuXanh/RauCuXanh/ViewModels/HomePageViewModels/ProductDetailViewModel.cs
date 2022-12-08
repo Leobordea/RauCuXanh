@@ -61,7 +61,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             try
             {
                 var apiClient = RestService.For<IShopApi>(RestClient.BaseUrl);
-                Shop = await apiClient.GetShopById(Raucu.Id);
+                Shop = await apiClient.GetShopById(Raucu.Shop_id);
             } 
             catch (Exception ex)
             {

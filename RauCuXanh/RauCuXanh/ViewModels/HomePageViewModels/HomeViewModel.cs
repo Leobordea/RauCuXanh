@@ -43,6 +43,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             Title = "Trang chủ";
             Raucus = new ObservableCollection<Raucu>();
             LoadRaucusCommand = new Command(async () => await ExecuteLoadRaucusCommand());
+            //_ = ExecuteLoadRaucusCommand();
             ButtonCommand = new Command<object>(ExecuteButtonCommand);
             NavigateToDetailPage = new Command<Raucu>(ExecuteNavToDetailPage);
             SuggestionCollection = new ObservableCollection<Raucu>();
@@ -52,7 +53,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             ReceiptList = new ObservableCollection<Receipt_list>();
         }
 
-        async Task ExecuteLoadRaucusCommand()
+        public async Task ExecuteLoadRaucusCommand()
         {
             IsBusy = true;
             try
