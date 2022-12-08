@@ -7,15 +7,18 @@ using System.Threading.Tasks;
 
 namespace RauCuXanh.Services
 {
-    public interface IFreeToPlayApi
+    public interface IUserApi
     {
-        [Get("/games?sort-by=alphabetical")]
-        Task<List<Game>> GetF2PAsync();
+        [Get("/user/{id}")]
+        Task<User> GetUserById(int id);
     }
     public interface IRaucuApi
     {
         [Get("/rauculist")]
         Task<List<Raucu>> GetRaucuList();
+
+        [Get("/raucu/{id}")]
+        Task<List<Raucu>> GetRaucuById(int id);
     }
     public interface IShopApi
     {
@@ -24,6 +27,14 @@ namespace RauCuXanh.Services
 
         [Get("/shop/{id}")]
         Task<Shop> GetShopById(int id);
+    }
+    public interface INotificationApi
+    {
+        [Get("/notifications")]
+        Task<List<Notification>> GetNotifications();
+
+        [Get("/notification/{id}")]
+        Task<Notification> GetNotificationById(int id);
     }
     public interface ICartApi
     {

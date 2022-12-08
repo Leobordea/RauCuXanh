@@ -13,27 +13,27 @@ namespace RauCuXanh.ViewModels.NotificationViewModels
 {
     public class NotificationViewModel : BaseViewModel
     {
-        public Command LoadGamesCommand { get; }
-        public ObservableCollection<Game> Games { get; }
+        public Command LoadNotificationsCommand { get; }
+        public ObservableCollection<Notification> Notifications { get; }
 
         public NotificationViewModel()
         {
             Title = "Notifications";
-            Games = new ObservableCollection<Game>();
-            LoadGamesCommand = new Command(async () => await ExecuteLoadGamesCommand());
+            Notifications = new ObservableCollection<Notification>();
+            LoadNotificationsCommand = new Command(async () => await ExecuteLoadNotificationsCommand());
         }
 
-        async Task ExecuteLoadGamesCommand()
+        async Task ExecuteLoadNotificationsCommand()
         {
             IsBusy = true;
             try
             {
-                Games.Clear();
-                var apiClient = RestService.For<IFreeToPlayApi>(BaseFreeToPlayApi.BaseUrl);
-                var games = await apiClient.GetF2PAsync();
-                foreach (var game in games)
+                Notifications.Clear();
+                var apiClient = RestService.For<INotificationApi>(RestClient.BaseUrl);
+                var notifications = await apiClient.GetNotifications();
+                foreach (var notification in notifications)
                 {
-                    Games.Add(game);
+                    Notifications.Add(notification);
                 }
             }
             catch (Exception ex)
