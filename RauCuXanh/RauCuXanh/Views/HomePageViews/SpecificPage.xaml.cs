@@ -12,6 +12,7 @@ namespace RauCuXanh.Views.HomePageViews
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SpecificPage : ContentPage
     {
+        SpecificViewModel _viewmodel;
         public SpecificPage()
         {
             InitializeComponent();
@@ -20,7 +21,13 @@ namespace RauCuXanh.Views.HomePageViews
         public SpecificPage(string str)
         {
             InitializeComponent();
-            BindingContext = new SpecificViewModel(str);
+            BindingContext = _viewmodel = new SpecificViewModel(str);
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewmodel.OnAppearing();
         }
     }
 }

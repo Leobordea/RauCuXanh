@@ -12,6 +12,7 @@ namespace RauCuXanh.Views.HomePageViews
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SearchPage : ContentPage
     {
+        SearchViewModel _viewmodel;
         public SearchPage()
         {
             InitializeComponent();
@@ -19,14 +20,13 @@ namespace RauCuXanh.Views.HomePageViews
         public SearchPage(string s)
         {
             InitializeComponent();
-            BindingContext = new SearchViewModel(s);
+            BindingContext = _viewmodel = new SearchViewModel(s);
         }
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var _container = BindingContext as SearchViewModel;
             SearchResult.BeginRefresh();
-
+            
             if (string.IsNullOrWhiteSpace(e.NewTextValue))
             {
                 SearchResult.ItemsSource = null;
@@ -35,7 +35,7 @@ namespace RauCuXanh.Views.HomePageViews
             }
             else
             {
-                var itemsource = _container.Products.Where(i => i.Name.ToLower().Contains(e.NewTextValue.ToLower()));
+                var itemsource = _viewmodel.Raucus.Where(i => i.Name.ToLower().Contains(e.NewTextValue.ToLower()));
                 SearchResult.ItemsSource = itemsource;
                 SearchResult.IsVisible = true;
                 SearchSuggestion.IsVisible = false;

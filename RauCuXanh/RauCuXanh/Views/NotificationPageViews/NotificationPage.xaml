@@ -16,16 +16,16 @@
     -->
     <RefreshView
         x:DataType="local:NotificationViewModel"
-        Command="{Binding LoadGamesCommand}"
+        Command="{Binding LoadNotificationsCommand}"
         IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <CollectionView
             x:Name="ItemsListView"
-            ItemsSource="{Binding Games}"
+            ItemsSource="{Binding Notifications}"
             SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <material:MaterialCard
-                        x:DataType="model:Game"
+                        x:DataType="model:Notification"
                         CornerRadius="2"
                         Elevation="1"
                         HeightRequest="50"
@@ -35,18 +35,18 @@
                             <Image
                                 Aspect="AspectFill"
                                 HorizontalOptions="Center"
-                                Source="{Binding Thumbnail}"
+                                Source="https://www.generatormix.com/images/vegetable/kidney-beans.jpg"
                                 VerticalOptions="Center"
                                 WidthRequest="100" />
                             <StackLayout>
-                                <Label Text="{Binding Id, StringFormat='Đơn hàng {0} đang được giao'}" TextColor="{StaticResource TextOnSecondary}" />
+                                <Label Text="{Binding Id, StringFormat='Đơn hàng 32{0} đang được giao'}" TextColor="{StaticResource TextOnSecondary}" />
                                 <Label
                                     HeightRequest="20"
-                                    Text="{Binding Short_description}"
+                                    Text="{Binding Description}"
                                     TextColor="{StaticResource TextOnSecondary}" />
                                 <Label
                                     HorizontalOptions="End"
-                                    Text="{Binding Genre}"
+                                    Text="{Binding Noti_type}"
                                     TextColor="{StaticResource PrimaryLight}" />
                             </StackLayout>
                         </StackLayout>

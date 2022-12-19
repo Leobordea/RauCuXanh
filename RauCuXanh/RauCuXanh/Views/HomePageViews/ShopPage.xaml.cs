@@ -13,6 +13,7 @@ namespace RauCuXanh.Views.HomePageViews
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ShopPage : ContentPage
     {
+        ShopViewModel _viewmodel;
         public ShopPage()
         {
             InitializeComponent();
@@ -20,8 +21,15 @@ namespace RauCuXanh.Views.HomePageViews
         public ShopPage(Shop s)
         {
             InitializeComponent();
-            BindingContext = new ShopViewModel(s);
+            BindingContext = _viewmodel = new ShopViewModel(s);
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewmodel.OnAppearing();
+        }
+
         private void Tab1Clicked(object sender, EventArgs e)
         {
             stkTab1.IsVisible = true;

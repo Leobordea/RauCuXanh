@@ -7,9 +7,6 @@
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
              x:DataType="vm:SearchViewModel"
              Title="{Binding Title}">
-    <ContentPage.BindingContext>
-        <vm:SearchViewModel />
-    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
             <Frame Padding="0"
@@ -24,6 +21,8 @@
                            TextColor="Black"
                            FontSize="16"
                            TextChanged="SearchBar_TextChanged"
+                           SearchCommand="{Binding PerformSearch}"
+                           SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
                            Text="{Binding SearchText}" />
             </Frame>
 
@@ -52,11 +51,11 @@
                         <material:MaterialButton ButtonType="Outlined"
                                                  TextColor="Black"
                                                  Text="rau cải thìa"
-                                                 Clicked="MaterialButton_Clicked"/>
+                                                 Clicked="MaterialButton_Clicked" />
                         <material:MaterialButton ButtonType="Outlined"
                                                  TextColor="Black"
                                                  Text="rau húng quế"
-                                                 Clicked="MaterialButton_Clicked"/>
+                                                 Clicked="MaterialButton_Clicked" />
                         <material:MaterialButton ButtonType="Outlined"
                                                  TextColor="Black"
                                                  Text="súp lơ"
