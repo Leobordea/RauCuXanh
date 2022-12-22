@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using RauCuXanh.Models;
 using RauCuXanh.Services;
 using RauCuXanh.Views.HomePageViews;
 using Refit;
 using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs;
+using static System.Net.WebRequestMethods;
 
 namespace RauCuXanh.ViewModels.HomePageViewModels
 {
@@ -25,7 +28,8 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         public int Quantity
         {
             get { return _quantity; }
-            set {
+            set
+            {
                 if (value >= 1)
                     SetProperty(ref _quantity, value);
             }
@@ -42,6 +46,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         public Command DecreaseQuantity { get; set; }
         public Command NavToShopCommand { get; set; }
         public Command AddToCart { get; set; }
+        public Command BuyNow { get; set; }
 
         public ProductDetailViewModel() { }
         public ProductDetailViewModel(Raucu p)
@@ -53,6 +58,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             DecreaseQuantity = new Command(ExeDecreaseQuantity);
             NavToShopCommand = new Command(ExeNavToShop);
             AddToCart = new Command(ExeAddToCart);
+            BuyNow = new Command(ExeBuyNow);
         }
 
         async Task ExeLoadShopCommand()
@@ -60,13 +66,13 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             IsBusy = true;
             try
             {
-                var apiClient = RestService.For<IShopApi>(RestClient.BaseUrl);
-                Shop = await apiClient.GetShopById(Raucu.Shop_id);
-            } 
+                var shopService = new ShopService();
+                Shop = await shopService.getShopById(Raucu.Shop_id);
+            }
             catch (Exception ex)
             {
                 await MaterialDialog.Instance.AlertAsync(message: ex.Message);
-            } 
+            }
             finally
             {
                 IsBusy = false;
@@ -90,6 +96,31 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
 
         public async void ExeAddToCart()
         {
+            var cartService = new CartService();
+
+            var response = await cartService.createCart(new Cart() { quantity = Quantity, raucu_id = Raucu.Id, timestamp = DateTime.Now.ToString("yyyy-MM-dd"), user_id = "1" });
+            if (response.StatusCode == System.Net.HttpStatusCode.Created)
+            {
+                await App.Current.MainPage.DisplayAlert("Thành công", "Thêm vào giỏ hàng thành công!", "OK");
+            } else
+            {
+                await App.Current.MainPage.DisplayAlert("Lỗi", "Có lỗi xảy ra!", "OK");
+            }
+        }
+
+        public async void ExeBuyNow()
+        {
+            var cartService = new CartService();
+
+            var response = await cartService.createCart(new Cart() { quantity = Quantity, raucu_id = Raucu.Id, timestamp = DateTime.Now.ToString("yyyy-MM-dd"), user_id = "1" });
+            if (response.StatusCode == System.Net.HttpStatusCode.Created)
+            {
+                await App.Current.MainPage.Navigation.PushAsync(new CartPage());
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Lỗi", "Có lỗi xảy ra!", "OK");
+            }
         }
 
         public void OnAppearing()

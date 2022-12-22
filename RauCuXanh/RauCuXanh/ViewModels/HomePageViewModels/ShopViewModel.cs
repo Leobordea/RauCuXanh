@@ -48,7 +48,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                 KhuyenMai.Clear();
                 foreach (Raucu r in raucus)
                 {
-                    if (r.Shop_id == Shop.Id)
+                    if (r.Shop_id.ToString() == Shop.Id)
                     {
                         DangBan.Add(r);
                         if (r.Discount > 0)

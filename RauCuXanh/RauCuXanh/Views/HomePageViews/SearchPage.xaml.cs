@@ -22,31 +22,5 @@ namespace RauCuXanh.Views.HomePageViews
             InitializeComponent();
             BindingContext = _viewmodel = new SearchViewModel(s);
         }
-
-        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            SearchResult.BeginRefresh();
-            
-            if (string.IsNullOrWhiteSpace(e.NewTextValue))
-            {
-                SearchResult.ItemsSource = null;
-                SearchResult.IsVisible = false;
-                SearchSuggestion.IsVisible = true;
-            }
-            else
-            {
-                var itemsource = _viewmodel.Raucus.Where(i => i.Name.ToLower().Contains(e.NewTextValue.ToLower()));
-                SearchResult.ItemsSource = itemsource;
-                SearchResult.IsVisible = true;
-                SearchSuggestion.IsVisible = false;
-            }
-            SearchResult.EndRefresh();
-        }
-
-        private void MaterialButton_Clicked(object sender, EventArgs e)
-        {
-            var btn = sender as Button;
-            searchBar.Text = btn.Text;
-        }
     }
 }

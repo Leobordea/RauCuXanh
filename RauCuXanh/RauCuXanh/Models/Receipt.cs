@@ -6,7 +6,7 @@ namespace RauCuXanh.Models
 {
     public class Receipt
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string User_id { get; set; }
         public int Shipping_cost { get; set; }
         public string Shipping_addr { get; set; }

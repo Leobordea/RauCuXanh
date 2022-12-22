@@ -5,6 +5,7 @@
              xmlns:vm="clr-namespace:RauCuXanh.ViewModels.HomePageViewModels"
              xmlns:model="clr-namespace:RauCuXanh.Models"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:DataType="vm:SearchViewModel"
              Title="{Binding Title}">
     <ContentPage.Content>
@@ -14,21 +15,17 @@
                    CornerRadius="20"
                    Margin="5, 20"
                    HeightRequest="40">
-                <SearchBar x:Name="searchBar"
-                           Placeholder="Rau dền, măng tây, súp lơ xanh..."
-                           CancelButtonColor="Gray"
-                           PlaceholderColor="Gray"
-                           TextColor="Black"
-                           FontSize="16"
-                           TextChanged="SearchBar_TextChanged"
-                           SearchCommand="{Binding PerformSearch}"
-                           SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
-                           Text="{Binding SearchText}" />
+                <SearchBar x:Name="searchBar" Text="{Binding SearchText}">
+                    <SearchBar.Behaviors>
+                        <xct:EventToCommandBehavior EventName="TextChanged"
+                                                    Command="{Binding SearchCommand}"/>
+                    </SearchBar.Behaviors>
+                </SearchBar>
             </Frame>
 
 
             <StackLayout x:Name="SearchSuggestion"
-                         IsVisible="false"
+                         IsVisible="{Binding Visible1}"
                          Spacing="20">
                 <StackLayout Margin="20, 0">
                     <Label Text="Tìm kiếm gần đây"
@@ -50,34 +47,28 @@
                     <FlexLayout Wrap="Wrap">
                         <material:MaterialButton ButtonType="Outlined"
                                                  TextColor="Black"
-                                                 Text="rau cải thìa"
-                                                 Clicked="MaterialButton_Clicked" />
+                                                 Text="rau cải thìa" />
                         <material:MaterialButton ButtonType="Outlined"
                                                  TextColor="Black"
-                                                 Text="rau húng quế"
-                                                 Clicked="MaterialButton_Clicked" />
+                                                 Text="rau húng quế" />
                         <material:MaterialButton ButtonType="Outlined"
                                                  TextColor="Black"
-                                                 Text="súp lơ"
-                                                 Clicked="MaterialButton_Clicked" />
+                                                 Text="súp lơ" />
                         <material:MaterialButton ButtonType="Outlined"
                                                  TextColor="Black"
-                                                 Text="rau bắp cải"
-                                                 Clicked="MaterialButton_Clicked" />
+                                                 Text="rau bắp cải" />
                         <material:MaterialButton ButtonType="Outlined"
                                                  TextColor="Black"
-                                                 Text="cây rau mùi"
-                                                 Clicked="MaterialButton_Clicked" />
+                                                 Text="cây rau mùi" />
                     </FlexLayout>
                 </StackLayout>
             </StackLayout>
-
-            <StackLayout BackgroundColor="Red">
+            <StackLayout VerticalOptions="FillAndExpand" IsVisible="{Binding Visible2}">
                 <ListView x:Name="SearchResult"
-                          VerticalOptions="Start"
+                          ItemsSource="{Binding SearchResults}"
+                          VerticalOptions="FillAndExpand"
                           BackgroundColor="White"
-                          RowHeight="100"
-                          IsVisible="false">
+                          RowHeight="100">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:Raucu">
                             <ViewCell>
@@ -107,8 +98,6 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </StackLayout>
-
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

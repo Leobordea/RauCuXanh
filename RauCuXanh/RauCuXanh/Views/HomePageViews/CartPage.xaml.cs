@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RauCuXanh.Models;
 using RauCuXanh.ViewModels.FavoriteViewModels;
 using RauCuXanh.ViewModels.HomePageViewModels;
 using Xamarin.Forms;
@@ -19,6 +20,12 @@ namespace RauCuXanh.Views.HomePageViews
             InitializeComponent();
             BindingContext = _viewModel = new CartViewModel();
         }
+
+        //public CartPage(Raucu r)
+        //{
+        //    InitializeComponent();
+        //    BindingContext = _viewModel = new CartViewModel(r);
+        //}
 
         protected override void OnAppearing()
         {
