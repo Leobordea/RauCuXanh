@@ -29,8 +29,6 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             }
         }
         public ObservableCollection<Raucu> Raucus { get; set; }
-        public ObservableCollection<Raucu> SuggestionCollection { get; set; }
-        public ObservableCollection<Receipt_list> ReceiptList { get; set; }
         public Command LoadRaucusCommand { get; }
         public Command ButtonCommand { get; set; }
         public Command NavigateToDetailPage { get; set; }
@@ -43,14 +41,38 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             Title = "Trang chủ";
             Raucus = new ObservableCollection<Raucu>();
             LoadRaucusCommand = new Command(async () => await ExecuteLoadRaucusCommand());
-            //_ = ExecuteLoadRaucusCommand();
             ButtonCommand = new Command<object>(ExecuteButtonCommand);
             NavigateToDetailPage = new Command<Raucu>(ExecuteNavToDetailPage);
-            SuggestionCollection = new ObservableCollection<Raucu>();
             PerformSearch = new Command<string>(ExePerformSearch);
             NavToProfile = new Command(ExeNavToProfile);
             NavToCart = new Command(ExeNavToCart);
-            ReceiptList = new ObservableCollection<Receipt_list>();
+        }
+
+        public async Task ExecuteLoadRaucusCommand()
+        {
+            IsBusy = true;
+            try
+            {
+                Raucus.Clear();
+                var raucuService = new RaucuService();
+                var raucus = await raucuService.getRaucuList();
+                foreach (var raucu in raucus)
+                {
+                    Raucus.Add(raucu);
+                }
+            }
+            catch (Exception ex)
+            {
+                await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public void OnAppearing()
+        {
+            IsBusy = true;
         }
 
         public async Task ExecuteLoadRaucusCommand()

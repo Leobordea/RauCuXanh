@@ -2,43 +2,48 @@
            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
            xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
            xmlns:local="clr-namespace:RauCuXanh.Views.HomePageViews"
-           xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+           xmlns:effect="clr-namespace:RauCuXanh.Effects"
+           xmlns:vm="clr-namespace:RauCuXanh.ViewModels.HomePageViewModels"
            x:Class="RauCuXanh.Views.HomePageViews.CartMoneyDetailPopup"
-           Size="{x:Static local:PopupSize.Custom}">
-
+           Size="{x:Static effect:PopupSize.Custom}">
+    <xct:Popup.BindingContext>
+        <vm:CartViewModel />
+    </xct:Popup.BindingContext>
     <StackLayout>
-        <StackLayout Spacing="0"
-                     VerticalOptions="EndAndExpand">
-            <FlexLayout JustifyContent="SpaceBetween"
-                        Padding="10">
-                <Label Text="Tong tien hang"
-                       FontSize="18" />
-                <Label Text="30.000 vnd"
-                       FontSize="18" />
-            </FlexLayout>
-            <FlexLayout JustifyContent="SpaceBetween"
-                        Padding="10">
-                <Label Text="Phi van chuyen"
-                       FontSize="18" />
-                <Label Text="40.000 vnd"
-                       FontSize="18" />
-            </FlexLayout>
-            <FlexLayout JustifyContent="SpaceBetween"
-                        Padding="10">
-                <Label Text="Giam gia san pham"
-                       FontSize="18" />
-                <Label Text="-2.000 vnd"
-                       FontSize="18"
-                       TextColor="Red" />
-            </FlexLayout>
-            <FlexLayout JustifyContent="SpaceBetween"
-                        Padding="10">
-                <Label Text="Tong so tien"
-                       FontSize="20" />
-                <Label Text="68.000 vnd"
-                       FontSize="20" />
-            </FlexLayout>
-        </StackLayout>
+        <ScrollView>
+            <StackLayout Spacing="0"
+                         VerticalOptions="StartAndExpand">
+                <FlexLayout JustifyContent="SpaceBetween"
+                            Padding="10">
+                    <Label Text="Tổng tiền hàng"
+                           FontSize="16" />
+                    <Label Text="{Binding InitialCost, StringFormat='{0:0,0} vnd'}"
+                           FontSize="16" />
+                </FlexLayout>
+                <FlexLayout JustifyContent="SpaceBetween"
+                            Padding="10">
+                    <Label Text="Phí vận chuyển"
+                           FontSize="16" />
+                    <Label Text="0 vnd"
+                           FontSize="16" />
+                </FlexLayout>
+                <FlexLayout JustifyContent="SpaceBetween"
+                            Padding="10">
+                    <Label Text="Giảm giá sản phẩm"
+                           FontSize="16" />
+                    <Label Text="{Binding Discount, StringFormat='-{0:0,0} vnd'}"
+                           FontSize="16"
+                           TextColor="Red" />
+                </FlexLayout>
+                <FlexLayout JustifyContent="SpaceBetween"
+                            Padding="10">
+                    <Label Text="Tổng số tiền"
+                           FontSize="18" />
+                    <Label Text="{Binding TotalCost, StringFormat='{0:0,0} vnd'}"
+                           FontSize="18" />
+                </FlexLayout>
+            </StackLayout>
+        </ScrollView>
     </StackLayout>
 
 </xct:Popup>
