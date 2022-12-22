@@ -75,33 +75,6 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             IsBusy = true;
         }
 
-        public async Task ExecuteLoadRaucusCommand()
-        {
-            IsBusy = true;
-            try
-            {
-                Raucus.Clear();
-                var apiClient = RestService.For<IRaucuApi>(RestClient.BaseUrl);
-                var raucus = await apiClient.GetRaucuList();
-                foreach (var raucu in raucus)
-                {
-                    Raucus.Add(raucu);
-                }
-            }
-            catch (Exception ex)
-            {
-                await MaterialDialog.Instance.AlertAsync(message: ex.Message);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-        public void OnAppearing()
-        {
-            IsBusy = true;
-        }
-
         public async void ExecuteButtonCommand(object o)
         {
             var button = o as Button;
