@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RauCuXanh.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,13 @@ namespace RauCuXanh.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PersonalInformationPage : ContentPage
     {
+        PersonalInformationViewModel _viewModel;
+
         public PersonalInformationPage()
         {
             InitializeComponent();
+
+            BindingContext = _viewModel = new PersonalInformationViewModel();
         }
     }
 }
