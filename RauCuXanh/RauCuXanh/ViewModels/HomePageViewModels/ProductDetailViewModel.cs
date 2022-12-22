@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RauCuXanh.Models;
-using RauCuXanh.Services;
 using RauCuXanh.Views.HomePageViews;
 using Refit;
 using Xamarin.Forms;
