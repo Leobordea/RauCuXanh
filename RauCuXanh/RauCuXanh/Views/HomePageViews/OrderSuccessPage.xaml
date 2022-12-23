@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RauCuXanh.Views.HomePageViews.OrderSuccessPage"
+             xmlns:vm="clr-namespace:RauCuXanh.ViewModels.HomePageViewModels"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:DataType="vm:OrderSuccessViewModel"
+             Shell.TabBarIsVisible="False"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand">
+            <Label Text="Thành công!"
+                   FontSize="30"
+                   FontAttributes="Bold"
+                   HorizontalOptions="CenterAndExpand"
+                   TextColor="Black"/>
+            <Frame HasShadow="False"
+                   Padding="20">
+                <Image Source="order_success.png" />
+            </Frame>
+            <Image Source="check.png"
+                   WidthRequest="50"
+                   Margin="0, -50, 0, 0" />
+            <StackLayout Margin="20">
+                <Label Text="Đặt hàng thành công."
+                       HorizontalTextAlignment="Center"
+                       FontSize="18"
+                       FontAttributes="Bold" />
+                <Label Text="Cảm ơn bạn đã sử dụng ứng dụng của chúng tôi!"
+                       HorizontalTextAlignment="Center"
+                       FontSize="18"
+                       FontAttributes="Bold" />
+            </StackLayout>
+            <StackLayout Margin="10">
+                <material:MaterialButton Text="Theo dõi đơn hàng"
+                                         BackgroundColor="{StaticResource Primary}"
+                                         HeightRequest="60"
+                                         CornerRadius="10" 
+                                         Command="{Binding NavToOrderDetailPage}"/>
+                <material:MaterialButton Text="Trở về trang chủ"
+                                         TextColor="#303030"
+                                         HeightRequest="60"
+                                         CornerRadius="10" 
+                                         ButtonType="Outlined"
+                                         BorderWidth="1"
+                                         BorderColor="#303030"
+                                         Command="{Binding NavToHomePage}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

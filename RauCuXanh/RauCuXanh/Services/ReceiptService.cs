@@ -12,7 +12,7 @@ namespace RauCuXanh.Services
 {
     public class ReceiptService
     {
-        string Base_url = "https://639dd5ad3542a2613050ec0f.mockapi.io/api/receipts";
+        string Base_url = "https://63a5b2ce318b23efa79b1a4b.mockapi.io/api/receipts";
 
         public async Task<ObservableCollection<Receipt>> getReceipts()
         {
@@ -32,7 +32,7 @@ namespace RauCuXanh.Services
             return null;
         }
 
-        public async Task<HttpResponseMessage> createReceipt(Receipt rec)
+        public async Task<HttpResponseMessage> createReceipt(Receipt rec, IEnumerable<CartItem> cartList)
         {
             string url = Base_url;
 
@@ -42,6 +42,28 @@ namespace RauCuXanh.Services
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
             var response = await client.PostAsync(url, content);
+            var feedback = await response.Content.ReadAsStringAsync();
+            Receipt result = JsonConvert.DeserializeObject<Receipt>(feedback);
+
+            foreach (CartItem c in cartList)
+            {
+                await createReceiptDetail(result.Id, c.Raucu, c.Cart.quantity);
+            }
+
+            return response;
+        }
+
+        public async Task<HttpResponseMessage> createReceiptDetail(string id, Raucu r, int quantity)
+        {
+            string url = $"{Base_url}/{id}/receipt_list";
+
+            HttpClient client = new HttpClient();
+            var json = JsonConvert.SerializeObject(new Receipt_list() { Quantity = quantity, Raucu_id = r.Id });
+            HttpContent content = new StringContent(json);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var response = await client.PostAsync(url, content);
+
             return response;
         }
 

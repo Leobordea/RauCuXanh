@@ -54,5 +54,13 @@ namespace RauCuXanh.Services
             var response = await client.DeleteAsync(url);
             return response;
         }
+
+        public async Task deleteAllCart(IEnumerable<CartItem> ci)
+        {
+            foreach (CartItem c in ci)
+            {
+                await deleteCart(c.Cart.id);
+            }
+        }
     }
 }

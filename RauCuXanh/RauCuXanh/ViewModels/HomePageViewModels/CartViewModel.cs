@@ -24,7 +24,6 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         public float Discount { get { return _discount; } set { SetProperty(ref _discount, value); } }
 
         public ObservableCollection<CartItem> CartProducts { get; set; }
-        public Command OpenPopup { get; set; }
         public Command LoadCart { get; set; }
         public Command DeleteCommand { get; set; }
         public Command BuyCommand { get; set; }
@@ -33,7 +32,6 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             Title = "Giỏ hàng";
             CartProducts = new ObservableCollection<CartItem>();
             LoadCart = new Command(async () => await ExeLoadCart());
-            OpenPopup = new Command<View>(ExeOpenPopup);
             DeleteCommand = new Command<string>(ExeDelete);
             BuyCommand = new Command(ExeBuy);
         }
@@ -99,23 +97,11 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
 
         public async void ExeBuy()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new OrderPage());
-        }
-
-        public new void OnAppearing()
-        {
-            IsBusy = true;
-        }
-
-        INavigation Navigation => Application.Current.MainPage.Navigation;
-
-        public void ExeOpenPopup(View anchor)
-        {
-            var popup = new CartMoneyDetailPopup
+            if (CartProducts.Count == 0)
             {
-                Anchor = anchor
-            };
-            Navigation.ShowPopup(popup);
+                return;
+            }
+            await App.Current.MainPage.Navigation.PushAsync(new OrderPage());
         }
     }
 }
