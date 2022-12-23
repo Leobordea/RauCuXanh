@@ -38,7 +38,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             BuyCommand = new Command(ExeBuy);
         }
 
-        async Task ExeLoadCart()
+        public async Task ExeLoadCart()
         {
             IsBusy = true;
             try
@@ -99,7 +99,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
 
         public async void ExeBuy()
         {
-            await App.Current.MainPage.DisplayAlert("Thành công", "Mua hàng thành công", "OK");
+            await App.Current.MainPage.Navigation.PushAsync(new OrderPage());
         }
 
         public new void OnAppearing()

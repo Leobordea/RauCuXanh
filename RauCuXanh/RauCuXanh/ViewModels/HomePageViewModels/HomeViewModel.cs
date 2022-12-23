@@ -35,6 +35,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         public Command PerformSearch { get; set; }
         public Command NavToProfile { get; set; }
         public Command NavToCart { get; set; }
+        public Command AddToCart { get; set; }
 
         public HomeViewModel()
         {
@@ -46,6 +47,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             PerformSearch = new Command<string>(ExePerformSearch);
             NavToProfile = new Command(ExeNavToProfile);
             NavToCart = new Command(ExeNavToCart);
+            AddToCart = new Command<Raucu>(ExeAddToCart);
         }
 
         public async Task ExecuteLoadRaucusCommand()
@@ -99,6 +101,21 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         public async void ExeNavToCart()
         {
             await App.Current.MainPage.Navigation.PushAsync(new Views.HomePageViews.CartPage());
+        }
+
+        public async void ExeAddToCart(Raucu r)
+        {
+            var cartService = new CartService();
+
+            var response = await cartService.createCart(new Cart() { quantity = 1, raucu_id = r.Id, timestamp = DateTime.Now.ToString("yyyy-MM-dd"), user_id = "1" });
+            if (response.StatusCode == System.Net.HttpStatusCode.Created)
+            {
+                await App.Current.MainPage.DisplayAlert("Thành công", "Thêm vào giỏ hàng thành công!", "OK");
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Lỗi", "Có lỗi xảy ra!", "OK");
+            }
         }
     }
 }

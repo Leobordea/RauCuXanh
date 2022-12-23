@@ -85,26 +85,16 @@
                              BackgroundColor="Black" />
                     <StackLayout Orientation="Horizontal"
                                  IsVisible="true"
-                                 Padding="10, 10, 0, 0">
-                        <Label Text="Tổng số tiền"
+                                 Padding="10, 10, 0, 10">
+                        <Label Text="Tổng số tiền: "
                                FontSize="16"
                                VerticalTextAlignment="Center" />
-                        <StackLayout Spacing="0"
-                                     x:Name="Indicator">
-                            <Label Text="{Binding TotalCost, StringFormat='{0:0,0 vnd}'}"
+                        <Label Text="{Binding TotalCost, StringFormat='{0:0,0 vnd}'}"
                                    FontSize="18"
                                    FontAttributes="Bold"
                                    TextColor="Red"
                                    VerticalTextAlignment="Center" />
-                            <Image Source="arrow_up.png"
-                                   WidthRequest="30"
-                                   HorizontalOptions="EndAndExpand" />
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding OpenPopup}"
-                                                      CommandParameter="{x:Reference Indicator}" />
-                            </StackLayout.GestureRecognizers>
-                        </StackLayout>
-                        <material:MaterialButton Text="Mua hàng"
+                        <material:MaterialButton Text="Đặt hàng"
                                                  BackgroundColor="Red"
                                                  HorizontalOptions="EndAndExpand" 
                                                  Command="{Binding BuyCommand}"/>

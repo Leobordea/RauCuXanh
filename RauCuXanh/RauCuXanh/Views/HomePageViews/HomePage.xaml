@@ -173,7 +173,12 @@
                                                            HeightRequest="40"
                                                            HorizontalOptions="End"
                                                            AbsoluteLayout.LayoutFlags="All"
-                                                           AbsoluteLayout.LayoutBounds="0.95, 1.01, 0.25, 0.25" />
+                                                           AbsoluteLayout.LayoutBounds="0.95, 1.01, 0.25, 0.25">
+                                                        <Image.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding AddToCart, Source={x:RelativeSource AncestorType={Type vm:HomeViewModel}}}"
+                                                                                  CommandParameter="{Binding .}" />
+                                                        </Image.GestureRecognizers>
+                                                    </Image>
                                                 </AbsoluteLayout>
                                                 <StackLayout Grid.Row="1">
                                                     <Label Text="{Binding Name}"

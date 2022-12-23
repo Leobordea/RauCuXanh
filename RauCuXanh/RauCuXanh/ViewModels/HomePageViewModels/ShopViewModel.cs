@@ -13,18 +13,13 @@ using XF.Material.Forms.UI.Dialogs;
 
 namespace RauCuXanh.ViewModels.HomePageViewModels
 {
-    public class ShopViewModel : BaseViewModel
+    public class ShopViewModel : HomeViewModel
     {
         private Shop _shop;
         public Shop Shop { get { return _shop; } set { SetProperty(ref _shop, value); } }
         public ObservableCollection<Raucu> DangBan { get; set; }
         public ObservableCollection<Raucu> KhuyenMai { get; set; }
         public Command LoadShopCommand { get; set; }
-
-        public ICommand NavigateToDetailPage => new Command<Raucu>(async(Raucu r) =>
-        {
-            await App.Current.MainPage.Navigation.PushAsync(new Views.HomePageViews.ProductDetailPage(r));
-        });
 
         public ShopViewModel() { }
         public ShopViewModel(Shop s) 
@@ -41,9 +36,8 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             IsBusy = true;
             try
             {
-                var apiClient = RestService.For<IRaucuApi>(RestClient.BaseUrl);
-                var raucus = await apiClient.GetRaucuList();
-                foreach (var raucu in raucus)
+                var raucuService = new RaucuService();
+                var raucus = await raucuService.getRaucuList();
                 DangBan.Clear();
                 KhuyenMai.Clear();
                 foreach (Raucu r in raucus)
@@ -66,11 +60,6 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             {
                 IsBusy = false;
             }
-        }
-
-        public void OnAppearing()
-        {
-            IsBusy = true;
         }
     }
 }

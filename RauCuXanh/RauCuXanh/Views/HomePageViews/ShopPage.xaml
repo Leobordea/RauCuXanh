@@ -21,9 +21,17 @@
                         <Grid ColumnDefinitions="*, 3*"
                               AbsoluteLayout.LayoutBounds="0, 30"
                               Padding="10, 0">
-                            <Image Source="bach_hoa_xanh.png"
+                            <Frame Padding="0"
+                                   CornerRadius="50"
+                                   HeightRequest="100"
+                                   HorizontalOptions="Center"
+                                   IsClippedToBounds="True"
                                    WidthRequest="100"
-                                   Grid.Column="0" />
+                                   Grid.Column="0">
+                                <Image Source="{Binding Shop.Profile_pic}"
+                                       WidthRequest="100"
+                                       Aspect="AspectFill" />
+                            </Frame>
                             <Label Text="{Binding Shop.Name}"
                                    Grid.Column="1"
                                    Grid.Row="0"
@@ -105,92 +113,102 @@
                     <!-- tab 1 container -->
                     <StackLayout x:Name="stkTab1">
                         <CollectionView ItemsSource="{Binding DangBan}"
-                                            ItemsLayout="VerticalGrid, 2"
-                                            SelectionMode="Single">
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Frame Padding="0">
-                                            <Grid Padding="10"
-                                                  x:DataType="model:Raucu"
-                                                  RowDefinitions="auto, 80">
-                                                <AbsoluteLayout>
-                                                    <Frame Padding="0"
-                                                           HasShadow="False"
-                                                           CornerRadius="15">
-                                                        <Image Source="{Binding Product_pic}"
-                                                               Aspect="AspectFill"
-                                                               HeightRequest="240" />
-                                                    </Frame>
-                                                    <Image Source="shopping_bag_icon2.png"
-                                                           HeightRequest="40"
-                                                           HorizontalOptions="End"
-                                                           AbsoluteLayout.LayoutFlags="All"
-                                                           AbsoluteLayout.LayoutBounds="0.95, 1.01, 0.25, 0.25" />
-                                                </AbsoluteLayout>
-                                                <StackLayout Grid.Row="1">
-                                                    <Label Text="{Binding Name}"
-                                                           FontAttributes="Bold"
-                                                           FontSize="16" />
-                                                    <FlexLayout AlignItems="Center"
-                                                                JustifyContent="SpaceBetween">
-                                                        <Label Text="{Binding Price, StringFormat='{0:0,0 vnd}'}" />
-                                                    </FlexLayout>
-                                                </StackLayout>
-                                            </Grid>
-                                            <Frame.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:ShopViewModel}}}"
-                                                                      CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Raucu}}}" />
-                                            </Frame.GestureRecognizers>
-                                        </Frame>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
+                                        ItemsLayout="VerticalGrid, 2"
+                                        SelectionMode="Single">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Padding="0">
+                                        <Grid Padding="10"
+                                              x:DataType="model:Raucu"
+                                              RowDefinitions="auto, 80">
+                                            <AbsoluteLayout>
+                                                <Frame Padding="0"
+                                                       HasShadow="False"
+                                                       CornerRadius="15">
+                                                    <Image Source="{Binding Product_pic}"
+                                                           Aspect="AspectFill"
+                                                           HeightRequest="240" />
+                                                </Frame>
+                                                <Image Source="shopping_bag_icon2.png"
+                                                       HeightRequest="40"
+                                                       HorizontalOptions="End"
+                                                       AbsoluteLayout.LayoutFlags="All"
+                                                       AbsoluteLayout.LayoutBounds="0.95, 1.01, 0.25, 0.25">
+                                                    <Image.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding AddToCart, Source={x:RelativeSource AncestorType={Type vm:HomeViewModel}}}"
+                                                                              CommandParameter="{Binding .}" />
+                                                    </Image.GestureRecognizers>
+                                                </Image>
+                                            </AbsoluteLayout>
+                                            <StackLayout Grid.Row="1">
+                                                <Label Text="{Binding Name}"
+                                                       FontAttributes="Bold"
+                                                       FontSize="16" />
+                                                <FlexLayout AlignItems="Center"
+                                                            JustifyContent="SpaceBetween">
+                                                    <Label Text="{Binding Price, StringFormat='{0:0,0 vnd}'}" />
+                                                </FlexLayout>
+                                            </StackLayout>
+                                        </Grid>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:ShopViewModel}}}"
+                                                                  CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Raucu}}}" />
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
                     </StackLayout>
 
                     <!-- tab 2 container -->
                     <StackLayout x:Name="stkTab2"
                                  IsVisible="false">
                         <CollectionView ItemsSource="{Binding KhuyenMai}"
-                                            ItemsLayout="VerticalGrid, 2"
-                                            SelectionMode="Single">
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Frame Padding="0">
-                                            <Grid Padding="10"
-                                                  x:DataType="model:Raucu"
-                                                  RowDefinitions="auto, 80">
-                                                <AbsoluteLayout>
-                                                    <Frame Padding="0"
-                                                           HasShadow="False"
-                                                           CornerRadius="15">
-                                                        <Image Source="{Binding Product_pic}"
-                                                               Aspect="AspectFill"
-                                                               HeightRequest="240" />
-                                                    </Frame>
-                                                    <Image Source="shopping_bag_icon2.png"
-                                                           HeightRequest="40"
-                                                           HorizontalOptions="End"
-                                                           AbsoluteLayout.LayoutFlags="All"
-                                                           AbsoluteLayout.LayoutBounds="0.95, 1.01, 0.25, 0.25" />
-                                                </AbsoluteLayout>
-                                                <StackLayout Grid.Row="1">
-                                                    <Label Text="{Binding Name}"
-                                                           FontAttributes="Bold"
-                                                           FontSize="16" />
-                                                    <FlexLayout AlignItems="Center"
-                                                                JustifyContent="SpaceBetween">
-                                                        <Label Text="{Binding Price, StringFormat='{0:0,0 vnd}'}" />
-                                                    </FlexLayout>
-                                                </StackLayout>
-                                            </Grid>
-                                            <Frame.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:ShopViewModel}}}"
-                                                                      CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Raucu}}}" />
-                                            </Frame.GestureRecognizers>
-                                        </Frame>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
+                                        ItemsLayout="VerticalGrid, 2"
+                                        SelectionMode="Single">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Padding="0">
+                                        <Grid Padding="10"
+                                              x:DataType="model:Raucu"
+                                              RowDefinitions="auto, 80">
+                                            <AbsoluteLayout>
+                                                <Frame Padding="0"
+                                                       HasShadow="False"
+                                                       CornerRadius="15">
+                                                    <Image Source="{Binding Product_pic}"
+                                                           Aspect="AspectFill"
+                                                           HeightRequest="240" />
+                                                </Frame>
+                                                <Image Source="shopping_bag_icon2.png"
+                                                       HeightRequest="40"
+                                                       HorizontalOptions="End"
+                                                       AbsoluteLayout.LayoutFlags="All"
+                                                       AbsoluteLayout.LayoutBounds="0.95, 1.01, 0.25, 0.25">
+                                                    <Image.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding AddToCart, Source={x:RelativeSource AncestorType={Type vm:HomeViewModel}}}"
+                                                                              CommandParameter="{Binding .}" />
+                                                    </Image.GestureRecognizers>
+                                                </Image>
+                                            </AbsoluteLayout>
+                                            <StackLayout Grid.Row="1">
+                                                <Label Text="{Binding Name}"
+                                                       FontAttributes="Bold"
+                                                       FontSize="16" />
+                                                <FlexLayout AlignItems="Center"
+                                                            JustifyContent="SpaceBetween">
+                                                    <Label Text="{Binding Price, StringFormat='{0:0,0 vnd}'}" />
+                                                </FlexLayout>
+                                            </StackLayout>
+                                        </Grid>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:ShopViewModel}}}"
+                                                                  CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Raucu}}}" />
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
                     </StackLayout>
 
                     <!-- tab 3 container -->
