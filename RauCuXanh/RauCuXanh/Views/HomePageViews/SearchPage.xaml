@@ -15,7 +15,7 @@
                    CornerRadius="20"
                    Margin="5, 20"
                    HeightRequest="40">
-                <SearchBar x:Name="searchBar" Text="{Binding SearchText}">
+                <SearchBar x:Name="searchBar" Text="{Binding SearchText}" Placeholder="Rau, củ, quả gì cũng có!">
                     <SearchBar.Behaviors>
                         <xct:EventToCommandBehavior EventName="TextChanged"
                                                     Command="{Binding SearchCommand}"/>

@@ -16,11 +16,8 @@ namespace RauCuXanh.Views.HomePageViews
         public SearchPage()
         {
             InitializeComponent();
+            BindingContext = _viewmodel = new SearchViewModel();
         }
-        public SearchPage(string s)
-        {
-            InitializeComponent();
-            BindingContext = _viewmodel = new SearchViewModel(s);
-        }
+
     }
 }

@@ -15,219 +15,257 @@
         <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                      Command="{Binding LoadRaucusCommand}">
             <ScrollView>
-                <StackLayout>
-                    <Grid Margin="10, 10, 10, 0">
-                        <StackLayout Orientation="Horizontal"
-                                     HorizontalOptions="StartAndExpand"
-                                     Grid.Column="0">
-                            <Frame Padding="0"
-                                   HasShadow="False"
-                                   CornerRadius="40"
-                                   HeightRequest="40"
-                                   HorizontalOptions="Center"
-                                   IsClippedToBounds="True"
-                                   VerticalOptions="Center"
-                                   WidthRequest="40">
-                                <Image Aspect="AspectFill"
-                                       HorizontalOptions="FillAndExpand"
-                                       Source="kha_banh_avatar.png"
-                                       VerticalOptions="FillAndExpand" />
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding NavToProfile}" />
-                                </Frame.GestureRecognizers>
-                            </Frame>
-                            <Label Text="Banh"
-                                   VerticalTextAlignment="Center" />
-                        </StackLayout>
-                        <StackLayout HorizontalOptions="CenterAndExpand"
-                                     Grid.Column="1"
-                                     VerticalOptions="Center">
-                            <Label Text="Trang chủ"
-                                   TextColor="Black"
-                                   FontSize="18"
-                                   FontAttributes="Bold" />
-                        </StackLayout>
-                        <Frame Padding="0"
-                               HasShadow="False"
-                               Grid.Column="2">
-                            <Image Source="cart_icon.png"
-                                   HeightRequest="30"
-                                   HorizontalOptions="EndAndExpand"
-                                   Grid.Column="2"
-                                   VerticalOptions="Center" />
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding NavToCart}" />
-                            </Frame.GestureRecognizers>
-                        </Frame>
-                    </Grid>
-                    <Frame Padding="0"
-                           HasShadow="False"
-                           BackgroundColor="#E5E5E5"
-                           CornerRadius="20"
-                           Margin="5"
-                           HeightRequest="40">
-                        <SearchBar x:Name="searchBar"
-                                   Placeholder="Bạn cần tìm gì ?"
-                                   CancelButtonColor="Gray"
-                                   PlaceholderColor="Gray"
-                                   TextColor="Black"
-                                   FontSize="16"
-                                   TextChanged="SearchBar_TextChanged"
-                                   SearchCommand="{Binding PerformSearch}"
-                                   SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
-                    </Frame>
-                    <Grid>
-                        <StackLayout>
-                            <Grid RowDefinitions="auto, auto">
-                                <material:MaterialButton x:Name="myButton"
-                                                         Text="rau xanh"
-                                                         Grid.Column="0"
-                                                         AllCaps="False"
-                                                         BackgroundColor="{StaticResource Primary}"
-                                                         TextColor="{StaticResource TextOnPrimary}"
-                                                         Command="{Binding ButtonCommand}"
-                                                         CommandParameter="{x:Reference myButton}" />
-                                <material:MaterialButton x:Name="myButton1"
-                                                         Text="Củ"
-                                                         Grid.Column="1"
-                                                         AllCaps="False"
-                                                         BackgroundColor="{StaticResource Primary}"
-                                                         TextColor="{StaticResource TextOnPrimary}"
-                                                         Command="{Binding ButtonCommand}"
-                                                         CommandParameter="{x:Reference myButton1}" />
-                                <material:MaterialButton x:Name="myButton2"
-                                                         Text="Trái cây"
-                                                         Grid.Column="2"
-                                                         AllCaps="False"
-                                                         BackgroundColor="{StaticResource Primary}"
-                                                         TextColor="{StaticResource TextOnPrimary}"
-                                                         Command="{Binding ButtonCommand}"
-                                                         CommandParameter="{x:Reference myButton2}" />
-                                <material:MaterialButton x:Name="myButton3"
-                                                         Text="gia vi"
-                                                         Grid.Column="3"
-                                                         AllCaps="False"
-                                                         BackgroundColor="{StaticResource Primary}"
-                                                         TextColor="{StaticResource TextOnPrimary}"
-                                                         Command="{Binding ButtonCommand}"
-                                                         CommandParameter="{x:Reference myButton3}" />
-                                <material:MaterialButton x:Name="myButton4"
-                                                         Text="Khuyến mãi"
-                                                         Grid.Column="0"
-                                                         Grid.Row="1"
-                                                         AllCaps="False"
-                                                         BackgroundColor="{StaticResource Primary}"
-                                                         TextColor="{StaticResource TextOnPrimary}"
-                                                         Command="{Binding ButtonCommand}"
-                                                         CommandParameter="{x:Reference myButton4}" />
-                                <material:MaterialButton x:Name="myButton5"
-                                                         Text="Trending"
-                                                         Grid.Column="1"
-                                                         Grid.Row="1"
-                                                         AllCaps="False"
-                                                         BackgroundColor="{StaticResource Primary}"
-                                                         TextColor="{StaticResource TextOnPrimary}"
-                                                         Command="{Binding ButtonCommand}"
-                                                         CommandParameter="{x:Reference myButton5}" />
-                                <material:MaterialButton x:Name="myButton6"
-                                                         Text="Đã mua"
-                                                         Grid.Column="2"
-                                                         Grid.Row="1"
-                                                         AllCaps="False"
-                                                         BackgroundColor="{StaticResource Primary}"
-                                                         TextColor="{StaticResource TextOnPrimary}"
-                                                         Command="{Binding ButtonCommand}"
-                                                         CommandParameter="{x:Reference myButton6}" />
-                                <material:MaterialButton x:Name="myButton7"
-                                                         Text="Sắp xếp"
-                                                         Grid.Column="3"
-                                                         Grid.Row="1"
-                                                         AllCaps="False"
-                                                         BackgroundColor="{StaticResource Primary}"
-                                                         TextColor="{StaticResource TextOnPrimary}"
-                                                         Command="{Binding ButtonCommand}"
-                                                         CommandParameter="{x:Reference myButton7}" />
-                            </Grid>
-                            <Label Text="Các sản phẩm nổi bật trong ngày"
-                                   FontAttributes="Bold"
-                                   FontSize="20 " />
-                            <CollectionView x:Name="ItemsListView"
-                                            ItemsSource="{Binding Raucus}"
-                                            ItemsLayout="VerticalGrid, 2"
-                                            SelectionMode="Single">
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Frame Padding="0">
-                                            <Grid Padding="10"
-                                                  x:DataType="model:Raucu"
-                                                  RowDefinitions="auto, 80">
-                                                <AbsoluteLayout>
-                                                    <Frame Padding="0"
-                                                           HasShadow="False"
-                                                           CornerRadius="15">
-                                                        <Image Source="{Binding Product_pic}"
-                                                               Aspect="AspectFill"
-                                                               HeightRequest="240" />
-                                                    </Frame>
-                                                    <Image Source="shopping_bag_icon2.png"
-                                                           HeightRequest="40"
-                                                           HorizontalOptions="End"
-                                                           AbsoluteLayout.LayoutFlags="All"
-                                                           AbsoluteLayout.LayoutBounds="0.95, 1.01, 0.25, 0.25">
-                                                        <Image.GestureRecognizers>
-                                                            <TapGestureRecognizer Command="{Binding AddToCart, Source={x:RelativeSource AncestorType={Type vm:HomeViewModel}}}"
-                                                                                  CommandParameter="{Binding .}" />
-                                                        </Image.GestureRecognizers>
-                                                    </Image>
-                                                </AbsoluteLayout>
-                                                <StackLayout Grid.Row="1">
-                                                    <Label Text="{Binding Name}"
-                                                           FontAttributes="Bold"
-                                                           FontSize="16" />
-                                                    <FlexLayout AlignItems="Center"
-                                                                JustifyContent="SpaceBetween">
-                                                        <Label Text="{Binding Price, StringFormat='{0:0,0 vnd}'}" />
-                                                    </FlexLayout>
-                                                </StackLayout>
-                                            </Grid>
+                <StackLayout Margin="10, 0, 10, 0">
+                    <CollectionView x:Name="ItemsListView"
+                                    ItemsSource="{Binding Raucus}"
+                                    ItemsLayout="VerticalGrid, 2"
+                                    SelectionMode="Single">
+                        <CollectionView.Header>
+                            <StackLayout>
+                                <Grid ColumnDefinitions="*, 3*, *"
+                                      Margin="10, 20, 10, 10">
+                                    <StackLayout Orientation="Horizontal"
+                                                 HorizontalOptions="StartAndExpand"
+                                                 Grid.Column="0">
+                                        <Frame Padding="0"
+                                               HasShadow="False"
+                                               CornerRadius="40"
+                                               HeightRequest="40"
+                                               HorizontalOptions="Center"
+                                               IsClippedToBounds="True"
+                                               VerticalOptions="Center"
+                                               WidthRequest="40">
+                                            <Image Aspect="AspectFill"
+                                                   HorizontalOptions="FillAndExpand"
+                                                   Source="search.png"
+                                                   VerticalOptions="FillAndExpand" />
                                             <Frame.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}}"
-                                                                      CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Raucu}}}" />
+                                                <TapGestureRecognizer Command="{Binding PerformSearch}" />
                                             </Frame.GestureRecognizers>
                                         </Frame>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-                        </StackLayout>
-
-                        <!--Search Suggestion-->
-                        <ListView x:Name="SearchSuggestion"
-                                  VerticalOptions="Start"
-                                  BackgroundColor="White"
-                                  RowHeight="60"
-                                  IsVisible="false">
-                            <ListView.ItemTemplate>
-                                <DataTemplate x:DataType="model:Raucu">
-                                    <ViewCell>
-                                        <Grid ColumnDefinitions="auto, *">
-                                            <Image Grid.Column="0"
-                                                   Aspect="AspectFill"
-                                                   WidthRequest="60"
-                                                   Source="{Binding Product_pic}"
-                                                   Margin="10" />
-                                            <Label Grid.Column="1"
-                                                   Text="{Binding Name}"
-                                                   VerticalTextAlignment="Center" />
-                                            <Grid.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}}"
-                                                                      CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Raucu}}}" />
-                                            </Grid.GestureRecognizers>
-                                        </Grid>
-                                    </ViewCell>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </Grid>
+                                    </StackLayout>
+                                    <StackLayout HorizontalOptions="CenterAndExpand"
+                                                 Grid.Column="1"
+                                                 VerticalOptions="Center"
+                                                 Orientation="Horizontal">
+                                        <Frame Padding="0"
+                                               HasShadow="False"
+                                               HeightRequest="40"
+                                               HorizontalOptions="Center"
+                                               IsClippedToBounds="True"
+                                               VerticalOptions="Center">
+                                            <Image Aspect="AspectFill"
+                                                   Source="logo.png" />
+                                        </Frame>
+                                        <StackLayout Spacing="0">
+                                            <Label Text="Rau củ"
+                                                   TextColor="DarkGray"
+                                                   FontSize="16"
+                                                   VerticalTextAlignment="Center"
+                                                   HorizontalTextAlignment="Center"
+                                                   CharacterSpacing="-0.5" />
+                                            <Label Text="XANH"
+                                                   TextColor="{StaticResource Primary}"
+                                                   FontSize="18"
+                                                   FontAttributes="Bold"
+                                                   VerticalTextAlignment="Center"
+                                                   HorizontalTextAlignment="Center" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <Frame Padding="0"
+                                           HasShadow="False"
+                                           Grid.Column="2">
+                                        <Image Source="cart_icon.png"
+                                               HeightRequest="30"
+                                               HorizontalOptions="EndAndExpand"
+                                               Grid.Column="2"
+                                               VerticalOptions="Center" />
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding NavToCart}" />
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                </Grid>
+                                <CarouselView x:Name="MainCarouselView"
+                                              HeightRequest="150"
+                                              PeekAreaInsets="30"
+                                              VerticalOptions="Start"
+                                              IndicatorView="indicators">
+                                    <CarouselView.ItemsSource>
+                                        <x:Array Type="{x:Type vm:HomeViewModel}">
+                                            <vm:HomeViewModel ImageSource="image1.jpg" />
+                                            <vm:HomeViewModel ImageSource="image2.jpg" />
+                                            <vm:HomeViewModel ImageSource="image3.jpg" />
+                                        </x:Array>
+                                    </CarouselView.ItemsSource>
+                                    <CarouselView.ItemsLayout>
+                                        <LinearItemsLayout Orientation="Horizontal"
+                                                           ItemSpacing="15"
+                                                           SnapPointsAlignment="Center"
+                                                           SnapPointsType="Mandatory" />
+                                    </CarouselView.ItemsLayout>
+                                    <CarouselView.ItemTemplate>
+                                        <DataTemplate x:DataType="vm:HomeViewModel">
+                                            <ScrollView VerticalScrollBarVisibility="Never">
+                                                <StackLayout>
+                                                    <Frame CornerRadius="10"
+                                                           HorizontalOptions="FillAndExpand"
+                                                           VerticalOptions="CenterAndExpand"
+                                                           Padding="0"
+                                                           HasShadow="False"
+                                                           HeightRequest="150">
+                                                        <StackLayout>
+                                                            <Image Source="{Binding ImageSource}"
+                                                                   Aspect="AspectFill"
+                                                                   VerticalOptions="CenterAndExpand" />
+                                                        </StackLayout>
+                                                    </Frame>
+                                                </StackLayout>
+                                            </ScrollView>
+                                        </DataTemplate>
+                                    </CarouselView.ItemTemplate>
+                                </CarouselView>
+                                <IndicatorView x:Name="indicators"
+                                               IndicatorColor="LightGray"
+                                               SelectedIndicatorColor="DarkGray"
+                                               HorizontalOptions="Center" />
+                                <StackLayout Orientation="Horizontal"
+                                             Margin="0, 10, 0, 10">
+                                    <FlexLayout JustifyContent="SpaceAround"
+                                                HorizontalOptions="FillAndExpand">
+                                        <StackLayout>
+                                            <Frame BackgroundColor="{Binding Selected1}"
+                                                   CornerRadius="20"
+                                                   Padding="10">
+                                                <Image Source="star.png"
+                                                       WidthRequest="40" />
+                                                <Frame.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding LoadTatcaCommand}" />
+                                                </Frame.GestureRecognizers>
+                                            </Frame>
+                                            <Label Text="Phổ biến"
+                                                   HorizontalTextAlignment="Center" />
+                                        </StackLayout>
+                                        <StackLayout>
+                                            <Frame BackgroundColor="{Binding Selected2}"
+                                                   CornerRadius="20"
+                                                   Padding="10">
+                                                <Image Source="rau.png"
+                                                       WidthRequest="40" />
+                                                <Frame.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding LoadRauCommand}" />
+                                                </Frame.GestureRecognizers>
+                                            </Frame>
+                                            <Label Text="Rau"
+                                                   HorizontalTextAlignment="Center" />
+                                        </StackLayout>
+                                        <StackLayout>
+                                            <Frame BackgroundColor="{Binding Selected3}"
+                                                   CornerRadius="20"
+                                                   Padding="10">
+                                                <Image Source="cu.png"
+                                                       WidthRequest="40" />
+                                                <Frame.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding LoadCuCommand}" />
+                                                </Frame.GestureRecognizers>
+                                            </Frame>
+                                            <Label Text="Củ"
+                                                   HorizontalTextAlignment="Center" />
+                                        </StackLayout>
+                                        <StackLayout>
+                                            <Frame BackgroundColor="{Binding Selected4}"
+                                                   CornerRadius="20"
+                                                   Padding="10">
+                                                <Image Source="giavi.png"
+                                                       WidthRequest="40" />
+                                                <Frame.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding LoadGiaviCommand}" />
+                                                </Frame.GestureRecognizers>
+                                            </Frame>
+                                            <Label Text="Gia vị"
+                                                   HorizontalTextAlignment="Center" />
+                                        </StackLayout>
+                                        <StackLayout>
+                                            <Frame BackgroundColor="{Binding Selected5}"
+                                                   CornerRadius="20"
+                                                   Padding="10">
+                                                <Image Source="traicay.png"
+                                                       WidthRequest="40" />
+                                                <Frame.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding LoadTraicayCommand}" />
+                                                </Frame.GestureRecognizers>
+                                            </Frame>
+                                            <Label Text="Trái cây"
+                                                   HorizontalTextAlignment="Center" />
+                                        </StackLayout>
+                                    </FlexLayout>
+                                </StackLayout>
+                                <Label Text="{Binding LabelTitle}"
+                                       FontAttributes="Bold"
+                                       FontSize="20 " />
+                            </StackLayout>
+                        </CollectionView.Header>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Padding="0">
+                                    <Grid Padding="10"
+                                          x:DataType="model:Raucu"
+                                          RowDefinitions="auto, 80">
+                                        <AbsoluteLayout>
+                                            <Frame Padding="0"
+                                                   HasShadow="False"
+                                                   CornerRadius="15">
+                                                <Image Source="{Binding Product_pic}"
+                                                       Aspect="AspectFill"
+                                                       HeightRequest="240" />
+                                            </Frame>
+                                            <Image Source="shopping_bag_icon2.png"
+                                                   HeightRequest="40"
+                                                   HorizontalOptions="End"
+                                                   AbsoluteLayout.LayoutFlags="All"
+                                                   AbsoluteLayout.LayoutBounds="0.95, 1.01, 0.25, 0.25">
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding AddToCart, Source={x:RelativeSource AncestorType={Type vm:HomeViewModel}}}"
+                                                                          CommandParameter="{Binding .}" />
+                                                </Image.GestureRecognizers>
+                                            </Image>
+                                            <Frame HeightRequest="40"
+                                                   WidthRequest="40"
+                                                   HorizontalOptions="End"
+                                                   AbsoluteLayout.LayoutFlags="All"
+                                                   AbsoluteLayout.LayoutBounds="0.95, 0.05, 0.25, 0.18"
+                                                   Padding="0"
+                                                   HasShadow="False"
+                                                   CornerRadius="100"
+                                                   BackgroundColor="Gold">
+                                                <Label Text="{Binding Discount, StringFormat=' {0:0%}'}"
+                                                       VerticalTextAlignment="Center"
+                                                       HorizontalTextAlignment="Center"
+                                                       TextColor="Red"
+                                                       FontSize="16"
+                                                       FontAttributes="Bold" />
+                                            </Frame>
+                                        </AbsoluteLayout>
+                                        <StackLayout Grid.Row="1">
+                                            <Label Text="{Binding Name}"
+                                                   FontSize="16"
+                                                   TextColor="#606060" />
+                                            <FlexLayout AlignItems="Center"
+                                                        JustifyContent="SpaceBetween">
+                                                <Label Text="{Binding PriceAfterDiscount, StringFormat='{0:0,0 vnd}'}"
+                                                       FontSize="16"
+                                                       TextColor="#303030"
+                                                       FontAttributes="Bold" />
+                                            </FlexLayout>
+                                        </StackLayout>
+                                    </Grid>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}}"
+                                                              CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Raucu}}}" />
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                 </StackLayout>
             </ScrollView>
         </RefreshView>
