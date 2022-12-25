@@ -15,19 +15,39 @@
                 <ScrollView>
                     <StackLayout Margin="10">
                         <Grid ColumnDefinitions="*, *">
-                            <Frame Padding="0"
-                                   HasShadow="False"
-                                   CornerRadius="5">
-                                <Image Source="{Binding Raucu.Product_pic}"
-                                       Aspect="AspectFill"
-                                       Grid.Column="0" />
-                            </Frame>
+                            <AbsoluteLayout>
+                                <Frame Padding="0"
+                                       HasShadow="False"
+                                       CornerRadius="5"
+                                       VerticalOptions="FillAndExpand"
+                                       AbsoluteLayout.LayoutBounds="1,1,1,1"
+                                       AbsoluteLayout.LayoutFlags="All">
+                                    <Image Source="{Binding Raucu.Product_pic}"
+                                           Aspect="AspectFill" />
+                                </Frame>
+                                <Frame HeightRequest="40"
+                                       WidthRequest="40"
+                                       HorizontalOptions="End"
+                                       AbsoluteLayout.LayoutFlags="All"
+                                       AbsoluteLayout.LayoutBounds="0.95, 0.95, 0.25, 0.23"
+                                       Padding="0"
+                                       HasShadow="False"
+                                       CornerRadius="100"
+                                       BackgroundColor="Gold">
+                                    <Label Text="{Binding Raucu.Discount, StringFormat=' {0:0%}'}"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalTextAlignment="Center"
+                                           TextColor="Red"
+                                           FontSize="16"
+                                           FontAttributes="Bold" />
+                                </Frame>
+                            </AbsoluteLayout>
                             <StackLayout  Grid.Column="1">
                                 <Label Text="{Binding Raucu.Name}"
                                        FontAttributes="Bold"
                                        FontSize="20"
                                        LineBreakMode="WordWrap" />
-                                <Label Text="{Binding Raucu.Price, StringFormat='{0:0,0 vnd}' }"
+                                <Label Text="{Binding Raucu.PriceAfterDiscount, StringFormat='{0:0,0 vnd}' }"
                                        FontAttributes="Bold"
                                        FontSize="18"
                                        TextColor="Red" />
@@ -56,26 +76,27 @@
                                 </Frame>
                             </StackLayout>
                         </Grid>
-                        <StackLayout Orientation="Horizontal"
-                                     HorizontalOptions="CenterAndExpand">
+                        <Grid ColumnDefinitions="1.5*, *"
+                              Margin="0, 10, 0, 0">
                             <material:MaterialButton ButtonType="Outlined"
                                                      Text="Thêm vào giỏ hàng"
                                                      TextColor="Red"
-                                                     AllCaps="False"
                                                      BorderColor="Red"
-                                                     Command="{Binding AddToCart}" />
+                                                     Command="{Binding AddToCart}"
+                                                     Grid.Column="0" />
                             <material:MaterialButton Text="Mua ngay"
                                                      BackgroundColor="Red"
-                                                     AllCaps="False" 
-                                                     Command="{Binding BuyNow}"/>
-                        </StackLayout>
+                                                     Command="{Binding BuyNow}"
+                                                     Grid.Column="1" />
+                        </Grid>
                         <Label Text="Thông tin sản phẩm"
                                FontAttributes="Bold"
                                FontSize="18"
                                Margin="0,10" />
-                        <Label Text="{Binding Raucu.Description, StringFormat='    {0}'}"
+                        <Label Text="{Binding Raucu.Description, StringFormat='{0}'}"
                                FontSize="14"
-                               LineHeight="1.2" />
+                               LineHeight="1.2" 
+                               Margin="5, 0"/>
                         <Label Text="Đánh giá sản phẩm"
                                FontAttributes="Bold"
                                FontSize="18"
@@ -89,14 +110,26 @@
                 <Frame Padding="0"
                        HasShadow="False"
                        BackgroundColor="Gold"
-                       CornerRadius="20"
+                       CornerRadius="10"
                        HeightRequest="50"
-                       VerticalOptions="EndAndExpand">
+                       VerticalOptions="EndAndExpand"
+                       Margin="10, 0">
                     <FlexLayout HorizontalOptions="CenterAndExpand"
-                                JustifyContent="Center">
-                        <Image Source="bookmark_with_heart.png" />
-                        <Label Text="Yeu thich"
-                               VerticalTextAlignment="Center" />
+                                JustifyContent="Center"
+                                AlignItems="Center">
+                        <StackLayout Orientation="Horizontal">
+                            <Frame Padding="0"
+                                   HasShadow="False"
+                                   HeightRequest="30"
+                                   BackgroundColor="Transparent">
+                                <Image Source="bookmark_with_heart.png"
+                                       Aspect="AspectFill" />
+                            </Frame>
+                            <Label Text="Yêu thích"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   VerticalTextAlignment="Center" />
+                        </StackLayout>
                     </FlexLayout>
                 </Frame>
             </StackLayout>

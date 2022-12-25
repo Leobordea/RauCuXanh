@@ -45,7 +45,7 @@
                                                    FontAttributes="Bold"
                                                    FontSize="20"
                                                    LineBreakMode="WordWrap" />
-                                            <Label Text="{Binding Raucu.Price, StringFormat='{0:0,0 vnd}' }"
+                                            <Label Text="{Binding Raucu.PriceAfterDiscount, StringFormat='{0:0,0 vnd}' }"
                                                    FontAttributes="Bold"
                                                    FontSize="18"
                                                    TextColor="Red" />

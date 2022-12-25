@@ -10,119 +10,133 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <StackLayout Margin="10">
+                <StackLayout Margin="10, 10, 10, 0">
                     <Label Text="1. Địa chỉ nhận hàng"
                            FontSize="18"
                            FontAttributes="Bold" />
                     <Grid ColumnDefinitions="*, *"
-                          RowDefinitions="auto, auto, auto">
-                        <Frame Grid.Column="0"
-                               Padding="0">
+                          RowDefinitions="60, 60, 60"
+                          Margin="10">
+                        <material:MaterialCard Grid.Column="0"
+                                               Padding="0"
+                                               CornerRadius="10"
+                                               Elevation="3">
                             <material:MaterialTextField Placeholder="Nhập Tỉnh thành"
                                                         InputType="Default"
-                                                        HasError="True"
+                                                        HasError="{Binding Error1}"
                                                         Text="{Binding Province}"
                                                         BackgroundColor="White" />
-                        </Frame>
-                        <Frame Grid.Column="1"
-                               Padding="0">
+                        </material:MaterialCard>
+                        <material:MaterialCard Grid.Column="1"
+                                               Padding="0"
+                                               CornerRadius="10"
+                                               Elevation="3">
                             <material:MaterialTextField Placeholder="Nhập Quận/Huyện"
                                                         InputType="Default"
-                                                        HasError="True"
+                                                        HasError="{Binding Error2}"
                                                         Text="{Binding District}"
                                                         BackgroundColor="White" />
-                        </Frame>
-                        <Frame Grid.Column="0"
-                               Grid.ColumnSpan="2"
-                               Grid.Row="1"
-                               Padding="0">
+                        </material:MaterialCard>
+                        <material:MaterialCard Grid.Column="0"
+                                               Grid.ColumnSpan="2"
+                                               Grid.Row="1"
+                                               Padding="0"
+                                               CornerRadius="10"
+                                               Elevation="3">
                             <material:MaterialTextField Placeholder="Nhập Phường/Xã"
                                                         InputType="Default"
-                                                        HasError="True"
+                                                        HasError="{Binding Error3}"
                                                         Text="{Binding Block}"
                                                         BackgroundColor="White" />
-                        </Frame>
-                        <Frame Grid.Column="0"
-                               Grid.ColumnSpan="2"
-                               Grid.Row="2"
-                               Padding="0">
+                        </material:MaterialCard>
+                        <material:MaterialCard Grid.Column="0"
+                                               Grid.ColumnSpan="2"
+                                               Grid.Row="2"
+                                               Padding="0"
+                                               CornerRadius="10"
+                                               Elevation="3">
                             <material:MaterialTextField Placeholder="Số nhà, tên đường"
                                                         InputType="Default"
-                                                        HasError="True"
+                                                        HasError="{Binding Error4}"
                                                         Text="{Binding Road}"
                                                         BackgroundColor="White" />
-                        </Frame>
+                        </material:MaterialCard>
                     </Grid>
                 </StackLayout>
-                <StackLayout Margin="10">
+                <StackLayout Margin="10, 10, 10, 0">
                     <Label Text="2. Hình thức thanh toán"
                            FontSize="18"
                            FontAttributes="Bold" />
-                    <StackLayout>
+                    <material:MaterialCard CornerRadius="10"
+                                           Elevation="3"
+                                           HorizontalOptions="FillAndExpand"
+                                           Margin="10"
+                                           Padding="0">
                         <material:MaterialRadioButtonGroup Choices="{Binding PaymentMethods}"
-                                                           SelectedIndex="{Binding SelectedPaymentMethod}"/>
-                    </StackLayout>
+                                                           SelectedIndex="{Binding SelectedPaymentMethod}" />
+                    </material:MaterialCard>
                 </StackLayout>
-                <StackLayout Margin="10">
+                <StackLayout Margin="10, 10, 10, 0">
                     <Label Text="3. Phương thức vận chuyển"
                            FontSize="18"
                            FontAttributes="Bold" />
-                    <StackLayout>
+                    <material:MaterialCard CornerRadius="10"
+                                           Elevation="3"
+                                           HorizontalOptions="FillAndExpand"
+                                           Margin="10"
+                                           Padding="0">
                         <material:MaterialRadioButtonGroup Choices="{Binding ShippingMethods}"
-                                                           SelectedIndex="{Binding SelectedShippingMethod}"/>
-                    </StackLayout>
+                                                           SelectedIndex="{Binding SelectedShippingMethod}" />
+                    </material:MaterialCard>
                 </StackLayout>
-                <Grid ColumnDefinitions="2.5*, *"
-                      Margin="10"
-                      VerticalOptions="EndAndExpand">
-                    <Label Text="Tiền hàng: "
-                           FontSize="16"
-                           HorizontalTextAlignment="End"
-                           Grid.Column="0"
-                           Grid.Row="0" />
-                    <Label Text="{Binding InitialCost, StringFormat='{0:0,0} vnd'}"
-                           FontSize="16"
-                           FontAttributes="Bold"
-                           HorizontalTextAlignment="End"
-                           Grid.Column="1"
-                           Grid.Row="0" />
-                    <Label Text="Giảm giá: "
-                           FontSize="16"
-                           HorizontalTextAlignment="End"
-                           Grid.Column="0"
-                           Grid.Row="1" />
-                    <Label Text="{Binding Discount, StringFormat='{0:0,0} vnd'}"
-                           FontSize="16"
-                           FontAttributes="Bold"
-                           HorizontalTextAlignment="End"
-                           Grid.Column="1"
-                           Grid.Row="1" />
-                    <Label Text="Phí giao hàng: "
-                           FontSize="16"
-                           HorizontalTextAlignment="End"
-                           Grid.Column="0"
-                           Grid.Row="2" />
-                    <Label Text="{Binding ShippingCost, StringFormat='{0:0,0} vnd'}"
-                           FontSize="16"
-                           FontAttributes="Bold"
-                           HorizontalTextAlignment="End"
-                           Grid.Column="1"
-                           Grid.Row="2" />
-                    <Label Text="Tổng đơn hàng: "
-                           FontSize="16"
-                           HorizontalTextAlignment="End"
-                           Grid.Column="0"
-                           Grid.Row="3" />
-                    <Label Text="{Binding FinalPrice, StringFormat='{0:0,0} vnd'}"
-                           FontSize="16"
-                           FontAttributes="Bold"
-                           HorizontalTextAlignment="End"
-                           Grid.Column="1"
-                           Grid.Row="3" />
-                </Grid>
-                <StackLayout Margin="10"
+                <material:MaterialCard CornerRadius="10"
+                                       Elevation="3"
+                                       HorizontalOptions="FillAndExpand"
+                                       Margin="20"
+                                       Padding="10">
+                    <StackLayout Margin="10"
+                                 VerticalOptions="EndAndExpand">
+                        <FlexLayout JustifyContent="SpaceBetween"
+                                    Margin="0, 5, 0, 5">
+                            <Label Text="Tiền hàng: "
+                                   FontSize="16" />
+                            <Label Text="{Binding InitialCost, StringFormat='{0:0,0} vnd'}"
+                                   FontSize="16"
+                                   FontAttributes="Bold" />
+                        </FlexLayout>
+                        <FlexLayout JustifyContent="SpaceBetween"
+                                    Margin="0, 5, 0, 5">
+                            <Label Text="Giảm giá: "
+                                   FontSize="16" />
+                            <Label Text="{Binding Discount, StringFormat='{0:0,0} vnd'}"
+                                   FontSize="16"
+                                   FontAttributes="Bold" />
+                        </FlexLayout>
+                        <FlexLayout JustifyContent="SpaceBetween"
+                                    Margin="0, 5, 0, 5">
+                            <Label Text="Phí giao hàng: "
+                                   FontSize="16" />
+                            <Label Text="{Binding ShippingCost, StringFormat='{0:0,0} vnd'}"
+                                   FontSize="16"
+                                   FontAttributes="Bold" />
+                        </FlexLayout>
+                        <FlexLayout JustifyContent="SpaceBetween"
+                                    Margin="0, 5, 0, 5">
+                            <Label Text="Tổng đơn hàng: "
+                                   FontSize="16" />
+                            <Label Text="{Binding FinalPrice, StringFormat='{0:0,0} vnd'}"
+                                   FontSize="16"
+                                   FontAttributes="Bold" />
+                        </FlexLayout>
+                    </StackLayout>
+                </material:MaterialCard>
+                <StackLayout Margin="10, 0"
                              VerticalOptions="EndAndExpand">
-                    <material:MaterialButton Text="Xác nhận đơn hàng" />
+                    <material:MaterialButton Text="Xác nhận đơn hàng"
+                                             Command="{Binding OrderCommand}"
+                                             BackgroundColor="{StaticResource Primary}"
+                                             HeightRequest="60"
+                                             CornerRadius="10"/>
                 </StackLayout>
             </StackLayout>
         </ScrollView>

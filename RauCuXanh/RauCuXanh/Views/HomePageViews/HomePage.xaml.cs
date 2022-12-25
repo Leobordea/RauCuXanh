@@ -18,6 +18,12 @@ namespace RauCuXanh.Views.HomePageViews
         {
             InitializeComponent();
 
+            Device.StartTimer(TimeSpan.FromSeconds(5), (Func<bool>)(() =>
+            {
+                MainCarouselView.Position = (MainCarouselView.Position + 1) % 3;
+                return true;
+            }));
+
             BindingContext = _viewModel = new HomeViewModel();
         }
 
@@ -25,26 +31,6 @@ namespace RauCuXanh.Views.HomePageViews
         {
             base.OnAppearing();
             _viewModel.OnAppearing();
-        }
-
-        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var _container = BindingContext as HomeViewModel;
-            SearchSuggestion.BeginRefresh();
-
-            if (string.IsNullOrWhiteSpace(e.NewTextValue))
-            {
-                SearchSuggestion.ItemsSource = null;
-                SearchSuggestion.IsVisible = false;
-            }
-            else
-            {
-                var itemsource = _container.Raucus.Where(i => i.Name.ToLower().Contains(e.NewTextValue.ToLower()));
-                SearchSuggestion.ItemsSource = itemsource;
-                SearchSuggestion.HeightRequest = Math.Min(60 * itemsource.Count(), 240);
-                SearchSuggestion.IsVisible = true;
-            }
-            SearchSuggestion.EndRefresh();
         }
     }
 }

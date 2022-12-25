@@ -24,7 +24,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
 
         public ObservableCollection<Raucu> SearchResults { get; set; }
 
-        private bool _visible1 = false;
+        private bool _visible1 = true;
         public bool Visible1 { get { return _visible1; } set { SetProperty(ref _visible1, value); } }
 
         private bool _visible2 = false;
@@ -32,15 +32,12 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
 
         public Command SearchCommand { get; }
 
-        public SearchViewModel() { }
-        public SearchViewModel(string s)
+        public SearchViewModel()
         {
             Title = "Tìm kiếm";
             SearchResults = new ObservableCollection<Raucu>();
             SearchCommand = new Command(Search);
             Task.Run(async () => { await ExecuteLoadRaucusCommand(); }).Wait();
-            SearchText = s;
-            Task.Run(Search);
         }
 
         void Search()

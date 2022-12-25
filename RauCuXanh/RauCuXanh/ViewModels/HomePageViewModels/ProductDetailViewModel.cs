@@ -97,7 +97,13 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         {
             var cartService = new CartService();
 
-            var response = await cartService.createCart(new Cart() { quantity = Quantity, raucu_id = Raucu.Id, timestamp = DateTime.Now.ToString("yyyy-MM-dd"), user_id = "1" });
+            var response = await cartService.createCart(new Cart() 
+            { 
+                quantity = Quantity, 
+                raucu_id = Raucu.Id, 
+                timestamp = DateTime.Now.ToString("yyyy-MM-dd"), 
+                user_id = "1" 
+            });
             if (response.StatusCode == System.Net.HttpStatusCode.Created)
             {
                 await App.Current.MainPage.DisplayAlert("Thành công", "Thêm vào giỏ hàng thành công!", "OK");
