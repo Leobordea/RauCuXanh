@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +47,21 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         public Command NavToShopCommand { get; set; }
         public Command AddToCart { get; set; }
         public Command BuyNow { get; set; }
+        public Review Review { get; set; }
+        public User User { get; set; }
+        public List<string> Stars { get; set; }
+        public ObservableCollection<ProductDetailViewModel> ModelData { get; set; }
+
+        private string _myreview;
+        public string MyReview
+        {
+            get { return _myreview; }
+            set
+            {
+                SetProperty(ref _myreview, value);
+            }
+        }
+
 
         public ProductDetailViewModel() { }
         public ProductDetailViewModel(Raucu p)
@@ -58,6 +74,8 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             NavToShopCommand = new Command(ExeNavToShop);
             AddToCart = new Command(ExeAddToCart);
             BuyNow = new Command(ExeBuyNow);
+            ModelData = new ObservableCollection<ProductDetailViewModel>();
+            Stars = new List<string>();
         }
 
         async Task ExeLoadShopCommand()
@@ -65,8 +83,42 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             IsBusy = true;
             try
             {
+                ModelData.Clear();
                 var shopService = new ShopService();
+                var reviewService = new ReviewService();
+                var userService = new UserService();
                 Shop = await shopService.getShopById(Raucu.Shop_id);
+                var reviews = await reviewService.getReviews();
+                foreach (var r in reviews)
+                {
+                    if (r.Review_type == "raucu")
+                    {
+                        if (r.Raucu_id == Raucu.Id)
+                        {
+                            var user = await userService.getUserById(r.User_id);
+                            var stars = new List<string>();
+                            switch (r.Star)
+                            {
+                                case 1:
+                                    stars = new List<string>() { "Red"};
+                                    break;
+                                case 2:
+                                    stars = new List<string>() { "Red", "Red"};
+                                    break;
+                                case 3:
+                                    stars = new List<string>() { "Red", "Red", "Red"};
+                                    break;
+                                case 4:
+                                    stars = new List<string>() { "Red", "Red", "Red", "Red"};
+                                    break;
+                                case 5:
+                                    stars = new List<string>() { "Red", "Red", "Red", "Red", "Red" };
+                                    break;
+                            }
+                            ModelData.Add(new ProductDetailViewModel() { Review = r, User = user, Stars = stars});
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {

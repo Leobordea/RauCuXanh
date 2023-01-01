@@ -13,7 +13,6 @@ namespace RauCuXanh.Models
         public float Price { get; set; }
         public string Product_pic { get; set; }
         public string Raucu_type { get; set; }
-        public string Review_id { get; set; }
         public string Shop_id { get; set; }
         public string Timestamp { get; set; }
         public float PriceAfterDiscount { get; set; }

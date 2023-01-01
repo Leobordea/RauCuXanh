@@ -21,6 +21,11 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         public ObservableCollection<Raucu> KhuyenMai { get; set; }
         public Command LoadShopCommand { get; set; }
 
+        public Review Review { get; set; }
+        public User User { get; set; }
+        public List<string> Stars { get; set; }
+        public ObservableCollection<ProductDetailViewModel> ModelData { get; set; }
+
         public ShopViewModel() { }
         public ShopViewModel(Shop s) 
         {
@@ -29,6 +34,8 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             DangBan = new ObservableCollection<Raucu>();
             KhuyenMai = new ObservableCollection<Raucu>();
             LoadShopCommand = new Command(async () => await ExeLoadShopCommand());
+            ModelData = new ObservableCollection<ProductDetailViewModel>();
+            Stars = new List<string>();
         }
 
         async Task ExeLoadShopCommand()
@@ -48,6 +55,42 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                         if (r.Discount > 0)
                         {
                             KhuyenMai.Add(r);
+                        }
+                    }
+                }
+
+                ModelData.Clear();
+                var shopService = new ShopService();
+                var reviewService = new ReviewService();
+                var userService = new UserService();
+                var reviews = await reviewService.getReviews();
+                foreach (var r in reviews)
+                {
+                    if (r.Review_type == "shop")
+                    {
+                        if (r.Shop_id == Shop.Id)
+                        {
+                            var user = await userService.getUserById(r.User_id);
+                            var stars = new List<string>();
+                            switch (r.Star)
+                            {
+                                case 1:
+                                    stars = new List<string>() { "Red" };
+                                    break;
+                                case 2:
+                                    stars = new List<string>() { "Red", "Red" };
+                                    break;
+                                case 3:
+                                    stars = new List<string>() { "Red", "Red", "Red" };
+                                    break;
+                                case 4:
+                                    stars = new List<string>() { "Red", "Red", "Red", "Red" };
+                                    break;
+                                case 5:
+                                    stars = new List<string>() { "Red", "Red", "Red", "Red", "Red" };
+                                    break;
+                            }
+                            ModelData.Add(new ProductDetailViewModel() { Review = r, User = user, Stars = stars });
                         }
                     }
                 }

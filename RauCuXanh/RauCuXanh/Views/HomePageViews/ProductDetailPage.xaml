@@ -11,8 +11,8 @@
     <ContentPage.Content>
         <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                      Command="{Binding LoadShopCommand}">
-            <StackLayout>
-                <ScrollView>
+            <StackLayout Margin="5">
+                <ScrollView VerticalScrollBarVisibility="Never">
                     <StackLayout Margin="10">
                         <Grid ColumnDefinitions="*, *">
                             <AbsoluteLayout>
@@ -42,7 +42,8 @@
                                            FontAttributes="Bold" />
                                 </Frame>
                             </AbsoluteLayout>
-                            <StackLayout  Grid.Column="1">
+                            <StackLayout  Grid.Column="1"
+                                          Margin="10, 0, 0, 0">
                                 <Label Text="{Binding Raucu.Name}"
                                        FontAttributes="Bold"
                                        FontSize="20"
@@ -92,19 +93,74 @@
                         <Label Text="Thông tin sản phẩm"
                                FontAttributes="Bold"
                                FontSize="18"
-                               Margin="0,10" />
+                               Margin="0,20" />
                         <Label Text="{Binding Raucu.Description, StringFormat='{0}'}"
                                FontSize="14"
-                               LineHeight="1.2" 
-                               Margin="5, 0"/>
+                               LineHeight="1.2"
+                               Margin="5, 0" />
                         <Label Text="Đánh giá sản phẩm"
                                FontAttributes="Bold"
                                FontSize="18"
-                               Margin="0,10" />
-                        <Label Text="Bình luận"
-                               FontAttributes="Bold"
-                               FontSize="20"
-                               Margin="0,10" />
+                               Margin="0,20" />
+                        <FlexLayout  BindableLayout.ItemsSource="{Binding ModelData}"
+                                     Direction="Column"
+                                     AlignItems="Stretch">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="vm:ProductDetailViewModel">
+                                    <Grid ColumnDefinitions="60, *"
+                                          RowDefinitions="25, 25, auto, auto, auto"
+                                          Margin="10">
+                                        <Frame Grid.RowSpan="2"
+                                               Padding="0"
+                                               HasShadow="False"
+                                               HeightRequest="50"
+                                               WidthRequest="50"
+                                               CornerRadius="25"
+                                               VerticalOptions="CenterAndExpand"
+                                               HorizontalOptions="CenterAndExpand">
+                                            <Image Source="{Binding User.Profile_pic}"
+                                                   Aspect="AspectFill" />
+                                        </Frame>
+                                        <Label Grid.Column="1"
+                                               Text="{Binding User.Username}"
+                                               FontAttributes="Bold"
+                                               FontSize="16" />
+                                        <StackLayout Grid.Column="1"
+                                                     Grid.Row="1"
+                                                     Orientation="Horizontal">
+                                            <CollectionView ItemsSource="{Binding Stars}"
+                                                            ItemsLayout="HorizontalList"
+                                                            Margin="0, -5, 0, 0">
+                                                <CollectionView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Frame WidthRequest="16"
+                                                               Padding="0"
+                                                               HasShadow="False">
+                                                            <Image Source="review_star.png" />
+                                                        </Frame>
+                                                    </DataTemplate>
+                                                </CollectionView.ItemTemplate>
+                                            </CollectionView>
+                                        </StackLayout>
+                                        <StackLayout Grid.Column="1"
+                                                     Grid.Row="2"
+                                                     Orientation="Horizontal">
+                                            <Label Text="{Binding Review.Timestampt}"
+                                                   FontSize="12" />
+                                        </StackLayout>
+                                        <Label Grid.Row="3"
+                                               Grid.Column="1"
+                                               Text="{Binding Review.Comment}"
+                                               TextColor="Gray" />
+                                        <BoxView Grid.Row="4"
+                                                 Grid.ColumnSpan="2"
+                                                 HeightRequest="1"
+                                                 BackgroundColor="LightGray"
+                                                 Margin="10, 10, 10, 0" />
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </FlexLayout>
                     </StackLayout>
                 </ScrollView>
                 <Frame Padding="0"
