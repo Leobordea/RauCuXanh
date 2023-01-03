@@ -84,20 +84,28 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             try
             {
                 ModelData.Clear();
-                var shopService = new ShopService();
-                var reviewService = new ReviewService();
-                var userService = new UserService();
-                Shop = await shopService.getShopById(Raucu.Shop_id);
-                var reviews = await reviewService.getReviews();
+
+                var shopClient = RestService.For<IShopApi>(RestClient.BaseUrl);
+                Shop = await shopClient.GetShopById(Raucu.Shop_id);
+
+                //var reviewClient = RestService.For<IReviewApi>(RestClient.BaseUrl);
+                //var reviews = await reviewClient.GetReviews();
+
+                var userClient = RestService.For<IUserApi>(RestClient.BaseUrl);
+
+                var reviewSerview = new ReviewService();
+                var reviews = await reviewSerview.getReviews();
+
+
                 foreach (var r in reviews)
                 {
                     if (r.Review_type == "raucu")
                     {
                         if (r.Raucu_id == Raucu.Id)
                         {
-                            var user = await userService.getUserById(r.User_id);
+                            var user = await userClient.GetUserById(r.User_id);
                             var stars = new List<string>();
-                            switch (r.Star)
+                            switch (r.Stars)
                             {
                                 case 1:
                                     stars = new List<string>() { "Red"};
@@ -152,7 +160,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             var response = await cartService.createCart(new Cart() 
             { 
                 quantity = Quantity, 
-                raucu_id = Raucu.Id, 
+                raucu_id = Raucu.Id.ToString(), 
                 timestamp = DateTime.Now.ToString("yyyy-MM-dd"), 
                 user_id = "1" 
             });
@@ -169,7 +177,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         {
             var cartService = new CartService();
 
-            var response = await cartService.createCart(new Cart() { quantity = Quantity, raucu_id = Raucu.Id, timestamp = DateTime.Now.ToString("yyyy-MM-dd"), user_id = "1" });
+            var response = await cartService.createCart(new Cart() { quantity = Quantity, raucu_id = Raucu.Id.ToString(), timestamp = DateTime.Now.ToString("yyyy-MM-dd"), user_id = "1" });
             if (response.StatusCode == System.Net.HttpStatusCode.Created)
             {
                 await App.Current.MainPage.Navigation.PushAsync(new CartPage());

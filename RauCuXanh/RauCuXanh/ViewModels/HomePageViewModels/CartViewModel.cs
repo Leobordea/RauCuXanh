@@ -55,7 +55,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                     {
                         foreach (Raucu r in Raucus)
                         {
-                            if (r.Id == c.raucu_id.ToString())
+                            if (r.Id.ToString() == c.raucu_id.ToString())
                             {
                                 CartProducts.Add(new CartItem() { Raucu = r, Cart = c });
                                 InitialCost += r.Price * c.quantity;

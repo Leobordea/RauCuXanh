@@ -39,6 +39,11 @@ namespace RauCuXanh.Services
     public interface ICartApi
     {
         [Get("/carts")]
-        Task<List<Object>> GetCarts();
+        Task<List<Cart>> GetCarts();
+    }
+    public interface IReviewApi
+    {
+        [Get("/reviews")]
+        Task<List<Review>> GetReviews();
     }
 }

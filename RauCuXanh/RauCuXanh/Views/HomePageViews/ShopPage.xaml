@@ -73,6 +73,23 @@
                                Padding="10,0,0,0"
                                VerticalTextAlignment="Center" />
                     </Grid>
+                    <FlexLayout JustifyContent="SpaceAround" Margin="10, 0, 10, 10">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Shop.No_selling}"
+                                   FontAttributes="Bold" />
+                            <Label Text="Sản phẩm" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding KhuyenMai.Count}"
+                                   FontAttributes="Bold" />
+                            <Label Text="Khuyến mãi" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Shop.No_sold}"
+                                   FontAttributes="Bold" />
+                            <Label Text="Bán hàng thành công" />
+                        </StackLayout>
+                    </FlexLayout>
                     <StackLayout Orientation="Horizontal">
                         <Grid HorizontalOptions="FillAndExpand"
                               VerticalOptions="FillAndExpand"
@@ -139,19 +156,38 @@
                                                                               CommandParameter="{Binding .}" />
                                                     </Image.GestureRecognizers>
                                                 </Image>
+                                                <Frame HeightRequest="40"
+                                                       WidthRequest="40"
+                                                       HorizontalOptions="End"
+                                                       AbsoluteLayout.LayoutFlags="All"
+                                                       AbsoluteLayout.LayoutBounds="0.95, 0.05, 0.25, 0.18"
+                                                       Padding="0"
+                                                       HasShadow="False"
+                                                       CornerRadius="100"
+                                                       BackgroundColor="Gold">
+                                                    <Label Text="{Binding Discount, StringFormat=' {0:0%}'}"
+                                                           VerticalTextAlignment="Center"
+                                                           HorizontalTextAlignment="Center"
+                                                           TextColor="Red"
+                                                           FontSize="16"
+                                                           FontAttributes="Bold" />
+                                                </Frame>
                                             </AbsoluteLayout>
                                             <StackLayout Grid.Row="1">
                                                 <Label Text="{Binding Name}"
-                                                       FontAttributes="Bold"
-                                                       FontSize="16" />
+                                                       FontSize="16"
+                                                       TextColor="#606060" />
                                                 <FlexLayout AlignItems="Center"
                                                             JustifyContent="SpaceBetween">
-                                                    <Label Text="{Binding Price, StringFormat='{0:0,0 vnd}'}" />
+                                                    <Label Text="{Binding PriceAfterDiscount, StringFormat='{0:0,0 vnd}'}"
+                                                           FontSize="16"
+                                                           TextColor="#303030"
+                                                           FontAttributes="Bold" />
                                                 </FlexLayout>
                                             </StackLayout>
                                         </Grid>
                                         <Frame.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:ShopViewModel}}}"
+                                            <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}}"
                                                                   CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Raucu}}}" />
                                         </Frame.GestureRecognizers>
                                     </Frame>
@@ -190,19 +226,38 @@
                                                                               CommandParameter="{Binding .}" />
                                                     </Image.GestureRecognizers>
                                                 </Image>
+                                                <Frame HeightRequest="40"
+                                                       WidthRequest="40"
+                                                       HorizontalOptions="End"
+                                                       AbsoluteLayout.LayoutFlags="All"
+                                                       AbsoluteLayout.LayoutBounds="0.95, 0.05, 0.25, 0.18"
+                                                       Padding="0"
+                                                       HasShadow="False"
+                                                       CornerRadius="100"
+                                                       BackgroundColor="Gold">
+                                                    <Label Text="{Binding Discount, StringFormat=' {0:0%}'}"
+                                                           VerticalTextAlignment="Center"
+                                                           HorizontalTextAlignment="Center"
+                                                           TextColor="Red"
+                                                           FontSize="16"
+                                                           FontAttributes="Bold" />
+                                                </Frame>
                                             </AbsoluteLayout>
                                             <StackLayout Grid.Row="1">
                                                 <Label Text="{Binding Name}"
-                                                       FontAttributes="Bold"
-                                                       FontSize="16" />
+                                                       FontSize="16"
+                                                       TextColor="#606060" />
                                                 <FlexLayout AlignItems="Center"
                                                             JustifyContent="SpaceBetween">
-                                                    <Label Text="{Binding Price, StringFormat='{0:0,0 vnd}'}" />
+                                                    <Label Text="{Binding PriceAfterDiscount, StringFormat='{0:0,0 vnd}'}"
+                                                           FontSize="16"
+                                                           TextColor="#303030"
+                                                           FontAttributes="Bold" />
                                                 </FlexLayout>
                                             </StackLayout>
                                         </Grid>
                                         <Frame.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:ShopViewModel}}}"
+                                            <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}}"
                                                                   CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Raucu}}}" />
                                         </Frame.GestureRecognizers>
                                     </Frame>
@@ -262,7 +317,7 @@
                                         </StackLayout>
                                         <Label Grid.Row="3"
                                                Grid.Column="1"
-                                               Text="{Binding Review.Comment}"
+                                               Text="{Binding Review.Comments}"
                                                TextColor="Gray" />
                                         <BoxView Grid.Row="4"
                                                  Grid.ColumnSpan="2"

@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using RauCuXanh.Models;
 using System.Collections.ObjectModel;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using RauCuXanh.Models;
 
 namespace RauCuXanh.Services
 {
     public class RaucuService
     {
-        string Base_url = "https://639dd5ad3542a2613050ec0f.mockapi.io/api/rauculist";
+        private readonly string Base_url = "http://192.168.1.10:5000/api/";
 
         public async Task<Raucu> getRaucuById(string id)
         {
-            string url = $"{Base_url}/{id}"; ;
+            string url = $"{Base_url}raucu/{id}"; ;
 
             HttpClient client = new HttpClient();
             HttpResponseMessage responseMessage = await client.GetAsync(url);
@@ -34,7 +30,7 @@ namespace RauCuXanh.Services
 
         public async Task<ObservableCollection<Raucu>> getRaucuList()
         {
-            string url = Base_url;
+            string url = $"{Base_url}rauculist";
 
             HttpClient client = new HttpClient();
             HttpResponseMessage responseMessage = await client.GetAsync(url);

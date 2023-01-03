@@ -150,7 +150,7 @@
                                         </StackLayout>
                                         <Label Grid.Row="3"
                                                Grid.Column="1"
-                                               Text="{Binding Review.Comment}"
+                                               Text="{Binding Review.Comments}"
                                                TextColor="Gray" />
                                         <BoxView Grid.Row="4"
                                                  Grid.ColumnSpan="2"

@@ -32,6 +32,24 @@ namespace RauCuXanh.Services
             return null;
         }
 
+        public async Task<ObservableCollection<Receipt_list>> getReceiptDetail(string id)
+        {
+            string url = $"{Base_url}/{id}/receipt_list";
+
+            HttpClient client = new HttpClient();
+            HttpResponseMessage responseMessage = await client.GetAsync(url);
+
+            if (responseMessage.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var result = await responseMessage.Content.ReadAsStringAsync();
+                var json = JsonConvert.DeserializeObject<ObservableCollection<Receipt_list>>(result);
+
+                return json;
+            }
+
+            return null;
+        }
+
         public async Task<HttpResponseMessage> createReceipt(Receipt rec, IEnumerable<CartItem> cartList)
         {
             string url = Base_url;
@@ -58,7 +76,7 @@ namespace RauCuXanh.Services
             string url = $"{Base_url}/{id}/receipt_list";
 
             HttpClient client = new HttpClient();
-            var json = JsonConvert.SerializeObject(new Receipt_list() { Quantity = quantity, Raucu_id = r.Id });
+            var json = JsonConvert.SerializeObject(new Receipt_list() { Quantity = quantity, Raucu_id = r.Id.ToString() });
             HttpContent content = new StringContent(json);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 

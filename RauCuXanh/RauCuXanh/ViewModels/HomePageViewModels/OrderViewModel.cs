@@ -40,6 +40,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                 Shipping_addr = $"{Province}, {District}, {Block}, {Road}",
                 Shipping_cost = ShippingCost,
                 Total_price = TotalCost,
+                Order_status = "chuathanhtoan",
             }, CartProducts);
             if (response.StatusCode == System.Net.HttpStatusCode.Created)
             {

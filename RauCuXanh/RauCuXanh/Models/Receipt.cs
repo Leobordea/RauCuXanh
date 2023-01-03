@@ -12,5 +12,6 @@ namespace RauCuXanh.Models
         public string Shipping_addr { get; set; }
         public float Total_price { get; set; }
         public string Timestampt { get; set; }
+        public string Order_status { get; set; }
     }
 }

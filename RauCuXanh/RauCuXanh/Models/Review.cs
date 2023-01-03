@@ -6,13 +6,13 @@ namespace RauCuXanh.Models
 {
     public class Review
     {
-        public string Id { get; set; }
-        public string Timestampt { get; set; }
-        public string User_id { get; set; }
-        public int Star { get; set; }
-        public string Comment { get; set; }
+        public string Comments { get; set; }
+        public int Id { get; set; }
+        public int Raucu_id { get; set; }
         public string Review_type { get; set; }
-        public string Raucu_id { get; set; }
-        public string Shop_id { get; set; }
+        public int Shop_id { get; set; }
+        public float Stars { get; set; }
+        public string Timestampt { get; set; }
+        public int User_id { get; set; }
     }
 }

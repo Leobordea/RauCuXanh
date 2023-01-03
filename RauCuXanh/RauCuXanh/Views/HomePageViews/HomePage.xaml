@@ -8,9 +8,6 @@
              x:DataType="vm:HomeViewModel"
              Title="{Binding Title}"
              Shell.NavBarIsVisible="False">
-    <ContentPage.BindingContext>
-        <vm:HomeViewModel />
-    </ContentPage.BindingContext>
     <ContentPage.Content>
         <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                      Command="{Binding LoadRaucusCommand}">

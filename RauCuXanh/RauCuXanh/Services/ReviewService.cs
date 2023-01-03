@@ -12,7 +12,7 @@ namespace RauCuXanh.Services
 {
     public class ReviewService
     {
-        string Base_url = "https://63a5b2ce318b23efa79b1a4b.mockapi.io/api/reviews";
+        string Base_url = "http://192.168.1.10:5000/api/reviews";
 
         public async Task<ObservableCollection<Review>> getReviews()
         {

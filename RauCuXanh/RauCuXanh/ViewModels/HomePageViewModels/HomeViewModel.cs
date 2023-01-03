@@ -176,8 +176,8 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             try
             {
                 Raucus.Clear();
-                var raucuService = new RaucuService();
-                var raucus = await raucuService.getRaucuList();
+                var apiClient = RestService.For<IRaucuApi>(RestClient.BaseUrl);
+                var raucus = await apiClient.GetRaucuList();
                 if (SelectedCategory == "all")
                 {
                     foreach (var raucu in raucus)
@@ -243,7 +243,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         {
             var cartService = new CartService();
 
-            var response = await cartService.createCart(new Cart() { quantity = 1, raucu_id = r.Id, timestamp = DateTime.Now.ToString("yyyy-MM-dd"), user_id = "1" });
+            var response = await cartService.createCart(new Cart() { quantity = 1, raucu_id = r.Id.ToString(), timestamp = DateTime.Now.ToString("yyyy-MM-dd"), user_id = "1" });
             if (response.StatusCode == System.Net.HttpStatusCode.Created)
             {
                 await App.Current.MainPage.DisplayAlert("Thành công", "Thêm vào giỏ hàng thành công!", "OK");
