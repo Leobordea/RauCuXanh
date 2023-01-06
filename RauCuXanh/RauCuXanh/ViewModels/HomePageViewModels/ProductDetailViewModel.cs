@@ -88,13 +88,13 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                 var shopClient = RestService.For<IShopApi>(RestClient.BaseUrl);
                 Shop = await shopClient.GetShopById(Raucu.Shop_id);
 
-                //var reviewClient = RestService.For<IReviewApi>(RestClient.BaseUrl);
-                //var reviews = await reviewClient.GetReviews();
+                var reviewClient = RestService.For<IReviewApi>(RestClient.BaseUrl);
+                var reviews = await reviewClient.GetReviews();
 
                 var userClient = RestService.For<IUserApi>(RestClient.BaseUrl);
 
-                var reviewSerview = new ReviewService();
-                var reviews = await reviewSerview.getReviews();
+                //var reviewSerview = new ReviewService();
+                //var reviews = await reviewSerview.getReviews();
 
 
                 foreach (var r in reviews)
@@ -108,22 +108,22 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                             switch (r.Stars)
                             {
                                 case 1:
-                                    stars = new List<string>() { "Red"};
+                                    stars = new List<string>() { "Red" };
                                     break;
                                 case 2:
-                                    stars = new List<string>() { "Red", "Red"};
+                                    stars = new List<string>() { "Red", "Red" };
                                     break;
                                 case 3:
-                                    stars = new List<string>() { "Red", "Red", "Red"};
+                                    stars = new List<string>() { "Red", "Red", "Red" };
                                     break;
                                 case 4:
-                                    stars = new List<string>() { "Red", "Red", "Red", "Red"};
+                                    stars = new List<string>() { "Red", "Red", "Red", "Red" };
                                     break;
                                 case 5:
                                     stars = new List<string>() { "Red", "Red", "Red", "Red", "Red" };
                                     break;
                             }
-                            ModelData.Add(new ProductDetailViewModel() { Review = r, User = user, Stars = stars});
+                            ModelData.Add(new ProductDetailViewModel() { Review = r, User = user, Stars = stars });
                         }
                     }
                 }
@@ -155,37 +155,58 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
 
         public async void ExeAddToCart()
         {
-            var cartService = new CartService();
+            try
+            {
+                bool flag = false;
+                var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
+                var carts = await cartService.GetCarts();
+                foreach (Cart cart in carts)
+                {
+                    if (cart.Raucu_id == Raucu.Id && cart.User_id == 1) 
+                    {
+                        var response = await cartService.UpdateCart(new Cart() { Raucu_id = Raucu.Id, User_id = 1, Quantity = cart.Quantity + Quantity});
+                        if (response.StatusCode == System.Net.HttpStatusCode.Created)
+                        {
+                            await App.Current.MainPage.DisplayAlert("Thành công", "Thêm vào giỏ hàng thành công!", "OK");
+                            flag = true;
+                        }
+                        break;
+                    }
+                }
+                if (flag == false)
+                {
+                    var response = await cartService.CreateCart(new Cart()
+                    {
+                        Quantity = Quantity,
+                        Raucu_id = Raucu.Id,
+                        User_id = 1
+                    });
 
-            var response = await cartService.createCart(new Cart() 
-            { 
-                quantity = Quantity, 
-                raucu_id = Raucu.Id.ToString(), 
-                timestamp = DateTime.Now.ToString("yyyy-MM-dd"), 
-                user_id = "1" 
-            });
-            if (response.StatusCode == System.Net.HttpStatusCode.Created)
+                    if (response.StatusCode == System.Net.HttpStatusCode.Created)
+                    {
+                        await App.Current.MainPage.DisplayAlert("Thành công", "Thêm vào giỏ hàng thành công!", "OK");
+                    }
+                }
+            }
+            catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Thành công", "Thêm vào giỏ hàng thành công!", "OK");
-            } else
-            {
-                await App.Current.MainPage.DisplayAlert("Lỗi", "Có lỗi xảy ra!", "OK");
+                await MaterialDialog.Instance.AlertAsync(message: ex.Message);
             }
         }
 
         public async void ExeBuyNow()
         {
-            var cartService = new CartService();
+            //var cartService = new CartService();
 
-            var response = await cartService.createCart(new Cart() { quantity = Quantity, raucu_id = Raucu.Id.ToString(), timestamp = DateTime.Now.ToString("yyyy-MM-dd"), user_id = "1" });
-            if (response.StatusCode == System.Net.HttpStatusCode.Created)
-            {
-                await App.Current.MainPage.Navigation.PushAsync(new CartPage());
-            }
-            else
-            {
-                await App.Current.MainPage.DisplayAlert("Lỗi", "Có lỗi xảy ra!", "OK");
-            }
+            //var response = await cartService.createCart(new Cart() { Quantity = Quantity, Raucu_id = Raucu.Id, User_id = 1 });
+            //if (response.StatusCode == System.Net.HttpStatusCode.Created)
+            //{
+            //    await App.Current.MainPage.Navigation.PushAsync(new CartPage());
+            //}
+            //else
+            //{
+            //    await App.Current.MainPage.DisplayAlert("Lỗi", "Có lỗi xảy ra!", "OK");
+            //}
         }
 
         public void OnAppearing()

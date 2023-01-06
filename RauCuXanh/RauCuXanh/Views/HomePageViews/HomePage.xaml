@@ -199,6 +199,22 @@
                                 <Label Text="{Binding LabelTitle}"
                                        FontAttributes="Bold"
                                        FontSize="20 " />
+                                <StackLayout Orientation="Horizontal"
+                                             HorizontalOptions="EndAndExpand"
+                                             VerticalOptions="StartAndExpand"
+                                             HeightRequest="40"
+                                             Spacing="0">
+                                    <Label Text="{Binding Selected}"
+                                           VerticalTextAlignment="Center" />
+                                    <Frame Padding="0" HasShadow="False">
+                                        <material:MaterialMenuButton  Image="sort_icon.png"
+                                                                      TintColor="Black"
+                                                                      ButtonType="Text"
+                                                                      CornerRadius="24"
+                                                                      Choices="{Binding Actions}"
+                                                                      Command="{Binding MenuCommand}" />
+                                    </Frame>
+                                </StackLayout>
                             </StackLayout>
                         </CollectionView.Header>
                         <CollectionView.ItemTemplate>

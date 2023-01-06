@@ -6,11 +6,11 @@ namespace RauCuXanh.Models
 {
     public class Receipt
     {
-        public string Id { get; set; }
-        public string User_id { get; set; }
-        public float Shipping_cost { get; set; }
+        public int Id { get; set; }
+        public int User_id { get; set; }
+        public string Shipping_cost { get; set; }
         public string Shipping_addr { get; set; }
-        public float Total_price { get; set; }
+        public string Total_price { get; set; }
         public string Timestampt { get; set; }
         public string Order_status { get; set; }
     }

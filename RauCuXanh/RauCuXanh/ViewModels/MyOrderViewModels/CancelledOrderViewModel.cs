@@ -30,16 +30,16 @@ namespace RauCuXanh.ViewModels.MyOrderViewModels
             IsBusy = true;
             try
             {
-                CancelledOrders.Clear();
-                var receiptService = new ReceiptService();
-                var receipts = await receiptService.getReceipts();
-                foreach (Receipt receipt in receipts)
-                {
-                    if (receipt.Order_status == "dahuy")
-                    {
-                        CancelledOrders.Add(receipt);
-                    }
-                }
+                //CancelledOrders.Clear();
+                //var receiptService = new ReceiptService();
+                //var receipts = await receiptService.getReceipts();
+                //foreach (Receipt receipt in receipts)
+                //{
+                //    if (receipt.Order_status == "dahuy")
+                //    {
+                //        CancelledOrders.Add(receipt);
+                //    }
+                //}
             }
             catch (Exception ex)
             {

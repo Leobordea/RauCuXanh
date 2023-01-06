@@ -145,7 +145,7 @@
                                         <StackLayout Grid.Column="1"
                                                      Grid.Row="2"
                                                      Orientation="Horizontal">
-                                            <Label Text="{Binding Review.Timestampt}"
+                                            <Label Text="{Binding Review.Timestamp}"
                                                    FontSize="12" />
                                         </StackLayout>
                                         <Label Grid.Row="3"

@@ -13,6 +13,6 @@ namespace RauCuXanh.Models
         public string Phone_no { get; set; }
         public string Profile_pic { get; set; }
         public int Id { get; set; }
-        //public string Address { get; set; }
+        public string Address { get; set; }
     }
 }

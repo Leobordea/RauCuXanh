@@ -51,6 +51,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                 {
                     if (r.Shop_id == Shop.Id)
                     {
+                        r.PriceAfterDiscount = r.Price * (1 - r.Discount);
                         DangBan.Add(r);
                         if (r.Discount > 0)
                         {
@@ -60,9 +61,9 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                 }
 
                 ModelData.Clear();
-                var shopService = new ShopService();
-                var reviewService = new ReviewService();
-                var reviews = await reviewService.getReviews();
+                var shopService = RestService.For<IShopApi>(RestClient.BaseUrl);
+                var reviewService = RestService.For<IReviewApi>(RestClient.BaseUrl);
+                var reviews = await reviewService.GetReviews();
 
                 var userClient = RestService.For<IUserApi>(RestClient.BaseUrl);
                 foreach (var r in reviews)

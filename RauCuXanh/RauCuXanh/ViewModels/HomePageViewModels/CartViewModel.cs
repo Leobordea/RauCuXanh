@@ -27,13 +27,40 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         public Command LoadCart { get; set; }
         public Command DeleteCommand { get; set; }
         public Command BuyCommand { get; set; }
+        public Command IncreaseQuantity { get; set; }
+        public Command DecreaseQuantity { get; set; }
+
         public CartViewModel()
         {
             Title = "Giỏ hàng";
             CartProducts = new ObservableCollection<CartItem>();
             LoadCart = new Command(async () => await ExeLoadCart());
-            DeleteCommand = new Command<string>(ExeDelete);
+            DeleteCommand = new Command<Cart>(ExeDelete);
             BuyCommand = new Command(ExeBuy);
+            IncreaseQuantity = new Command<Cart>(ExeIncrease);
+            DecreaseQuantity = new Command<Cart>(ExeDecrease);
+        }
+
+        public async void ExeIncrease(Cart cart)
+        {
+            var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
+            var response = await cartService.UpdateCart(new Cart() { Raucu_id = cart.Raucu_id, User_id = cart.User_id, Quantity = ++cart.Quantity });
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                IsBusy = true;
+            }
+        }
+
+        public async void ExeDecrease(Cart cart)
+        {
+            var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
+            var response = await cartService.UpdateCart(new Cart() { Raucu_id = cart.Raucu_id, User_id = cart.User_id, Quantity = --cart.Quantity });
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                IsBusy = true;
+            }
         }
 
         public async Task ExeLoadCart()
@@ -46,21 +73,21 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                 InitialCost = 0;
                 Discount = 0;
                 TotalCost = 0;
-                var cartService = new CartService();
-                var carts = await cartService.getCarts();
-                var UserID = "1";
+                var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
+                var carts = await cartService.GetCarts();
+                var UserID = 1;
                 foreach (var c in carts)
                 {
-                    if (c.user_id == UserID)
+                    if (c.User_id == UserID)
                     {
                         foreach (Raucu r in Raucus)
                         {
-                            if (r.Id.ToString() == c.raucu_id.ToString())
+                            if (r.Id == c.Raucu_id)
                             {
                                 CartProducts.Add(new CartItem() { Raucu = r, Cart = c });
-                                InitialCost += r.Price * c.quantity;
-                                Discount += r.Price * r.Discount * c.quantity;
-                                TotalCost += (r.Price - r.Price * r.Discount) * c.quantity;
+                                InitialCost += r.Price * c.Quantity;
+                                Discount += r.Price * r.Discount * c.Quantity;
+                                TotalCost += (r.Price - r.Price * r.Discount) * c.Quantity;
                             }
                         }
                     }
@@ -76,13 +103,13 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             }
         }
 
-        public async void ExeDelete(string id)
+        public async void ExeDelete(Cart cart)
         {
-            var cartService = new CartService();
             var res = await App.Current.MainPage.DisplayAlert("Thông báo", "Bạn có muốn xóa sản phẩm không?", "Có", "Không");
             if (res)
             {
-                var response = await cartService.deleteCart(id);
+                var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
+                var response = await cartService.DeleteCart(cart);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {

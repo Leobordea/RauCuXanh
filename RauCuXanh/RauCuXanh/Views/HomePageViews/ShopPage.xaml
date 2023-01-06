@@ -46,12 +46,7 @@
                         <Image Source="location_icon.png"
                                Grid.Column="0"
                                Grid.Row="0" />
-                        <!--<Label Text="{Binding Shop.Address}"
-                           Grid.Column="1"
-                           Grid.Row="0"
-                           Padding="10,0,0,0"
-                           VerticalTextAlignment="Center"/>-->
-                        <Label Text="Address"
+                        <Label Text="{Binding Shop.Address}"
                                Grid.Column="1"
                                Grid.Row="0"
                                Padding="10,0,0,0"
@@ -312,7 +307,7 @@
                                         <StackLayout Grid.Column="1"
                                                      Grid.Row="2"
                                                      Orientation="Horizontal">
-                                            <Label Text="{Binding Review.Timestampt}"
+                                            <Label Text="{Binding Review.Timestamp}"
                                                    FontSize="12" />
                                         </StackLayout>
                                         <Label Grid.Row="3"

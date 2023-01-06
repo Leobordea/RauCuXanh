@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RauCuXanh.Models;
 using RauCuXanh.Services;
 using RauCuXanh.Views.MyOrderViews;
+using Refit;
 using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs;
 
@@ -29,16 +30,16 @@ namespace RauCuXanh.ViewModels.MyOrderViewModels
             IsBusy = true;
             try
             {
-                DeliveringOrders.Clear();
-                var receiptService = new ReceiptService();
-                var receipts = await receiptService.getReceipts();
-                foreach (Receipt receipt in receipts)
-                {
-                    if (receipt.Order_status == "chuathanhtoan")
-                    {
-                        DeliveringOrders.Add(receipt);
-                    }
-                }
+                //DeliveringOrders.Clear();
+                //var receiptService = RestService.For<IReceiptApi>(RestClient.BaseUrl);
+                //var receipts = await receiptService.GetReceiptDetail();
+                //foreach (Receipt receipt in receipts)
+                //{
+                //    if (receipt.Order_status == "chuathanhtoan")
+                //    {
+                //        DeliveringOrders.Add(receipt);
+                //    }
+                //}
             }
             catch (Exception ex)
             {

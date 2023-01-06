@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Design;
+using System.Linq;
 using System.Threading.Tasks;
 using RauCuXanh.Models;
 using RauCuXanh.Services;
@@ -8,7 +10,9 @@ using RauCuXanh.Views.HomePageViews;
 using Refit;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using XF.Material.Forms.Models;
 using XF.Material.Forms.UI.Dialogs;
+using static Xamarin.Essentials.AppleSignInAuthenticator;
 
 namespace RauCuXanh.ViewModels.HomePageViewModels
 {
@@ -74,6 +78,17 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             set { SetProperty(ref _selected5, value); }
         }
 
+        public List<string> Actions => new List<string> { "Giá: thấp đến cao", "Giá: cao đến thấp", "Giảm giá: cao đến thấp"};
+
+        private string _selected = "Giá: cao đến thấp";
+        public string Selected
+        {
+            get { return _selected; }
+            set { SetProperty(ref _selected, value); }
+        }
+
+        public Command MenuCommand { get; set; }
+
         public ObservableCollection<Raucu> Raucus { get; set; }
         public Command LoadRaucusCommand { get; }
         public Command ButtonCommand { get; set; }
@@ -95,8 +110,8 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         {
             Title = "Trang chủ";
             Raucus = new ObservableCollection<Raucu>();
+            MenuCommand = new Command<MaterialMenuResult>(ExeMenuCommand);
             LoadRaucusCommand = new Command(async () => await ExecuteLoadRaucusCommand());
-            ButtonCommand = new Command<object>(ExecuteButtonCommand);
             NavigateToDetailPage = new Command<Raucu>(ExecuteNavToDetailPage);
             PerformSearch = new Command(ExePerformSearch);
             NavToProfile = new Command(ExeNavToProfile);
@@ -108,6 +123,15 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             LoadCuCommand = new Command(ExeLoadCuCommand);
             LoadGiaviCommand = new Command(ExeGiaviCuCommand);
             LoadTraicayCommand = new Command(ExeTraicayCuCommand);
+        }
+
+        private void ExeMenuCommand(MaterialMenuResult obj)
+        {
+            if (obj.Index != -1)
+            {
+                Selected = Actions[obj.Index];
+                IsBusy = true;
+            }
         }
 
         public void ExeLoadTatcaCommand()
@@ -178,21 +202,39 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                 Raucus.Clear();
                 var apiClient = RestService.For<IRaucuApi>(RestClient.BaseUrl);
                 var raucus = await apiClient.GetRaucuList();
+
+                //var apiService = new RaucuService();
+                //var raucus = await apiService.getRaucuList();
+                foreach (var raucu in raucus)
+                {
+                    raucu.PriceAfterDiscount = raucu.Price * (1 - raucu.Discount);
+                }
+                var sortedItems = new List<Raucu>();
+                if (Selected == "Giá: thấp đến cao")
+                {
+                    sortedItems = raucus.OrderByDescending(i => i.PriceAfterDiscount).Reverse().ToList();
+                }
+                else if (Selected == "Giá: cao đến thấp")
+                {
+                    sortedItems = raucus.OrderByDescending(i => i.PriceAfterDiscount).ToList();
+                }
+                else if (Selected == "Giảm giá: cao đến thấp")
+                {
+                    sortedItems = raucus.OrderByDescending(i => i.Discount).ToList();
+                }
                 if (SelectedCategory == "all")
                 {
-                    foreach (var raucu in raucus)
+                    foreach (var raucu in sortedItems)
                     {
-                        raucu.PriceAfterDiscount = raucu.Price * (1 - raucu.Discount);
                         Raucus.Add(raucu);
                     }
                 }
                 else
                 {
-                    foreach (var raucu in raucus)
+                    foreach (var raucu in sortedItems)
                     {
                         if (raucu.Raucu_type == SelectedCategory)
                         {
-                            raucu.PriceAfterDiscount = raucu.Price * (1 - raucu.Discount);
                             Raucus.Add(raucu);
                         }
                     }
@@ -211,12 +253,6 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         public void OnAppearing()
         {
             IsBusy = true;
-        }
-
-        public async void ExecuteButtonCommand(object o)
-        {
-            var button = o as Button;
-            await App.Current.MainPage.Navigation.PushAsync(new SpecificPage(button.Text));
         }
 
         public async void ExecuteNavToDetailPage(Raucu p)
@@ -241,9 +277,9 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
 
         public async void ExeAddToCart(Raucu r)
         {
-            var cartService = new CartService();
+            var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
 
-            var response = await cartService.createCart(new Cart() { quantity = 1, raucu_id = r.Id.ToString(), timestamp = DateTime.Now.ToString("yyyy-MM-dd"), user_id = "1" });
+            var response = await cartService.CreateCart(new Cart() { Quantity = 1, Raucu_id = r.Id, User_id = 1});
             if (response.StatusCode == System.Net.HttpStatusCode.Created)
             {
                 await App.Current.MainPage.DisplayAlert("Thành công", "Thêm vào giỏ hàng thành công!", "OK");

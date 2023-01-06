@@ -43,14 +43,14 @@ namespace RauCuXanh.ViewModels.MyOrderViewModels
             IsBusy= true;
             try
             {
-                ModelData.Clear();
-                var receiptSerview = new ReceiptService();
-                var receiptDetail = await receiptSerview.getReceiptDetail(Receipt.Id);
-                var raucuService = new RaucuService();
-                foreach (var receipt in receiptDetail)
-                {
-                    ModelData.Add(new OrderDetailViewModel() { Detail = receipt, Raucu = await raucuService.getRaucuById(receipt.Raucu_id) });
-                }
+                //ModelData.Clear();
+                //var receiptSerview = new ReceiptService();
+                //var receiptDetail = await receiptSerview.getReceiptDetail(Receipt.Id);
+                //var raucuService = new RaucuService();
+                //foreach (var receipt in receiptDetail)
+                //{
+                //    ModelData.Add(new OrderDetailViewModel() { Detail = receipt, Raucu = await raucuService.getRaucuById(receipt.Raucu_id) });
+                //}
             } catch (Exception ex)
             {
                 await MaterialDialog.Instance.AlertAsync(message: ex.Message);

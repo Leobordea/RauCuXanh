@@ -11,7 +11,7 @@
              Title="{Binding Title}">
     <ContentPage.Content>
         <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
-                     Command="{Binding LoadCart}"> 
+                     Command="{Binding LoadCart}">
             <StackLayout>
                 <CollectionView ItemsSource="{Binding CartProducts}"
                                 SelectionMode="Single">
@@ -24,7 +24,7 @@
                                                    IconImageSource="DeleteIcon.png"
                                                    BackgroundColor="LightPink"
                                                    Command="{Binding DeleteCommand, Source={x:RelativeSource AncestorType={Type vm:CartViewModel}}}"
-                                                   CommandParameter="{Binding Cart.id}" />
+                                                   CommandParameter="{Binding Cart}" />
                                     </SwipeItems>
                                 </SwipeView.LeftItems>
                                 <!-- Content -->
@@ -49,8 +49,18 @@
                                                    FontAttributes="Bold"
                                                    FontSize="18"
                                                    TextColor="Red" />
-                                            <Label Text="{Binding Cart.quantity, StringFormat='Số lượng: {0}'}"
+                                            <Label Text="{Binding Cart.Quantity, StringFormat='Số lượng: {0}'}"
                                                    VerticalTextAlignment="Center" />
+                                            <StackLayout Orientation="Horizontal">
+                                                <Button Text="-"
+                                                        Command="{Binding DecreaseQuantity, Source={RelativeSource AncestorType={Type vm:CartViewModel}}}"
+                                                        CommandParameter="{Binding Cart}"
+                                                        WidthRequest="40" />
+                                                <Button Text="+"
+                                                        Command="{Binding IncreaseQuantity, Source={RelativeSource AncestorType={Type vm:CartViewModel}}}"
+                                                        CommandParameter="{Binding Cart}"
+                                                        WidthRequest="40" />
+                                            </StackLayout>
                                             <Label Text="(Thong tin chi tiet)">
                                                 <Label.GestureRecognizers>
                                                     <TapGestureRecognizer Command="{Binding NavToDetailPage ,Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}}" />
@@ -90,14 +100,14 @@
                                FontSize="16"
                                VerticalTextAlignment="Center" />
                         <Label Text="{Binding TotalCost, StringFormat='{0:0,0 vnd}'}"
-                                   FontSize="18"
-                                   FontAttributes="Bold"
-                                   TextColor="Red"
-                                   VerticalTextAlignment="Center" />
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="Red"
+                               VerticalTextAlignment="Center" />
                         <material:MaterialButton Text="Đặt hàng"
                                                  BackgroundColor="Red"
-                                                 HorizontalOptions="EndAndExpand" 
-                                                 Command="{Binding BuyCommand}"/>
+                                                 HorizontalOptions="EndAndExpand"
+                                                 Command="{Binding BuyCommand}" />
                     </StackLayout>
                 </StackLayout>
             </StackLayout>

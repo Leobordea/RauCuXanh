@@ -29,16 +29,16 @@ namespace RauCuXanh.ViewModels.MyOrderViewModels
             IsBusy = true;
             try
             {
-                DeliveredOrders.Clear();
-                var receiptService = new ReceiptService();
-                var receipts = await receiptService.getReceipts();
-                foreach (Receipt receipt in receipts)
-                {
-                    if (receipt.Order_status == "dathanhtoan")
-                    {
-                        DeliveredOrders.Add(receipt);
-                    }
-                }
+                //DeliveredOrders.Clear();
+                //var receiptService = new ReceiptService();
+                //var receipts = await receiptService.getReceipts();
+                //foreach (Receipt receipt in receipts)
+                //{
+                //    if (receipt.Order_status == "dathanhtoan")
+                //    {
+                //        DeliveredOrders.Add(receipt);
+                //    }
+                //}
             }
             catch (Exception ex)
             {
