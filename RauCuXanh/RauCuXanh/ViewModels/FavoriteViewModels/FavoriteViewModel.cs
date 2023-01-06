@@ -13,27 +13,41 @@ namespace RauCuXanh.ViewModels.FavoriteViewModels
 {
     public class FavoriteViewModel : BaseViewModel
     {
-        public Command LoadRaucusCommand { get; }
-        public ObservableCollection<Raucu> Raucus { get; }
+        public Command LoadBookmarksCommand { get; }
+        public Command RemoveBookmark { get; set; }
+        private ObservableCollection<FavoriteViewModel> _modelData;
+        public ObservableCollection<FavoriteViewModel> ModelData
+        {
+            get { return _modelData; }
+            set { SetProperty(ref _modelData, value); }
+        }
+
+        public Raucu Raucu { get; set; }
+        public Bookmark Bookmark { get; set; }
 
         public FavoriteViewModel()
         {
             Title = "Favorite";
-            Raucus = new ObservableCollection<Raucu>();
-            LoadRaucusCommand = new Command(async () => await ExecuteLoadRaucusCommand());
+            ModelData = new ObservableCollection<FavoriteViewModel>();
+            LoadBookmarksCommand = new Command(async () => await ExecuteLoadBookmarksCommand());
+            RemoveBookmark = new Command<Bookmark>(ExeRemoveBookmark);
         }
 
-        async Task ExecuteLoadRaucusCommand()
+        async Task ExecuteLoadBookmarksCommand()
         {
             IsBusy = true;
             try
             {
-                Raucus.Clear();
-                var apiClient = RestService.For<IRaucuApi>(RestClient.BaseUrl);
-                var raucus = await apiClient.GetRaucuList();
-                foreach (var raucu in raucus)
+                ModelData.Clear();
+                var apiClient = RestService.For<IBookmarkApi>(RestClient.BaseUrl);
+                var raucuClient = RestService.For<IRaucuApi>(RestClient.BaseUrl);
+                var bookmarks = await apiClient.GetBookmarks();
+                foreach (var bookmark in bookmarks)
                 {
-                    Raucus.Add(raucu);
+                    if (bookmark.User_id == 1)
+                    {
+                        ModelData.Add(new FavoriteViewModel() { Raucu = await raucuClient.GetRaucuById(bookmark.Raucu_id), Bookmark = bookmark });
+                    }
                 }
             }
             catch (Exception ex)
@@ -45,6 +59,18 @@ namespace RauCuXanh.ViewModels.FavoriteViewModels
                 IsBusy = false;
             }
         }
+
+        public async void ExeRemoveBookmark(Bookmark bm)
+        {
+            var bookmarkClient = RestService.For<IBookmarkApi>(RestClient.BaseUrl);
+            var response = await bookmarkClient.DeleteBookmark(bm);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                IsBusy = true;
+            }
+        }
+
         public void OnAppearing()
         {
             IsBusy = true;

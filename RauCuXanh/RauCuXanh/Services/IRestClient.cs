@@ -19,7 +19,7 @@ namespace RauCuXanh.Services
         Task<List<Raucu>> GetRaucuList();
 
         [Get("/raucu/{id}")]
-        Task<List<Raucu>> GetRaucuById(int id);
+        Task<Raucu> GetRaucuById(int id);
     }
     public interface IShopApi
     {
@@ -70,5 +70,16 @@ namespace RauCuXanh.Services
     {
         [Get("/reviews")]
         Task<List<Review>> GetReviews();
+    }
+    public interface IBookmarkApi
+    {
+        [Get("/bookmarks")]
+        Task<List<Bookmark>> GetBookmarks();
+
+        [Post("/bookmarks")]
+        Task<HttpResponseMessage> CreateBookmark([Body] Bookmark payload);
+
+        [Delete("/bookmarks")]
+        Task<HttpResponseMessage> DeleteBookmark([Body] Bookmark payload);
     }
 }

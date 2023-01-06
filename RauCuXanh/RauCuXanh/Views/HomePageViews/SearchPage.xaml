@@ -44,22 +44,17 @@
                            TextColor="Black"
                            FontAttributes="Bold"
                            Margin="20,0,0,0" />
-                    <FlexLayout Wrap="Wrap">
-                        <material:MaterialButton ButtonType="Outlined"
-                                                 TextColor="Black"
-                                                 Text="rau cải thìa" />
-                        <material:MaterialButton ButtonType="Outlined"
-                                                 TextColor="Black"
-                                                 Text="rau húng quế" />
-                        <material:MaterialButton ButtonType="Outlined"
-                                                 TextColor="Black"
-                                                 Text="súp lơ" />
-                        <material:MaterialButton ButtonType="Outlined"
-                                                 TextColor="Black"
-                                                 Text="rau bắp cải" />
-                        <material:MaterialButton ButtonType="Outlined"
-                                                 TextColor="Black"
-                                                 Text="cây rau mùi" />
+                    <FlexLayout BindableLayout.ItemsSource="{Binding Recommendations}"
+                                Wrap="Wrap">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <material:MaterialButton ButtonType="Outlined"
+                                                         TextColor="Black"
+                                                         Text="{Binding .}"
+                                                         Command="{Binding RecommendCommand, Source={RelativeSource AncestorType={Type vm:SearchViewModel}}}"
+                                                         CommandParameter="{Binding .}"/>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
                     </FlexLayout>
                 </StackLayout>
             </StackLayout>

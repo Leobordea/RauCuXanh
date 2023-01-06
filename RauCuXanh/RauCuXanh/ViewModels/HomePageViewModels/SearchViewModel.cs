@@ -31,13 +31,22 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         public bool Visible2 { get { return _visible2; } set { SetProperty(ref _visible2, value); } }
 
         public Command SearchCommand { get; }
+        public List<string> Recommendations { get; set; }
+        public Command RecommendCommand { get; set; }
 
         public SearchViewModel()
         {
             Title = "Tìm kiếm";
             SearchResults = new ObservableCollection<Raucu>();
             SearchCommand = new Command(Search);
+            Recommendations = new List<string>() { "Rau cải thìa", "Rau húng quế", "Súp lơ", "Rau bắp cải" };
+            RecommendCommand = new Command<string>(ExeRecommendCommand);
             Task.Run(async () => { await ExecuteLoadRaucusCommand(); }).Wait();
+        }
+
+        public void ExeRecommendCommand(string str)
+        {
+            SearchText = str;
         }
 
         void Search()

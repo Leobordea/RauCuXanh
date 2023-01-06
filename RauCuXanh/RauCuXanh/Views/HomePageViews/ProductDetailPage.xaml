@@ -13,181 +13,195 @@
                      Command="{Binding LoadShopCommand}">
             <StackLayout Margin="5">
                 <ScrollView VerticalScrollBarVisibility="Never">
-                    <StackLayout Margin="10">
-                        <Grid ColumnDefinitions="*, *">
-                            <AbsoluteLayout>
-                                <Frame Padding="0"
-                                       HasShadow="False"
-                                       CornerRadius="5"
-                                       VerticalOptions="FillAndExpand"
-                                       AbsoluteLayout.LayoutBounds="1,1,1,1"
-                                       AbsoluteLayout.LayoutFlags="All">
-                                    <Image Source="{Binding Raucu.Product_pic}"
-                                           Aspect="AspectFill" />
-                                </Frame>
-                                <Frame HeightRequest="40"
-                                       WidthRequest="40"
-                                       HorizontalOptions="End"
-                                       AbsoluteLayout.LayoutFlags="All"
-                                       AbsoluteLayout.LayoutBounds="0.95, 0.95, 0.25, 0.23"
-                                       Padding="0"
-                                       HasShadow="False"
-                                       CornerRadius="100"
-                                       BackgroundColor="Gold">
-                                    <Label Text="{Binding Raucu.Discount, StringFormat=' {0:0%}'}"
-                                           VerticalTextAlignment="Center"
-                                           HorizontalTextAlignment="Center"
-                                           TextColor="Red"
-                                           FontSize="16"
-                                           FontAttributes="Bold" />
-                                </Frame>
-                            </AbsoluteLayout>
-                            <StackLayout  Grid.Column="1"
-                                          Margin="10, 0, 0, 0">
-                                <Label Text="{Binding Raucu.Name}"
-                                       FontAttributes="Bold"
-                                       FontSize="20"
-                                       LineBreakMode="WordWrap" />
-                                <Label Text="{Binding Raucu.PriceAfterDiscount, StringFormat='{0:0,0 vnd}' }"
-                                       FontAttributes="Bold"
-                                       FontSize="18"
-                                       TextColor="Red" />
-                                <StackLayout Orientation="Horizontal">
-                                    <Button Text="-"
-                                            Command="{Binding DecreaseQuantity}"
-                                            WidthRequest="40" />
-                                    <Label Text="{Binding Quantity}"
-                                           VerticalTextAlignment="Center" />
-                                    <Button Text="+"
-                                            Command="{Binding IncreaseQuantity}"
-                                            WidthRequest="40" />
-                                </StackLayout>
-                                <Frame Padding="0"
-                                       HasShadow="False"
-                                       VerticalOptions="EndAndExpand">
-                                    <StackLayout Orientation="Horizontal">
-                                        <Image Source="shop_icon.png"
-                                               WidthRequest="20" />
-                                        <Label Text="{Binding Shop.Name}" />
-                                    </StackLayout>
-                                    <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding NavToShopCommand, Source={RelativeSource AncestorType={x:Type vm:ProductDetailViewModel}}}"
-                                                              CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Shop}}}" />
-                                    </Frame.GestureRecognizers>
-                                </Frame>
-                            </StackLayout>
-                        </Grid>
-                        <Grid ColumnDefinitions="1.5*, *"
-                              Margin="0, 10, 0, 0">
-                            <material:MaterialButton ButtonType="Outlined"
-                                                     Text="Thêm vào giỏ hàng"
-                                                     TextColor="Red"
-                                                     BorderColor="Red"
-                                                     Command="{Binding AddToCart}"
-                                                     Grid.Column="0" />
-                            <material:MaterialButton Text="Mua ngay"
-                                                     BackgroundColor="Red"
-                                                     Command="{Binding BuyNow}"
-                                                     Grid.Column="1" />
-                        </Grid>
-                        <Label Text="Thông tin sản phẩm"
-                               FontAttributes="Bold"
-                               FontSize="18"
-                               Margin="0,20" />
-                        <Label Text="{Binding Raucu.Description, StringFormat='{0}'}"
-                               FontSize="14"
-                               LineHeight="1.2"
-                               Margin="5, 0" />
-                        <Label Text="Đánh giá sản phẩm"
-                               FontAttributes="Bold"
-                               FontSize="18"
-                               Margin="0,20" />
-                        <FlexLayout  BindableLayout.ItemsSource="{Binding ModelData}"
-                                     Direction="Column"
-                                     AlignItems="Stretch">
-                            <BindableLayout.ItemTemplate>
-                                <DataTemplate x:DataType="vm:ProductDetailViewModel">
-                                    <Grid ColumnDefinitions="60, *"
-                                          RowDefinitions="25, 25, auto, auto, auto"
-                                          Margin="10">
-                                        <Frame Grid.RowSpan="2"
-                                               Padding="0"
-                                               HasShadow="False"
-                                               HeightRequest="50"
-                                               WidthRequest="50"
-                                               CornerRadius="25"
-                                               VerticalOptions="CenterAndExpand"
-                                               HorizontalOptions="CenterAndExpand">
-                                            <Image Source="{Binding User.Profile_pic}"
-                                                   Aspect="AspectFill" />
-                                        </Frame>
-                                        <Label Grid.Column="1"
-                                               Text="{Binding User.Username}"
-                                               FontAttributes="Bold"
-                                               FontSize="16" />
-                                        <StackLayout Grid.Column="1"
-                                                     Grid.Row="1"
-                                                     Orientation="Horizontal">
-                                            <CollectionView ItemsSource="{Binding Stars}"
-                                                            ItemsLayout="HorizontalList"
-                                                            Margin="0, -5, 0, 0">
-                                                <CollectionView.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <Frame WidthRequest="16"
-                                                               Padding="0"
-                                                               HasShadow="False">
-                                                            <Image Source="review_star.png" />
-                                                        </Frame>
-                                                    </DataTemplate>
-                                                </CollectionView.ItemTemplate>
-                                            </CollectionView>
-                                        </StackLayout>
-                                        <StackLayout Grid.Column="1"
-                                                     Grid.Row="2"
-                                                     Orientation="Horizontal">
-                                            <Label Text="{Binding Review.Timestamp}"
-                                                   FontSize="12" />
-                                        </StackLayout>
-                                        <Label Grid.Row="3"
-                                               Grid.Column="1"
-                                               Text="{Binding Review.Comments}"
-                                               TextColor="Gray" />
-                                        <BoxView Grid.Row="4"
-                                                 Grid.ColumnSpan="2"
-                                                 HeightRequest="1"
-                                                 BackgroundColor="LightGray"
-                                                 Margin="10, 10, 10, 0" />
-                                    </Grid>
-                                </DataTemplate>
-                            </BindableLayout.ItemTemplate>
-                        </FlexLayout>
-                    </StackLayout>
-                </ScrollView>
-                <Frame Padding="0"
-                       HasShadow="False"
-                       BackgroundColor="Gold"
-                       CornerRadius="10"
-                       HeightRequest="50"
-                       VerticalOptions="EndAndExpand"
-                       Margin="10, 0">
-                    <FlexLayout HorizontalOptions="CenterAndExpand"
-                                JustifyContent="Center"
-                                AlignItems="Center">
-                        <StackLayout Orientation="Horizontal">
+                    <StackLayout Margin="10, 0">
+                        <AbsoluteLayout>
                             <Frame Padding="0"
                                    HasShadow="False"
-                                   HeightRequest="30"
-                                   BackgroundColor="Transparent">
-                                <Image Source="bookmark_with_heart.png"
+                                   CornerRadius="20"
+                                   HeightRequest="300"
+                                   VerticalOptions="FillAndExpand"
+                                   AbsoluteLayout.LayoutBounds="1,1,1,1"
+                                   AbsoluteLayout.LayoutFlags="All">
+                                <Image Source="{Binding Raucu.Product_pic}"
                                        Aspect="AspectFill" />
                             </Frame>
-                            <Label Text="Yêu thích"
-                                   FontSize="18"
+                            <Frame HeightRequest="40"
+                                   WidthRequest="40"
+                                   HorizontalOptions="End"
+                                   AbsoluteLayout.LayoutFlags="All"
+                                   AbsoluteLayout.LayoutBounds="0.95, 0.95, 0.25, 0.15"
+                                   Padding="0"
+                                   HasShadow="False"
+                                   CornerRadius="100"
+                                   BackgroundColor="Gold">
+                                <Label Text="{Binding Raucu.Discount, StringFormat=' {0:0%}'}"
+                                       VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Center"
+                                       TextColor="Red"
+                                       FontSize="16"
+                                       FontAttributes="Bold" />
+                            </Frame>
+                        </AbsoluteLayout>
+                        <StackLayout  Margin="10, 10, 10, 0">
+                            <StackLayout>
+                                <Label Text="{Binding Raucu.Name}"
+                                       FontAttributes="Bold"
+                                       FontSize="24"
+                                       LineBreakMode="WordWrap" />
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Raucu.PriceAfterDiscount, StringFormat='{0:0,0 vnd}' }"
+                                           FontAttributes="Bold"
+                                           FontSize="22"
+                                           TextColor="Red"
+                                           VerticalTextAlignment="Center" />
+                                    <StackLayout Orientation="Horizontal"
+                                                 HorizontalOptions="EndAndExpand"
+                                                 Spacing="15">
+                                        <Button Text="-"
+                                                Command="{Binding DecreaseQuantity}"
+                                                WidthRequest="40"
+                                                HeightRequest="40"
+                                                CornerRadius="10"
+                                                BackgroundColor="#E0E0E0" />
+                                        <Label Text="{Binding Quantity}"
+                                               VerticalTextAlignment="Center" />
+                                        <Button Text="+"
+                                                Command="{Binding IncreaseQuantity}"
+                                                WidthRequest="40"
+                                                HeightRequest="40"
+                                                CornerRadius="10"
+                                                BackgroundColor="#E0E0E0" />
+                                    </StackLayout>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Frame Padding="0"
+                                           HasShadow="False"
+                                           WidthRequest="30">
+                                        <Image Source="star.png" />
+                                    </Frame>
+                                    <Label Text="{Binding AverageStar}"
+                                           VerticalTextAlignment="Center"
+                                           FontAttributes="Bold"
+                                           FontSize="16" />
+                                    <Label Text="{Binding ModelData.Count, StringFormat='({0} đánh giá)'}"
+                                           Margin="10, 0, 0, 0"
+                                           VerticalTextAlignment="Center"
+                                           FontSize="16" />
+                                </StackLayout>
+                            </StackLayout>
+                            <Label Text="Thông tin sản phẩm"
                                    FontAttributes="Bold"
-                                   VerticalTextAlignment="Center" />
+                                   FontSize="18"
+                                   Margin="0,10" />
+                            <Label Text="{Binding Raucu.Description, StringFormat='{0}'}"
+                                   FontSize="16"
+                                   LineHeight="1.2"
+                                   Margin="5, 0" />
+                            <Label Text="Đánh giá sản phẩm"
+                                   FontAttributes="Bold"
+                                   FontSize="18"
+                                   Margin="0,20" />
+                            <FlexLayout  BindableLayout.ItemsSource="{Binding ModelData}"
+                                         Direction="Column"
+                                         AlignItems="Stretch">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:ProductDetailViewModel">
+                                        <Grid ColumnDefinitions="60, *"
+                                              RowDefinitions="25, 25, auto, auto, auto"
+                                              Margin="10">
+                                            <Frame Grid.RowSpan="2"
+                                                   Padding="0"
+                                                   HasShadow="False"
+                                                   HeightRequest="50"
+                                                   WidthRequest="50"
+                                                   CornerRadius="25"
+                                                   VerticalOptions="CenterAndExpand"
+                                                   HorizontalOptions="CenterAndExpand">
+                                                <Image Source="{Binding User.Profile_pic}"
+                                                       Aspect="AspectFill" />
+                                            </Frame>
+                                            <Label Grid.Column="1"
+                                                   Text="{Binding User.Username}"
+                                                   FontAttributes="Bold"
+                                                   FontSize="16" />
+                                            <StackLayout Grid.Column="1"
+                                                         Grid.Row="1"
+                                                         Orientation="Horizontal">
+                                                <CollectionView ItemsSource="{Binding Stars}"
+                                                                ItemsLayout="HorizontalList"
+                                                                Margin="0, -5, 0, 0">
+                                                    <CollectionView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Frame WidthRequest="16"
+                                                                   Padding="0"
+                                                                   HasShadow="False">
+                                                                <Image Source="review_star.png" />
+                                                            </Frame>
+                                                        </DataTemplate>
+                                                    </CollectionView.ItemTemplate>
+                                                </CollectionView>
+                                            </StackLayout>
+                                            <StackLayout Grid.Column="1"
+                                                         Grid.Row="2"
+                                                         Orientation="Horizontal">
+                                                <Label Text="{Binding Review.Timestamp}"
+                                                       FontSize="12" />
+                                            </StackLayout>
+                                            <Label Grid.Row="3"
+                                                   Grid.Column="1"
+                                                   Text="{Binding Review.Comments}"
+                                                   TextColor="Gray" />
+                                            <BoxView Grid.Row="4"
+                                                     Grid.ColumnSpan="2"
+                                                     HeightRequest="1"
+                                                     BackgroundColor="LightGray"
+                                                     Margin="10, 10, 10, 0" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </FlexLayout>
                         </StackLayout>
-                    </FlexLayout>
-                </Frame>
+                    </StackLayout>
+                </ScrollView>
+                <Grid ColumnDefinitions="60, 60, *"
+                      Margin="10, 5"
+                      VerticalOptions="EndAndExpand"
+                      HeightRequest="85">
+                    <Frame HasShadow="False"
+                           HeightRequest="45"
+                           BackgroundColor="#F0F0F0"
+                           Padding="15"
+                           Margin="5"
+                           CornerRadius="10"
+                           Grid.Column="0">
+                        <Image Source="{Binding BookmarkIcon}"
+                               Aspect="AspectFill"/>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AddBookmark}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Frame Padding="10"
+                           HasShadow="False"
+                           VerticalOptions="EndAndExpand"
+                           Grid.Column="1"
+                           BackgroundColor="#F0F0F0"
+                           CornerRadius="10"
+                           Margin="5">
+                        <Image Source="shop_icon.png"
+                               WidthRequest="40" />
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavToShopCommand, Source={RelativeSource AncestorType={x:Type vm:ProductDetailViewModel}}}"
+                                                  CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type model:Shop}}}" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <material:MaterialButton ButtonType="Flat"
+                                             CornerRadius="10"
+                                             Text="Thêm vào giỏ hàng"
+                                             TextColor="White"
+                                             BackgroundColor="Red"
+                                             Command="{Binding AddToCart}"
+                                             Grid.Column="2" />
+                </Grid>
             </StackLayout>
         </RefreshView>
     </ContentPage.Content>

@@ -9,6 +9,7 @@ using RauCuXanh.Models;
 using RauCuXanh.Services;
 using RauCuXanh.Views.HomePageViews;
 using Refit;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs;
 using static System.Net.WebRequestMethods;
@@ -45,12 +46,28 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         public Command IncreaseQuantity { get; set; }
         public Command DecreaseQuantity { get; set; }
         public Command NavToShopCommand { get; set; }
+        public Command AddBookmark { get; set; }
         public Command AddToCart { get; set; }
-        public Command BuyNow { get; set; }
         public Review Review { get; set; }
         public User User { get; set; }
         public List<string> Stars { get; set; }
         public ObservableCollection<ProductDetailViewModel> ModelData { get; set; }
+        private float _averageStar = 0;
+        public float AverageStar
+        {
+            get { return _averageStar; }
+            set { SetProperty(ref _averageStar, value); }
+        }
+
+        private string _bookmarkIcon;
+        public string BookmarkIcon
+        {
+            get { return _bookmarkIcon; }
+            set
+            {
+                SetProperty(ref _bookmarkIcon, value);
+            }
+        }
 
         private string _myreview;
         public string MyReview
@@ -72,8 +89,8 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             IncreaseQuantity = new Command(ExeIncreaseQuantity);
             DecreaseQuantity = new Command(ExeDecreaseQuantity);
             NavToShopCommand = new Command(ExeNavToShop);
+            AddBookmark = new Command(ExeAddBookmark);
             AddToCart = new Command(ExeAddToCart);
-            BuyNow = new Command(ExeBuyNow);
             ModelData = new ObservableCollection<ProductDetailViewModel>();
             Stars = new List<string>();
         }
@@ -84,6 +101,8 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             try
             {
                 ModelData.Clear();
+                AverageStar = 0;
+                BookmarkIcon = "bookmark_icon.png";
 
                 var shopClient = RestService.For<IShopApi>(RestClient.BaseUrl);
                 Shop = await shopClient.GetShopById(Raucu.Shop_id);
@@ -93,9 +112,16 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
 
                 var userClient = RestService.For<IUserApi>(RestClient.BaseUrl);
 
-                //var reviewSerview = new ReviewService();
-                //var reviews = await reviewSerview.getReviews();
-
+                var bookmarkClient = RestService.For<IBookmarkApi>(RestClient.BaseUrl);
+                var bookmarks = await bookmarkClient.GetBookmarks();
+                foreach (var bookmark in bookmarks)
+                {
+                    if (bookmark.Raucu_id == Raucu.Id && bookmark.User_id == 1)
+                    {
+                        BookmarkIcon = "bookmarked_icon.png";
+                        break;
+                    }
+                }
 
                 foreach (var r in reviews)
                 {
@@ -104,6 +130,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                         if (r.Raucu_id == Raucu.Id)
                         {
                             var user = await userClient.GetUserById(r.User_id);
+                            AverageStar = AverageStar + r.Stars;
                             var stars = new List<string>();
                             switch (r.Stars)
                             {
@@ -127,6 +154,8 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                         }
                     }
                 }
+
+                AverageStar = AverageStar / ModelData.Count;
             }
             catch (Exception ex)
             {
@@ -162,10 +191,10 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                 var carts = await cartService.GetCarts();
                 foreach (Cart cart in carts)
                 {
-                    if (cart.Raucu_id == Raucu.Id && cart.User_id == 1) 
+                    if (cart.Raucu_id == Raucu.Id && cart.User_id == 1)
                     {
-                        var response = await cartService.UpdateCart(new Cart() { Raucu_id = Raucu.Id, User_id = 1, Quantity = cart.Quantity + Quantity});
-                        if (response.StatusCode == System.Net.HttpStatusCode.Created)
+                        var response = await cartService.UpdateCart(new Cart() { Raucu_id = Raucu.Id, User_id = 1, Quantity = cart.Quantity + Quantity });
+                        if (response.StatusCode == System.Net.HttpStatusCode.OK)
                         {
                             await App.Current.MainPage.DisplayAlert("Thành công", "Thêm vào giỏ hàng thành công!", "OK");
                             flag = true;
@@ -194,19 +223,41 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             }
         }
 
-        public async void ExeBuyNow()
+        public async void ExeAddBookmark()
         {
-            //var cartService = new CartService();
-
-            //var response = await cartService.createCart(new Cart() { Quantity = Quantity, Raucu_id = Raucu.Id, User_id = 1 });
-            //if (response.StatusCode == System.Net.HttpStatusCode.Created)
-            //{
-            //    await App.Current.MainPage.Navigation.PushAsync(new CartPage());
-            //}
-            //else
-            //{
-            //    await App.Current.MainPage.DisplayAlert("Lỗi", "Có lỗi xảy ra!", "OK");
-            //}
+            if (BookmarkIcon == "bookmark_icon.png")
+            {
+                try
+                {
+                    var bookmarkClient = RestService.For<IBookmarkApi>(RestClient.BaseUrl);
+                    var response = await bookmarkClient.CreateBookmark(new Bookmark()
+                    {
+                        Raucu_id = Raucu.Id,
+                        User_id = 1,
+                    });
+                    BookmarkIcon = "bookmarked_icon.png";
+                }
+                catch (Exception ex)
+                {
+                    await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+                }
+            } else
+            {
+                try
+                {
+                    var bookmarkClient = RestService.For<IBookmarkApi>(RestClient.BaseUrl);
+                    var response = await bookmarkClient.DeleteBookmark(new Bookmark()
+                    {
+                        Raucu_id = Raucu.Id,
+                        User_id = 1,
+                    });
+                    BookmarkIcon = "bookmark_icon.png";
+                }
+                catch (Exception ex)
+                {
+                    await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+                }
+            }
         }
 
         public void OnAppearing()
