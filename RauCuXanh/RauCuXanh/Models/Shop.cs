@@ -12,7 +12,7 @@ namespace RauCuXanh.Models
         public int No_sold { get; set; }
         public string Phone_no { get; set; }
         public string Profile_pic { get; set; }
-        public string Id { get; set; }
-        //public string Address { get; set; }
+        public int Id { get; set; }
+        public string Address { get; set; }
     }
 }

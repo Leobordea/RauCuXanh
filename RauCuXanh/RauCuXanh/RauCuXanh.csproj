@@ -61,7 +61,7 @@
     <EmbeddedResource Update="Views\HomePageViews\ShopPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\HomePageViews\SpecificPage.xaml">
+    <EmbeddedResource Update="Views\MyOrderViews\OrderDetailPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MyProfilePageViews\ChangePasswordPage.xaml">

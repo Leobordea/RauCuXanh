@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RauCuXanh.Views.MyOrderViews.OrderDetailPage"
+             xmlns:vm="clr-namespace:RauCuXanh.ViewModels.MyOrderViewModels"
+             x:DataType="vm:OrderDetailViewModel"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                     Command="{Binding LoadReceiptDetail}">
+            <CollectionView ItemsSource="{Binding ModelData}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:OrderDetailViewModel">
+                        <Label Text="{Binding Raucu.Name}"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

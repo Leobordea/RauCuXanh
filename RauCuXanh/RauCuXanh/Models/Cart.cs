@@ -6,10 +6,9 @@ namespace RauCuXanh.Models
 {
     public class Cart
     {
-        public string id { get; set; }
-        public int quantity { get; set; }
-        public string raucu_id { get; set; }
-        public string timestamp { get; set; }
-        public string user_id { get; set; }
+        public int Quantity { get; set; }
+        public int Raucu_id { get; set; }
+        public string Timestamp { get; set; }
+        public int User_id { get; set; }
     }
 }

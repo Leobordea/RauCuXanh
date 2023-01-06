@@ -43,14 +43,15 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             IsBusy = true;
             try
             {
-                var raucuService = new RaucuService();
-                var raucus = await raucuService.getRaucuList();
+                var raucuService = RestService.For<IRaucuApi>(RestClient.BaseUrl);
+                var raucus = await raucuService.GetRaucuList();
                 DangBan.Clear();
                 KhuyenMai.Clear();
                 foreach (Raucu r in raucus)
                 {
-                    if (r.Shop_id.ToString() == Shop.Id)
+                    if (r.Shop_id == Shop.Id)
                     {
+                        r.PriceAfterDiscount = r.Price * (1 - r.Discount);
                         DangBan.Add(r);
                         if (r.Discount > 0)
                         {
@@ -60,19 +61,20 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                 }
 
                 ModelData.Clear();
-                var shopService = new ShopService();
-                var reviewService = new ReviewService();
-                var userService = new UserService();
-                var reviews = await reviewService.getReviews();
+                var shopService = RestService.For<IShopApi>(RestClient.BaseUrl);
+                var reviewService = RestService.For<IReviewApi>(RestClient.BaseUrl);
+                var reviews = await reviewService.GetReviews();
+
+                var userClient = RestService.For<IUserApi>(RestClient.BaseUrl);
                 foreach (var r in reviews)
                 {
                     if (r.Review_type == "shop")
                     {
                         if (r.Shop_id == Shop.Id)
                         {
-                            var user = await userService.getUserById(r.User_id);
+                            var user = await userClient.GetUserById(r.User_id);
                             var stars = new List<string>();
-                            switch (r.Star)
+                            switch (r.Stars)
                             {
                                 case 1:
                                     stars = new List<string>() { "Red" };

@@ -8,6 +8,7 @@ using RauCuXanh.Services;
 using Xamarin.Forms;
 using Newtonsoft.Json;
 using RauCuXanh.Views.HomePageViews;
+using Refit;
 
 namespace RauCuXanh.ViewModels.HomePageViewModels
 {
@@ -27,26 +28,30 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
 
         async Task ExeOrderCommand()
         {
-            var receiptService = new ReceiptService();
-            if (Error1 || Error2 || Error3 || Error4)
-            {
-                await App.Current.MainPage.DisplayAlert("Lỗi", "Vui lòng điền đầy đủ thông tin!", "OK");
-                return;
-            }
-            var response = await receiptService.createReceipt(new Receipt()
-            {
-                Timestampt = DateTime.Now.ToString("yyyy-MM-dd"),
-                User_id = "1",
-                Shipping_addr = $"{Province}, {District}, {Block}, {Road}",
-                Shipping_cost = ShippingCost,
-                Total_price = TotalCost,
-            }, CartProducts);
-            if (response.StatusCode == System.Net.HttpStatusCode.Created)
-            {
-                var cartService = new CartService();
-                await cartService.deleteAllCart(CartProducts);
-                await App.Current.MainPage.Navigation.PushAsync(new OrderSuccessPage());
-            }
+            //var receiptService = new ReceiptService();
+            //if (Error1 || Error2 || Error3 || Error4)
+            //{
+            //    await App.Current.MainPage.DisplayAlert("Lỗi", "Vui lòng điền đầy đủ thông tin!", "OK");
+            //    return;
+            //}
+            //var response = await receiptService.createReceipt(new Receipt()
+            //{
+            //    Timestampt = DateTime.Now.ToString("yyyy-MM-dd"),
+            //    User_id = "1",
+            //    Shipping_addr = $"{Province}, {District}, {Block}, {Road}",
+            //    Shipping_cost = ShippingCost,
+            //    Total_price = TotalCost,
+            //    Order_status = "chuathanhtoan",
+            //}, CartProducts);
+            //if (response.StatusCode == System.Net.HttpStatusCode.Created)
+            //{
+            //    var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
+            //    foreach (CartItem cart in CartProducts)
+            //    {
+            //        await cartService.DeleteCart(cart.Cart);
+            //    }
+            //    await App.Current.MainPage.Navigation.PushAsync(new OrderSuccessPage());
+            //}
         }
 
         private string province;

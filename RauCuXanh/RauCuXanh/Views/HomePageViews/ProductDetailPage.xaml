@@ -145,12 +145,12 @@
                                         <StackLayout Grid.Column="1"
                                                      Grid.Row="2"
                                                      Orientation="Horizontal">
-                                            <Label Text="{Binding Review.Timestampt}"
+                                            <Label Text="{Binding Review.Timestamp}"
                                                    FontSize="12" />
                                         </StackLayout>
                                         <Label Grid.Row="3"
                                                Grid.Column="1"
-                                               Text="{Binding Review.Comment}"
+                                               Text="{Binding Review.Comments}"
                                                TextColor="Gray" />
                                         <BoxView Grid.Row="4"
                                                  Grid.ColumnSpan="2"
