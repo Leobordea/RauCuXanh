@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RauCuXanh.Models;
 using RauCuXanh.Services;
 using RauCuXanh.Views.MyOrderViews;
+using Refit;
 using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs;
 
@@ -13,14 +16,17 @@ namespace RauCuXanh.ViewModels.MyOrderViewModels
 {
     public class CancelledOrderViewModel : BaseViewModel
     {
-        public ObservableCollection<Receipt> CancelledOrders { get; set; }
+        public ObservableCollection<CancelledOrderViewModel> CancelledOrders { get; set; }
         public Command LoadReceipt { get; set; }
         public Command NavToDetail { get; set; }
+
+        public Receipt Receipt { get; set; }
+        public int Quantity { get; set; }
 
         public CancelledOrderViewModel()
         {
             Title = "Đã hủy";
-            CancelledOrders = new ObservableCollection<Receipt>();
+            CancelledOrders = new ObservableCollection<CancelledOrderViewModel>();
             LoadReceipt = new Command(async () => await ExeLoadReceiptCommand());
             NavToDetail = new Command<Receipt>(ExeNavToDetail);
         }
@@ -30,16 +36,25 @@ namespace RauCuXanh.ViewModels.MyOrderViewModels
             IsBusy = true;
             try
             {
-                //CancelledOrders.Clear();
-                //var receiptService = new ReceiptService();
-                //var receipts = await receiptService.getReceipts();
-                //foreach (Receipt receipt in receipts)
-                //{
-                //    if (receipt.Order_status == "dahuy")
-                //    {
-                //        CancelledOrders.Add(receipt);
-                //    }
-                //}
+                CancelledOrders.Clear();
+                Quantity = 0;
+                var receiptService = RestService.For<IReceiptApi>(RestClient.BaseUrl);
+                var receipts = await receiptService.GetReceiptsByUser(new Dictionary<string, object>() { { "user_id", 1 } });
+                foreach (Receipt receipt in receipts)
+                {
+                    if (receipt.Order_status == "dahuy")
+                    {
+                        var receiptlist = await receiptService.GetReceiptList();
+                        CancelledOrders.Add(new CancelledOrderViewModel() { Receipt = new Receipt()
+                        {
+                            Id = receipt.Id,
+                            Timestamp = receipt.Timestamp,
+                            Total_price = receipt.Total_price,
+                            User_id = receipt.User_id
+                        }, 
+                        Quantity = receiptlist.Where(r => r.Receipt_id == receipt.Id).Count()});
+                    }
+                }
             }
             catch (Exception ex)
             {

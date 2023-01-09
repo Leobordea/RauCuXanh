@@ -15,14 +15,14 @@
                      Command="{Binding LoadReceipt}">
             <CollectionView ItemsSource="{Binding DeliveringOrders}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Receipt">
+                    <DataTemplate x:DataType="vm:DeliveringOrderViewModel">
                         <StackLayout>
                             <material:MaterialCard Elevation="8"
                                                    CornerRadius="10"
                                                    HeightRequest="140"
                                                    Margin="20"
                                                    HasShadow="True"
-                                                   Padding="10">
+                                                   Padding="15, 10">
                                 <Grid RowDefinitions="auto, 1, *, *">
                                     <FlexLayout Grid.Row="0"
                                                 JustifyContent="SpaceBetween"
@@ -33,11 +33,11 @@
                                             <Label Text="Đơn số "
                                                    FontAttributes="Bold"
                                                    FontSize="18" />
-                                            <Label Text="{Binding Id}"
+                                            <Label Text="{Binding Receipt.Id}"
                                                    FontAttributes="Bold"
                                                    FontSize="18" />
                                         </FlexLayout>
-                                        <Label Text="{Binding Timestampt}" />
+                                        <Label Text="{Binding Receipt.Timestamp}" />
                                     </FlexLayout>
                                     <BoxView Grid.Row="1"
                                              Color="Gray"
@@ -53,7 +53,7 @@
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="Số lượng: " />
-                                                    <Span Text="{Binding User_id}"
+                                                    <Span Text="{Binding Quantity}"
                                                           FontAttributes="Bold"
                                                           FontSize="18" />
                                                 </FormattedString>
@@ -67,7 +67,7 @@
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="Tổng tiền: " />
-                                                    <Span Text="{Binding Total_price, StringFormat='{0:0,0 vnd}'}"
+                                                    <Span Text="{Binding Receipt.Total_price, StringFormat='{0:0,0} vnd'}"
                                                           FontAttributes="Bold"
                                                           FontSize="18" />
                                                 </FormattedString>
@@ -77,18 +77,29 @@
                                     <FlexLayout JustifyContent="SpaceBetween"
                                                 AlignItems="Center"
                                                 Grid.Row="3">
-                                        <material:MaterialButton HorizontalOptions="Center"
-                                                                 Text="Chi tiet"
-                                                                 BackgroundColor="{StaticResource Primary}"
-                                                                 TextColor="{StaticResource TextOnPrimary}"
-                                                                 VerticalOptions="Center"
-                                                                 Margin="-10, 0, 0, 0"
-                                                                 Command="{Binding NavToDetail, Source={RelativeSource AncestorType={Type vm:DeliveringOrderViewModel}}}"
-                                                                 CommandParameter="{Binding .}"/>
-                                        <Label Text="{Binding Order_status}"
+                                        <Label Text="Đang giao"
                                                FontAttributes="Bold"
                                                FontSize="20"
-                                               TextColor="OrangeRed" />
+                                               TextColor="#FFB800" />
+                                        <StackLayout Orientation="Horizontal">
+                                            <material:MaterialButton HorizontalOptions="Center"
+                                                                     Text="Chi tiết"
+                                                                     BackgroundColor="{StaticResource Primary}"
+                                                                     TextColor="{StaticResource TextOnPrimary}"
+                                                                     VerticalOptions="Center"
+                                                                     Margin="0, 0, -10, 0"
+                                                                     Command="{Binding NavToDetail, Source={RelativeSource AncestorType={Type vm:DeliveringOrderViewModel}}}"
+                                                                     CommandParameter="{Binding Receipt}" />
+                                            <material:MaterialButton HorizontalOptions="Center"
+                                                                     Text="Hủy"
+                                                                     BackgroundColor="Red"
+                                                                     TextColor="{StaticResource TextOnPrimary}"
+                                                                     VerticalOptions="Center"
+                                                                     Margin="0, 0, -10, 0"
+                                                                     Command="{Binding CancelOrder, Source={RelativeSource AncestorType={Type vm:DeliveringOrderViewModel}}}"
+                                                                     CommandParameter="{Binding Receipt}" />
+                                        </StackLayout>
+
                                     </FlexLayout>
                                 </Grid>
                             </material:MaterialCard>

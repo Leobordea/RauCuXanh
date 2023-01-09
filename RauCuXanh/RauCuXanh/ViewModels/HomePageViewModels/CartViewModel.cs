@@ -54,6 +54,10 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
 
         public async void ExeDecrease(Cart cart)
         {
+            if (cart.Quantity == 1)
+            {
+                return;
+            }
             var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
             var response = await cartService.UpdateCart(new Cart() { Raucu_id = cart.Raucu_id, User_id = cart.User_id, Quantity = --cart.Quantity });
 

@@ -12,6 +12,12 @@ namespace RauCuXanh.Services
     {
         [Get("/user/{id}")]
         Task<User> GetUserById(int id);
+
+        [Post("/users")]
+        Task<HttpResponseMessage> CreateUser([Body] Dictionary<string, object> data);
+
+        [Put("/users/{id}")]
+        Task<HttpResponseMessage> UpdateUser(int id, [Body] User user);
     }
     public interface IRaucuApi
     {
@@ -55,21 +61,33 @@ namespace RauCuXanh.Services
     public interface IReceiptApi
     {
         [Get("/receipts")]
-        Task<List<Receipt_list>> GetReceipts();
+        Task<List<Receipt>> GetReceiptsByUser([Body] Dictionary<string, object> data);
 
         [Get("/receipt/{id}")]
-        Task<List<Receipt>> GetReceiptDetail(int id);
+        Task<List<Receipt>> GetReceiptById(int id);
+
+        [Get("/receiptlist")]
+        Task<List<Receipt_list>> GetReceiptList();
 
         [Post("/receipts")]
-        Task<HttpResponseMessage> CreateCart([Body] Receipt rec);
+        Task<HttpResponseMessage> CreateReceipt([Body] Receipt payload);
+
+        [Post("/receiptlist")]
+        Task<HttpResponseMessage> CreateReceiptList([Body] Receipt_list payload);
 
         [Put("/receipts")]
-        Task<HttpResponseMessage> UpdateCart([Body] Receipt payload);
+        Task<HttpResponseMessage> UpdateReceipt([Body] Dictionary<string, object> payload);
     }
     public interface IReviewApi
     {
         [Get("/reviews")]
         Task<List<Review>> GetReviews();
+
+        [Post("/reviews")]
+        Task<HttpResponseMessage> CreateReview([Body] Dictionary<string, object> payload);
+
+        [Put("/reviews")]
+        Task<HttpResponseMessage> UpdateReview([Body] Dictionary<string, object> payload);
     }
     public interface IBookmarkApi
     {

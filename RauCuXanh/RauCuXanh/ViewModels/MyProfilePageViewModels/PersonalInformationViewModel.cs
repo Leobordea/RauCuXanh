@@ -7,116 +7,100 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs;
 
 namespace RauCuXanh.ViewModels
 {
-    public class PersonalInformationViewModel : INotifyPropertyChanged
+    public class PersonalInformationViewModel : BaseViewModel
     {
         private int userid = 1;
-        private string username = string.Empty;
-        public String Username
+
+        public List<string> Genderlist { get; set; }
+        public Command LoadUserDetail { get; set; }
+        public Command UpdateCommand { get; set; }
+
+        private User _user;
+        public User User
         {
-            get => username;
-            set
-            {
-                username = value;
-                OnPropertyChanged();
-            }
-        }
-        private string email = string.Empty;
-        public String Email
-        {
-            get => email;
-            set
-            {
-                email = value;
-                OnPropertyChanged();
-            }
-        }
-        private string birthday = string.Empty;
-        public String Birthday
-        {
-            get => birthday;
-            set
-            {
-                birthday = value;
-                OnPropertyChanged();
-            }
-        }
-        private string gender = string.Empty;
-        public String Gender
-        {
-            get => gender;
-            set
-            {
-                gender = value;
-                OnPropertyChanged();
-            }
-        }
-        private string phone_no = string.Empty;
-        public String Phone_no
-        {
-            get => phone_no;
-            set
-            {
-                phone_no = value;
-                OnPropertyChanged();
-            }
+            get { return _user; }
+            set { SetProperty(ref _user, value); }
         }
 
-        private string profile_pic = string.Empty;
-        public String Profile_pic
-        {
-            get => profile_pic;
-            set
-            {
-                profile_pic = value;
-                OnPropertyChanged();
-            }
+        private int _selectedgender = 0;
+        public int SelectedGender 
+        { 
+            get { return _selectedgender; } 
+            set { 
+                SetProperty(ref _selectedgender, value);
+                if (value == 0)
+                {
+                    User.Gender = "male";
+                }
+                else User.Gender = "female";
+            } 
         }
 
-        void OnPropertyChanged([CallerMemberName] string name = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public string Title { get; }
-        public List<string> Sex { get; set; }
-        public bool IsBusy { get; private set; }
         public PersonalInformationViewModel()
         {
-            Task.Run(async () => await LoadUserInfo());
+            Genderlist = new List<string> { "male", "female" };
+            LoadUserDetail = new Command(async () => await LoadUserInfo());
             Title = "Thông tin cá nhân";
-            Sex = new List<string> { "Male", "Female" };
+            UpdateCommand = new Command(ExeUpdateCommand);
         }
 
         public async Task LoadUserInfo()
         {
-                try
+            IsBusy = true;
+            try
+            {
+                var apiClient = RestService.For<IUserApi>(RestClient.BaseUrl);
+                var user = await apiClient.GetUserById(userid);
+                User = user;
+                SelectedGender = 0;
+                if (user.Gender == "female")
                 {
-                    var apiClient = RestService.For<IUserApi>(RestClient.BaseUrl);
-                    var user = await apiClient.GetUserById(userid);
-                    username = user.Username;
-                    OnPropertyChanged(nameof(Username));
-                    email = user.Email;
-                    OnPropertyChanged(nameof(Email));
-                    phone_no = user.Phone_no;
-                    OnPropertyChanged(nameof(Phone_no));
-                    birthday = user.Birthday;
-                    OnPropertyChanged(nameof(Birthday));
-                    gender = user.Gender;
-                    OnPropertyChanged(nameof(Gender));
-                    profile_pic = user.Profile_pic;
-                    OnPropertyChanged(nameof(Profile_pic));
+                    SelectedGender = 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+            }
+            finally { IsBusy = false; }
+        }
 
-                }
-                catch (Exception ex)
+        public async void ExeUpdateCommand()
+        {
+            try
+            {
+                var userService = RestService.For<IUserApi>(RestClient.BaseUrl);
+                var response = await userService.UpdateUser(userid, new User()
                 {
-                    await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+                    Profile_pic = User.Profile_pic,
+                    Username = User.Username,
+                    Email = User.Email,
+                    Phone_no = User.Phone_no,
+                    Gender = User.Gender,
+                    Birthday = DateTime.Parse(User.Birthday).ToString("MM-dd-yyyy")
+                });
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    await App.Current.MainPage.DisplayAlert("Thành công", "Cập nhật thành công", "OK");
+                    IsBusy = true;
                 }
+            }
+            catch (Exception ex)
+            {
+                await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+            }
+            
+        }
+
+        internal void OnAppearing()
+        {
+            IsBusy = true;
         }
     }
 }

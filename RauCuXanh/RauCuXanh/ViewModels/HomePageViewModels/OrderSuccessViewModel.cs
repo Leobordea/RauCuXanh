@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RauCuXanh.Views.MyOrderViews;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
@@ -22,7 +23,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
 
         public async void ExeNavToOrderDetailPage()
         {
-            await App.Current.MainPage.Navigation.PopToRootAsync();
+            await App.Current.MainPage.Navigation.PushAsync(new DeliveringOrder());
         }
     }
 }

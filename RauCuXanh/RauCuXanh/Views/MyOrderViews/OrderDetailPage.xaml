@@ -8,10 +8,41 @@
     <ContentPage.Content>
         <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                      Command="{Binding LoadReceiptDetail}">
-            <CollectionView ItemsSource="{Binding ModelData}">
+            <CollectionView ItemsSource="{Binding ModelData}"
+                            SelectionMode="Single">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="vm:OrderDetailViewModel">
-                        <Label Text="{Binding Raucu.Name}"/>
+                        <Frame Padding="20"
+                               HeightRequest="150">
+                            <Grid ColumnDefinitions="*, 1.2*">
+                                <Frame Padding="0"
+                                       HasShadow="False"
+                                       CornerRadius="5"
+                                       Grid.Column="0">
+                                    <Image Source="{Binding Raucu.Product_pic}"
+                                           Aspect="AspectFill"
+                                           Grid.Column="0" />
+                                </Frame>
+                                <StackLayout  Grid.Column="1"
+                                              VerticalOptions="Center">
+                                    <Label Text="{Binding Raucu.Name}"
+                                           FontAttributes="Bold"
+                                           FontSize="20"
+                                           LineBreakMode="WordWrap" />
+                                    <Label Text="{Binding Raucu.Price, StringFormat='{0:0,0 vnd}' }"
+                                           FontAttributes="Bold"
+                                           FontSize="18"
+                                           TextColor="Red" />
+                                    <Label Text="{Binding Detail.Quantity, StringFormat='Số lượng: {0}'}"
+                                           VerticalTextAlignment="Center" />
+                                    <Label Text="(Thong tin chi tiet)" />
+                                </StackLayout>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:OrderDetailViewModel}}}"
+                                                          CommandParameter="{Binding Raucu}" />
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

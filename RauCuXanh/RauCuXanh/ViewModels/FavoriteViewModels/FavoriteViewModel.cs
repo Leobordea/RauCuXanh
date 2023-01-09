@@ -25,12 +25,15 @@ namespace RauCuXanh.ViewModels.FavoriteViewModels
         public Raucu Raucu { get; set; }
         public Bookmark Bookmark { get; set; }
 
+        public Command AddToCart { get; set; }
+
         public FavoriteViewModel()
         {
             Title = "Favorite";
             ModelData = new ObservableCollection<FavoriteViewModel>();
             LoadBookmarksCommand = new Command(async () => await ExecuteLoadBookmarksCommand());
             RemoveBookmark = new Command<Bookmark>(ExeRemoveBookmark);
+            AddToCart = new Command<Raucu>(ExeAddToCart);
         }
 
         async Task ExecuteLoadBookmarksCommand()
@@ -67,13 +70,28 @@ namespace RauCuXanh.ViewModels.FavoriteViewModels
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                IsBusy = true;
+                await ExecuteLoadBookmarksCommand();
             }
         }
 
         public void OnAppearing()
         {
             IsBusy = true;
+        }
+
+        public async void ExeAddToCart(Raucu r)
+        {
+            var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
+
+            var response = await cartService.CreateCart(new Cart() { Quantity = 1, Raucu_id = r.Id, User_id = 1 });
+            if (response.StatusCode == System.Net.HttpStatusCode.Created)
+            {
+                await App.Current.MainPage.DisplayAlert("Thành công", "Thêm vào giỏ hàng thành công!", "OK");
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Lỗi", "Có lỗi xảy ra!", "OK");
+            }
         }
     }
 }

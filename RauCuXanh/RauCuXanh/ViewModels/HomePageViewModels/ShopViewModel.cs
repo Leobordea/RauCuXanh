@@ -24,23 +24,55 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         public Review Review { get; set; }
         public User User { get; set; }
         public List<string> Stars { get; set; }
-        public ObservableCollection<ProductDetailViewModel> ModelData { get; set; }
+        public ObservableCollection<ShopViewModel> ModelData { get; set; }
+
+
+        private string _myreview = string.Empty;
+        public string MyReview
+        {
+            get { return _myreview; }
+            set
+            {
+                SetProperty(ref _myreview, value);
+            }
+        }
+
+        public string Source { get; set; }
+        public int Id { get; set; }
+
+        private ObservableCollection<ShopViewModel> _mystars = new ObservableCollection<ShopViewModel>();
+        public ObservableCollection<ShopViewModel> MyStars
+        {
+            get { return _mystars; }
+            set { SetProperty(ref _mystars, value); }
+        }
+
+        public Command StarCommand { get; set; }
+        public Command SendReview { get; set; }
 
         public ShopViewModel() { }
-        public ShopViewModel(Shop s) 
+        public ShopViewModel(Shop s)
         {
             Title = s.Name;
             Shop = s;
             DangBan = new ObservableCollection<Raucu>();
             KhuyenMai = new ObservableCollection<Raucu>();
             LoadShopCommand = new Command(async () => await ExeLoadShopCommand());
-            ModelData = new ObservableCollection<ProductDetailViewModel>();
+            ModelData = new ObservableCollection<ShopViewModel>();
             Stars = new List<string>();
+            StarCommand = new Command<Object>(ExeStarCommand);
+            MyStars = new ObservableCollection<ShopViewModel>() {
+                new ShopViewModel() { Source = "white_star.png", Id = 1 },
+                new ShopViewModel() { Source = "white_star.png", Id = 2 },
+                new ShopViewModel() { Source = "white_star.png", Id = 3 },
+                new ShopViewModel() { Source = "white_star.png", Id = 4 },
+                new ShopViewModel() { Source = "white_star.png", Id = 5 }
+            };
+            SendReview = new Command(ExeSendReview);
         }
 
         async Task ExeLoadShopCommand()
         {
-            IsBusy = true;
             try
             {
                 var raucuService = RestService.For<IRaucuApi>(RestClient.BaseUrl);
@@ -92,7 +124,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                                     stars = new List<string>() { "Red", "Red", "Red", "Red", "Red" };
                                     break;
                             }
-                            ModelData.Add(new ProductDetailViewModel() { Review = r, User = user, Stars = stars });
+                            ModelData.Add(new ShopViewModel() { Review = r, User = user, Stars = stars });
                         }
                     }
                 }
@@ -104,6 +136,107 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        public void ExeStarCommand(Object o)
+        {
+            int id = (int)o;
+            switch (id)
+            {
+                case 1:
+                    MyStars = new ObservableCollection<ShopViewModel>() {
+                        new ShopViewModel() { Source = "star.png", Id = 1 },
+                        new ShopViewModel() { Source = "white_star.png", Id = 2 },
+                        new ShopViewModel() { Source = "white_star.png", Id = 3 },
+                        new ShopViewModel() { Source = "white_star.png", Id = 4 },
+                        new ShopViewModel() { Source = "white_star.png", Id = 5 }
+                    };
+                    break;
+                case 2:
+                    MyStars = new ObservableCollection<ShopViewModel>() {
+                        new ShopViewModel() { Source = "star.png", Id = 1 },
+                        new ShopViewModel() { Source = "star.png", Id = 2 },
+                        new ShopViewModel() { Source = "white_star.png", Id = 3 },
+                        new ShopViewModel() { Source = "white_star.png", Id = 4 },
+                        new ShopViewModel() { Source = "white_star.png", Id = 5 }
+                    };
+                    break;
+                case 3:
+                    MyStars = new ObservableCollection<ShopViewModel>() {
+                        new ShopViewModel() { Source = "star.png", Id = 1 },
+                        new ShopViewModel() { Source = "star.png", Id = 2 },
+                        new ShopViewModel() { Source = "star.png", Id = 3 },
+                        new ShopViewModel() { Source = "white_star.png", Id = 4 },
+                        new ShopViewModel() { Source = "white_star.png", Id = 5 }
+                    };
+                    break;
+                case 4:
+                    MyStars = new ObservableCollection<ShopViewModel>() {
+                        new ShopViewModel() { Source = "star.png", Id = 1 },
+                        new ShopViewModel() { Source = "star.png", Id = 2 },
+                        new ShopViewModel() { Source = "star.png", Id = 3 },
+                        new ShopViewModel() { Source = "star.png", Id = 4 },
+                        new ShopViewModel() { Source = "white_star.png", Id = 5 }
+                    };
+                    break;
+                case 5:
+                    MyStars = new ObservableCollection<ShopViewModel>() {
+                        new ShopViewModel() { Source = "star.png", Id = 1 },
+                        new ShopViewModel() { Source = "star.png", Id = 2 },
+                        new ShopViewModel() { Source = "star.png", Id = 3 },
+                        new ShopViewModel() { Source = "star.png", Id = 4 },
+                        new ShopViewModel() { Source = "star.png", Id = 5 }
+                    };
+                    break;
+            }
+        }
+
+        public async void ExeSendReview()
+        {
+            bool firstReview = true;
+            foreach (var i in ModelData)
+            {
+                if (i.Review.User_id == 1)
+                {
+                    firstReview = false;
+                    break;
+                }
+            }
+            var starcount = 0;
+            foreach (var item in MyStars)
+            {
+                if (item.Source == "star.png")
+                {
+                    starcount++;
+                }
+            }
+            if (!string.IsNullOrEmpty(MyReview) && starcount > 0)
+            {
+                try
+                {
+                    var reviewService = RestService.For<IReviewApi>(RestClient.BaseUrl);
+                    var reviewData = new Dictionary<string, object>() { { "comments", MyReview }, { "user_id", 1 }, { "shop_id", Shop.Id }, { "stars", starcount }, {"review_type", "shop" } };
+                    if (firstReview)
+                    {
+                        var response = await reviewService.CreateReview(reviewData);
+                        if (response.StatusCode == System.Net.HttpStatusCode.Created || response.StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+                            await ExeLoadShopCommand();
+                        }
+                    } else
+                    {
+                        var response = await reviewService.UpdateReview(reviewData);
+                        if (response.StatusCode == System.Net.HttpStatusCode.Created || response.StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+                            await ExeLoadShopCommand();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+                }
             }
         }
     }
