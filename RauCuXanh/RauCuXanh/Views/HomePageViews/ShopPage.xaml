@@ -68,7 +68,8 @@
                                Padding="10,0,0,0"
                                VerticalTextAlignment="Center" />
                     </Grid>
-                    <FlexLayout JustifyContent="SpaceAround" Margin="10, 0, 10, 10">
+                    <FlexLayout JustifyContent="SpaceAround"
+                                Margin="10, 0, 10, 10">
                         <StackLayout Orientation="Horizontal">
                             <Label Text="{Binding Shop.No_selling}"
                                    FontAttributes="Bold" />
@@ -264,11 +265,38 @@
                     <!-- tab 3 container -->
                     <StackLayout x:Name="stkTab3"
                                  IsVisible="false">
+                        <StackLayout Margin="10">
+                            <StackLayout Orientation="Horizontal"
+                                         x:Name="rattingBar"
+                                         HeightRequest="30"
+                                         Spacing="10"
+                                         BindableLayout.ItemsSource="{Binding MyStars}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:ShopViewModel">
+                                        <ImageButton Source="{Binding Source}"
+                                                     Command="{Binding StarCommand, Source={RelativeSource AncestorType={Type vm:ShopViewModel}}}"
+                                                     CommandParameter="{Binding Id}"
+                                                     BackgroundColor="Transparent" />
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                            <material:MaterialCard Padding="0"
+                                                   CornerRadius="10"
+                                                   Elevation="3">
+                                <Editor Text="{Binding MyReview}"
+                                        HeightRequest="100" />
+                            </material:MaterialCard>
+                            <material:MaterialButton Text="Gửi"
+                                                     HeightRequest="60"
+                                                     CornerRadius="10"
+                                                     BackgroundColor="{StaticResource ButtonColor}"
+                                                     Command="{Binding SendReview}" />
+                        </StackLayout>
                         <FlexLayout  BindableLayout.ItemsSource="{Binding ModelData}"
                                      Direction="Column"
                                      AlignItems="Stretch">
                             <BindableLayout.ItemTemplate>
-                                <DataTemplate x:DataType="vm:ProductDetailViewModel">
+                                <DataTemplate x:DataType="vm:ShopViewModel">
                                     <Grid ColumnDefinitions="60, *"
                                           RowDefinitions="25, 25, auto, auto, auto"
                                           Margin="10">

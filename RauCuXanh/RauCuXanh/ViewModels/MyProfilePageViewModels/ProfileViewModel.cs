@@ -15,63 +15,28 @@ using XF.Material.Forms.UI.Dialogs;
 
 namespace RauCuXanh.ViewModels
 {
-    public class ProfileViewModel : INotifyPropertyChanged
+    public class ProfileViewModel : BaseViewModel
     {
         private int userid = 1;
 
-        private string username = string.Empty;
-        public String Username
+        private User user;
+        public User User
         {
-            get => username;
-            set
-            {
-                username = value;
-                OnPropertyChanged();
-            }
+            get { return user; }
+            set { SetProperty(ref user, value); }
         }
 
-        private string profile_pic = string.Empty;
-        public String Profile_pic
-        {
-            get => profile_pic;
-            set
-            {
-                profile_pic = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string email = string.Empty;
-
-        public String Email
-        {
-            get => email;
-            set
-            {
-                email = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        void OnPropertyChanged([CallerMemberName] string name = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
+        public Command LoadUserInfo { get; set; }
         public Command MyOrderButton { get; set; }
         public Command PersonalInformationButton { get; set; }
         public Command InsightsButton { get; set; }
         public Command ChangePasswordButton { get; set; }
-        public string Title { get; }
         public INavigation Navigation { get; set; }
-        public bool IsBusy { get; private set; }
 
         public ProfileViewModel(INavigation navigation)
         {
             IsBusy = false;
-            Task.Run(async () => await LoadUser());
-
+            LoadUserInfo = new Command(async () => await LoadUser());
             Title = "Thông tin của tôi";
             Navigation = navigation;
             MyOrderButton = new Command(async () => await NavigateToOrderPage());
@@ -82,30 +47,20 @@ namespace RauCuXanh.ViewModels
 
         public async Task LoadUser()
         {
-            if (!IsBusy)
+            IsBusy = true;
+            try
             {
-                IsBusy = true;
-                try
-                {
-                    var apiClient = RestService.For<IUserApi>(RestClient.BaseUrl);
-                    var user = await apiClient.GetUserById(userid);
-                    username = user.Username;
-                    OnPropertyChanged(nameof(Username));
-                    email = user.Email;
-                    OnPropertyChanged(nameof(Email));
-                    profile_pic = user.Profile_pic;
-                    OnPropertyChanged(nameof(Profile_pic));
-
-                }
-                catch (Exception ex)
-                {
-                    await MaterialDialog.Instance.AlertAsync(message: ex.Message);
-                }
-                finally
-                {
-                    IsBusy = false;
-                }
-
+                var apiClient = RestService.For<IUserApi>(RestClient.BaseUrl);
+                var user = await apiClient.GetUserById(userid);
+                User = user;
+            }
+            catch (Exception ex)
+            {
+                await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 
@@ -127,6 +82,11 @@ namespace RauCuXanh.ViewModels
         public async Task NavigateToChangePassPage()
         {
             await Navigation.PushAsync(new ChangePasswordPage());
+        }
+
+        internal void OnAppearing()
+        {
+            IsBusy = true;
         }
     }
 }

@@ -76,12 +76,18 @@ namespace RauCuXanh.Services
         Task<HttpResponseMessage> CreateReceiptList([Body] Receipt_list payload);
 
         [Put("/receipts")]
-        Task<HttpResponseMessage> UpdateReceipt([Body] Receipt payload);
+        Task<HttpResponseMessage> UpdateReceipt([Body] Dictionary<string, object> payload);
     }
     public interface IReviewApi
     {
         [Get("/reviews")]
         Task<List<Review>> GetReviews();
+
+        [Post("/reviews")]
+        Task<HttpResponseMessage> CreateReview([Body] Dictionary<string, object> payload);
+
+        [Put("/reviews")]
+        Task<HttpResponseMessage> UpdateReview([Body] Dictionary<string, object> payload);
     }
     public interface IBookmarkApi
     {

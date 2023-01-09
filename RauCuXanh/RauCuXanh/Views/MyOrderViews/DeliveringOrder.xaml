@@ -67,7 +67,7 @@
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="Tổng tiền: " />
-                                                    <Span Text="{Binding Receipt.Total_price, StringFormat='{0:0,0 vnd}'}"
+                                                    <Span Text="{Binding Receipt.Total_price, StringFormat='{0:0,0} vnd'}"
                                                           FontAttributes="Bold"
                                                           FontSize="18" />
                                                 </FormattedString>
@@ -96,8 +96,8 @@
                                                                      TextColor="{StaticResource TextOnPrimary}"
                                                                      VerticalOptions="Center"
                                                                      Margin="0, 0, -10, 0"
-                                                                     Command="{Binding NavToDetail, Source={RelativeSource AncestorType={Type vm:DeliveringOrderViewModel}}}"
-                                                                     CommandParameter="{Binding .}" />
+                                                                     Command="{Binding CancelOrder, Source={RelativeSource AncestorType={Type vm:DeliveringOrderViewModel}}}"
+                                                                     CommandParameter="{Binding Receipt}" />
                                         </StackLayout>
 
                                     </FlexLayout>

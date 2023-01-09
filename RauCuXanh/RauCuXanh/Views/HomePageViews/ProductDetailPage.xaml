@@ -10,9 +10,11 @@
              Title="{Binding Title}">
     <ContentPage.Content>
         <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
-                     Command="{Binding LoadShopCommand}">
-            <StackLayout Margin="5">
-                <ScrollView VerticalScrollBarVisibility="Never">
+                     Command="{Binding LoadDetailCommand}">
+            <Grid Margin="5"
+                  RowDefinitions="*, 70">
+                <ScrollView VerticalScrollBarVisibility="Never"
+                            Grid.Row="0">
                     <StackLayout Margin="10, 0">
                         <AbsoluteLayout>
                             <Frame Padding="0"
@@ -101,6 +103,31 @@
                                    FontAttributes="Bold"
                                    FontSize="18"
                                    Margin="0,20" />
+                            <StackLayout Orientation="Horizontal"
+                                         x:Name="rattingBar"
+                                         HeightRequest="30"
+                                         Spacing="10"
+                                         BindableLayout.ItemsSource="{Binding MyStars}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:ProductDetailViewModel">
+                                        <ImageButton Source="{Binding Source}"
+                                                     Command="{Binding StarCommand, Source={RelativeSource AncestorType={Type vm:ProductDetailViewModel}}}"
+                                                     CommandParameter="{Binding Id}"
+                                                     BackgroundColor="Transparent" />
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                            <material:MaterialCard Padding="0"
+                                                   CornerRadius="10"
+                                                   Elevation="3">
+                                <Editor Text="{Binding MyReview}"
+                                        HeightRequest="100" />
+                            </material:MaterialCard>
+                            <material:MaterialButton Text="Gửi"
+                                                     HeightRequest="60"
+                                                     CornerRadius="10"
+                                                     BackgroundColor="{StaticResource ButtonColor}"
+                                                     Command="{Binding SendReview}"/>
                             <FlexLayout  BindableLayout.ItemsSource="{Binding ModelData}"
                                          Direction="Column"
                                          AlignItems="Stretch">
@@ -165,8 +192,8 @@
                 </ScrollView>
                 <Grid ColumnDefinitions="60, 60, *"
                       Margin="10, 5"
-                      VerticalOptions="EndAndExpand"
-                      HeightRequest="85">
+                      VerticalOptions="End"
+                      Grid.Row="1">
                     <Frame HasShadow="False"
                            HeightRequest="45"
                            BackgroundColor="#F0F0F0"
@@ -175,9 +202,9 @@
                            CornerRadius="10"
                            Grid.Column="0">
                         <Image Source="{Binding BookmarkIcon}"
-                               Aspect="AspectFill"/>
+                               Aspect="AspectFill" />
                         <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding AddBookmark}"/>
+                            <TapGestureRecognizer Command="{Binding AddBookmark}" />
                         </Frame.GestureRecognizers>
                     </Frame>
                     <Frame Padding="10"
@@ -202,7 +229,7 @@
                                              Command="{Binding AddToCart}"
                                              Grid.Column="2" />
                 </Grid>
-            </StackLayout>
+            </Grid>
         </RefreshView>
     </ContentPage.Content>
 </ContentPage>

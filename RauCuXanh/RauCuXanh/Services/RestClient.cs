@@ -9,6 +9,6 @@ namespace RauCuXanh.Services
 {
     public class RestClient
     {
-        public static string BaseUrl => "http://192.168.1.100:5000/api";
+        public static string BaseUrl => "http://192.168.1.8:5000/api";
     }
 }

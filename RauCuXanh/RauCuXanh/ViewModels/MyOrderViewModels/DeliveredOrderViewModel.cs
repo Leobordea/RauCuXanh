@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,7 +44,17 @@ namespace RauCuXanh.ViewModels.MyOrderViewModels
                     if (receipt.Order_status == "dathanhtoan")
                     {
                         var receiptlist = await receiptService.GetReceiptList();
-                        DeliveredOrders.Add(new DeliveredOrderViewModel() { Receipt = receipt, Quantity = receiptlist.Where(r => r.Receipt_id == receipt.Id).Count() });
+                        DeliveredOrders.Add(new DeliveredOrderViewModel()
+                        {
+                            Receipt = new Receipt()
+                            {
+                                Id = receipt.Id,
+                                Timestamp = receipt.Timestamp,
+                                Total_price = receipt.Total_price,
+                                User_id = receipt.User_id
+                            },
+                            Quantity = receiptlist.Where(r => r.Receipt_id == receipt.Id).Count()
+                        });
                     }
                 }
             }

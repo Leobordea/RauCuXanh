@@ -21,5 +21,11 @@ namespace RauCuXanh.Views
 
             BindingContext = _viewModel = new PersonalInformationViewModel();
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewModel.OnAppearing();
+        }
     }
 }

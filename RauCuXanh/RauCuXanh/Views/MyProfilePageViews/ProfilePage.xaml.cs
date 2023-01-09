@@ -13,11 +13,19 @@ namespace RauCuXanh.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProfilePage : ContentPage
     {
+        ProfileViewModel _viewmodel;
         public ProfilePage()
         {
             InitializeComponent();
-            BindingContext = new ProfileViewModel(Navigation);
+            BindingContext = _viewmodel = new ProfileViewModel(Navigation);
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewmodel.OnAppearing();
+        }
+
         void Logout(object sender, EventArgs args)
         {
             App.Current.MainPage = new NavigationPage(new LoginPage())

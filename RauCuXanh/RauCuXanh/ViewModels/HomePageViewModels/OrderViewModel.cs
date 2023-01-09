@@ -34,13 +34,15 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                 await App.Current.MainPage.DisplayAlert("Lỗi", "Vui lòng điền đầy đủ thông tin!", "OK");
                 return;
             }
-            var response = await receiptService.CreateReceipt(new Receipt()
+
+            Receipt r = new Receipt()
             {
                 User_id = 1,
                 Shipping_addr = $"{Province}, {District}, {Block}, {Road}",
-                Shipping_cost = ((int)Math.Round(ShippingCost)).ToString(),
-                Total_price = TotalCost.ToString()
-            });
+                Shipping_cost = (int)Math.Round(ShippingCost),
+                Total_price = (int)Math.Round(TotalCost)
+            };
+            var response = await receiptService.CreateReceipt(r);
             if (response.StatusCode == System.Net.HttpStatusCode.Created)
             {
                 var feedback = await response.Content.ReadAsStringAsync();

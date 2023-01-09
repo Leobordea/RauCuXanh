@@ -77,18 +77,18 @@
                                     <FlexLayout JustifyContent="SpaceBetween"
                                                 AlignItems="Center"
                                                 Grid.Row="3">
+                                        <Label Text="Đã hủy"
+                                               FontAttributes="Bold"
+                                               FontSize="20"
+                                               TextColor="#FF6565" />
                                         <material:MaterialButton HorizontalOptions="Center"
                                                                  Text="Chi tiết"
                                                                  BackgroundColor="{StaticResource Primary}"
                                                                  TextColor="{StaticResource TextOnPrimary}"
                                                                  VerticalOptions="Center"
-                                                                 Margin="-10, 0, 0, 0"
+                                                                 Margin="0, 0, -10, 0"
                                                                  Command="{Binding NavToDetail, Source={RelativeSource AncestorType={Type vm:CancelledOrderViewModel}}}"
                                                                  CommandParameter="{Binding Receipt}" />
-                                        <Label Text="Đã hủy"
-                                               FontAttributes="Bold"
-                                               FontSize="20"
-                                               TextColor="#FF6565"/>
                                     </FlexLayout>
                                 </Grid>
                             </material:MaterialCard>
