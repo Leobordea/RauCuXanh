@@ -61,11 +61,7 @@
                                                         CommandParameter="{Binding Cart}"
                                                         WidthRequest="40" />
                                             </StackLayout>
-                                            <Label Text="(Thong tin chi tiet)">
-                                                <Label.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding NavToDetailPage ,Source={RelativeSource AncestorType={x:Type vm:CartViewModel}}}" />
-                                                </Label.GestureRecognizers>
-                                            </Label>
+                                            <Label Text="(Thong tin chi tiet)" />
                                         </StackLayout>
                                         <Grid.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}}"

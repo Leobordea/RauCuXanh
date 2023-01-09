@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RauCuXanh.Models;
@@ -14,13 +15,17 @@ namespace RauCuXanh.ViewModels.MyOrderViewModels
 {
     public class DeliveringOrderViewModel : BaseViewModel
     {
-        public ObservableCollection<Receipt> DeliveringOrders { get; set; }
+        public ObservableCollection<DeliveringOrderViewModel> DeliveringOrders { get; set; }
         public Command LoadReceipt { get; set; }
         public Command NavToDetail { get; set; }
+
+        public Receipt Receipt { get; set; }
+        public int Quantity { get; set; }
+
         public DeliveringOrderViewModel()
         {
-            Title = "Đã giao";
-            DeliveringOrders = new ObservableCollection<Receipt>();
+            Title = "Đang giao";
+            DeliveringOrders = new ObservableCollection<DeliveringOrderViewModel>();
             LoadReceipt = new Command(async () => await ExeLoadReceiptCommand());
             NavToDetail = new Command<Receipt>(ExeNavToDetail);
         }
@@ -30,16 +35,17 @@ namespace RauCuXanh.ViewModels.MyOrderViewModels
             IsBusy = true;
             try
             {
-                //DeliveringOrders.Clear();
-                //var receiptService = RestService.For<IReceiptApi>(RestClient.BaseUrl);
-                //var receipts = await receiptService.GetReceiptDetail();
-                //foreach (Receipt receipt in receipts)
-                //{
-                //    if (receipt.Order_status == "chuathanhtoan")
-                //    {
-                //        DeliveringOrders.Add(receipt);
-                //    }
-                //}
+                DeliveringOrders.Clear();
+                var receiptService = RestService.For<IReceiptApi>(RestClient.BaseUrl);
+                var receipts = await receiptService.GetReceiptsByUser(new Dictionary<string, object>() { { "user_id", 1 }});
+                foreach (Receipt receipt in receipts)
+                {
+                    if (receipt.Order_status == "chuathanhtoan")
+                    {
+                        var receiptlist = await receiptService.GetReceiptList();
+                        DeliveringOrders.Add(new DeliveringOrderViewModel() { Receipt = receipt, Quantity = receiptlist.Where(r => r.Receipt_id == receipt.Id).Count() });
+                    }
+                }
             }
             catch (Exception ex)
             {

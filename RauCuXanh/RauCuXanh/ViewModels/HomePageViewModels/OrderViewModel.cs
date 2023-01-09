@@ -28,30 +28,32 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
 
         async Task ExeOrderCommand()
         {
-            //var receiptService = new ReceiptService();
-            //if (Error1 || Error2 || Error3 || Error4)
-            //{
-            //    await App.Current.MainPage.DisplayAlert("Lỗi", "Vui lòng điền đầy đủ thông tin!", "OK");
-            //    return;
-            //}
-            //var response = await receiptService.createReceipt(new Receipt()
-            //{
-            //    Timestampt = DateTime.Now.ToString("yyyy-MM-dd"),
-            //    User_id = "1",
-            //    Shipping_addr = $"{Province}, {District}, {Block}, {Road}",
-            //    Shipping_cost = ShippingCost,
-            //    Total_price = TotalCost,
-            //    Order_status = "chuathanhtoan",
-            //}, CartProducts);
-            //if (response.StatusCode == System.Net.HttpStatusCode.Created)
-            //{
-            //    var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
-            //    foreach (CartItem cart in CartProducts)
-            //    {
-            //        await cartService.DeleteCart(cart.Cart);
-            //    }
-            //    await App.Current.MainPage.Navigation.PushAsync(new OrderSuccessPage());
-            //}
+            var receiptService = RestService.For<IReceiptApi>(RestClient.BaseUrl);
+            if (Error1 || Error2 || Error3 || Error4)
+            {
+                await App.Current.MainPage.DisplayAlert("Lỗi", "Vui lòng điền đầy đủ thông tin!", "OK");
+                return;
+            }
+            var response = await receiptService.CreateReceipt(new Receipt()
+            {
+                User_id = 1,
+                Shipping_addr = $"{Province}, {District}, {Block}, {Road}",
+                Shipping_cost = ((int)Math.Round(ShippingCost)).ToString(),
+                Total_price = TotalCost.ToString()
+            });
+            if (response.StatusCode == System.Net.HttpStatusCode.Created)
+            {
+                var feedback = await response.Content.ReadAsStringAsync();
+                Receipt result = JsonConvert.DeserializeObject<Receipt>(feedback);
+
+                var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
+                foreach (CartItem cart in CartProducts)
+                {
+                    await receiptService.CreateReceiptList(new Receipt_list() { Raucu_id = cart.Raucu.Id, Quantity = cart.Cart.Quantity, Receipt_id = result.Id });
+                    await cartService.DeleteCart(cart.Cart);
+                }
+                await App.Current.MainPage.Navigation.PushAsync(new OrderSuccessPage());
+            }
         }
 
         private string province;

@@ -13,10 +13,11 @@ namespace RauCuXanh.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegisterPage : ContentPage
     {
+        RegisterViewModel _viewmodel;
         public RegisterPage()
         {
             InitializeComponent();
-            BindingContext = new RegisterViewModel(Navigation);
+            BindingContext = _viewmodel = new RegisterViewModel(Navigation);
         }
     }
 }

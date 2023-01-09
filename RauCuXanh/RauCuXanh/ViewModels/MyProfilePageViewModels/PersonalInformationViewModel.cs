@@ -7,116 +7,63 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs;
 
 namespace RauCuXanh.ViewModels
 {
-    public class PersonalInformationViewModel : INotifyPropertyChanged
+    public class PersonalInformationViewModel : BaseViewModel
     {
         private int userid = 1;
-        private string username = string.Empty;
-        public String Username
-        {
-            get => username;
-            set
-            {
-                username = value;
-                OnPropertyChanged();
-            }
-        }
-        private string email = string.Empty;
-        public String Email
-        {
-            get => email;
-            set
-            {
-                email = value;
-                OnPropertyChanged();
-            }
-        }
-        private string birthday = string.Empty;
-        public String Birthday
-        {
-            get => birthday;
-            set
-            {
-                birthday = value;
-                OnPropertyChanged();
-            }
-        }
-        private string gender = string.Empty;
-        public String Gender
-        {
-            get => gender;
-            set
-            {
-                gender = value;
-                OnPropertyChanged();
-            }
-        }
-        private string phone_no = string.Empty;
-        public String Phone_no
-        {
-            get => phone_no;
-            set
-            {
-                phone_no = value;
-                OnPropertyChanged();
-            }
-        }
 
-        private string profile_pic = string.Empty;
-        public String Profile_pic
-        {
-            get => profile_pic;
-            set
-            {
-                profile_pic = value;
-                OnPropertyChanged();
-            }
-        }
-
-        void OnPropertyChanged([CallerMemberName] string name = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public string Title { get; }
         public List<string> Sex { get; set; }
-        public bool IsBusy { get; private set; }
+        public Command UpdateCommand { get; set; }
+
+        private User _user;
+        public User User
+        {
+            get { return _user; }
+            set { SetProperty(ref _user, value); }
+        }
+
         public PersonalInformationViewModel()
         {
             Task.Run(async () => await LoadUserInfo());
             Title = "Thông tin cá nhân";
             Sex = new List<string> { "Male", "Female" };
+            UpdateCommand = new Command(ExeUpdateCommand);
         }
 
         public async Task LoadUserInfo()
         {
-                try
-                {
-                    var apiClient = RestService.For<IUserApi>(RestClient.BaseUrl);
-                    var user = await apiClient.GetUserById(userid);
-                    username = user.Username;
-                    OnPropertyChanged(nameof(Username));
-                    email = user.Email;
-                    OnPropertyChanged(nameof(Email));
-                    phone_no = user.Phone_no;
-                    OnPropertyChanged(nameof(Phone_no));
-                    birthday = user.Birthday;
-                    OnPropertyChanged(nameof(Birthday));
-                    gender = user.Gender;
-                    OnPropertyChanged(nameof(Gender));
-                    profile_pic = user.Profile_pic;
-                    OnPropertyChanged(nameof(Profile_pic));
+            try
+            {
+                var apiClient = RestService.For<IUserApi>(RestClient.BaseUrl);
+                var user = await apiClient.GetUserById(userid);
+                User = user;
+            }
+            catch (Exception ex)
+            {
+                await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+            }
+        }
 
-                }
-                catch (Exception ex)
+        public async void ExeUpdateCommand()
+        {
+            try
+            {
+                var userService = RestService.For<IUserApi>(RestClient.BaseUrl);
+                var response = await userService.UpdateUser(userid, new User() { Birthday = User.Birthday});
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+                    await App.Current.MainPage.DisplayAlert("Thành công", "Cập nhật thành công", "OK");
                 }
+            }
+            catch (Exception ex)
+            {
+                await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+            }
         }
     }
 }
