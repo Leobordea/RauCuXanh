@@ -22,14 +22,18 @@
                 TextColor="{StaticResource Primary}" />
             <StackLayout Margin="20,10" Spacing="10">
                 <material:MaterialTextField
-                    ErrorText="Sai tài khoản"
-                    InputType="Email"
+                    ErrorText="Tài khoản không được trống"
+                    HasError="{Binding UsernameError}"
+                    InputType="Text"
                     Placeholder="Tên tài khoản"
+                    Text="{Binding Username}"
                     TintColor="{StaticResource PrimaryLight}" />
                 <material:MaterialTextField
-                    ErrorText="Sai mật khẩu"
+                    ErrorText="Mật khẩu không hợp lệ"
+                    HasError="{Binding PasswordError}"
                     InputType="Password"
                     Placeholder="Mật khẩu"
+                    Text="{Binding Password}"
                     TintColor="{StaticResource PrimaryLight}" />
             </StackLayout>
             <StackLayout

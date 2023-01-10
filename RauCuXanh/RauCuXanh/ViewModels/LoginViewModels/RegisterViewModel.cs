@@ -20,12 +20,25 @@ namespace RauCuXanh.ViewModels
         public Command RegisterBtn { get; }
         public Command OnClickTermOfUse { get; }
 
+        private bool _usernameError = false;
+        public bool UsernameError
+        {
+            get { return _usernameError; }
+            set { SetProperty(ref _usernameError, value); }
+        }
 
         private string _username;
         public string Username
         {
             get { return _username; }
-            set { SetProperty(ref _username, value); }
+            set
+            {
+                SetProperty(ref _username, value);
+                if (!string.IsNullOrEmpty(value))
+                {
+                    UsernameError = false;
+                } 
+            }
         }
 
         private bool _emailError = false;
@@ -86,7 +99,19 @@ namespace RauCuXanh.ViewModels
 
         private async Task OnRegisterClicked()
         {
-            if (!PasswordError && !EmailError && Checkbox)
+            if(string.IsNullOrEmpty(Username))
+            {
+                UsernameError = true;
+            }
+            if(string.IsNullOrEmpty(Email))
+            {
+                EmailError = true;
+            }
+            if(string.IsNullOrEmpty(Password))
+            {
+                PasswordError = true;
+            }
+            if (!PasswordError && !EmailError && Checkbox && !UsernameError)
             {
                 try
                 {
@@ -96,9 +121,12 @@ namespace RauCuXanh.ViewModels
                     {"password", Password},
                     {"email", Email}
                 });
-                    if (response.StatusCode == System.Net.HttpStatusCode.Created)
+                    if (response.IsSuccessStatusCode)
                     {
                         await Navigation.PushAsync(new RegisterCompletedPage());
+                    } else
+                    {
+                        await MaterialDialog.Instance.AlertAsync(message: "Tên tài khoản hoặc email tồn tại. Hãy dùng tài khoản/email khác.");
                     }
                 }
                 catch (Exception ex)

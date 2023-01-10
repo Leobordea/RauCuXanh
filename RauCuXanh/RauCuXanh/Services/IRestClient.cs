@@ -18,6 +18,12 @@ namespace RauCuXanh.Services
 
         [Put("/users/{id}")]
         Task<HttpResponseMessage> UpdateUser(int id, [Body] User user);
+
+        [Put("/login")]
+        Task<HttpResponseMessage> Login([Body] User user);
+
+        [Post("/resetpassword")]
+        Task<HttpResponseMessage> ResetPassword([Body] User user);
     }
     public interface IRaucuApi
     {
