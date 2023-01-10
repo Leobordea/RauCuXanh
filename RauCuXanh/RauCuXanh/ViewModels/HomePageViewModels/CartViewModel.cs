@@ -79,10 +79,9 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                 TotalCost = 0;
                 var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
                 var carts = await cartService.GetCarts();
-                var UserID = 1;
                 foreach (var c in carts)
                 {
-                    if (c.User_id == UserID)
+                    if (c.User_id == userid)
                     {
                         foreach (Raucu r in Raucus)
                         {

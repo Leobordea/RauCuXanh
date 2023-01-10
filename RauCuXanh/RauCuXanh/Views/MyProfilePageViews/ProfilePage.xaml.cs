@@ -28,6 +28,8 @@ namespace RauCuXanh.Views
 
         void Logout(object sender, EventArgs args)
         {
+            Preferences.Set("RememberMe", false);
+            Preferences.Set("UID", -1);
             App.Current.MainPage = new NavigationPage(new LoginPage())
             {
                 BackgroundColor = Color.White

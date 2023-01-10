@@ -39,7 +39,7 @@ namespace RauCuXanh.ViewModels.MyOrderViewModels
                 CancelledOrders.Clear();
                 Quantity = 0;
                 var receiptService = RestService.For<IReceiptApi>(RestClient.BaseUrl);
-                var receipts = await receiptService.GetReceiptsByUser(new Dictionary<string, object>() { { "user_id", 1 } });
+                var receipts = await receiptService.GetReceiptsByUser(new Dictionary<string, object>() { { "user_id", userid } });
                 foreach (Receipt receipt in receipts)
                 {
                     if (receipt.Order_status == "dahuy")

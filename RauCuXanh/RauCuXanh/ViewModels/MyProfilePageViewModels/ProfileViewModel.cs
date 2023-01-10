@@ -10,6 +10,7 @@ using RauCuXanh.Services;
 using RauCuXanh.Views;
 using Refit;
 using Rg.Plugins.Popup.Extensions;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using XF.Material.Forms.UI.Dialogs;
 
@@ -17,8 +18,6 @@ namespace RauCuXanh.ViewModels
 {
     public class ProfileViewModel : BaseViewModel
     {
-        private int userid = 1;
-
         private User user;
         public User User
         {
@@ -52,6 +51,10 @@ namespace RauCuXanh.ViewModels
             {
                 var apiClient = RestService.For<IUserApi>(RestClient.BaseUrl);
                 var user = await apiClient.GetUserById(userid);
+                if (user.Profile_pic == null || user.Profile_pic == "")
+                {
+                    user.Profile_pic = "profile.png";
+                }
                 User = user;
             }
             catch (Exception ex)

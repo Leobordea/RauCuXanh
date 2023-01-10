@@ -105,6 +105,10 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                         if (r.Shop_id == Shop.Id)
                         {
                             var user = await userClient.GetUserById(r.User_id);
+                            if (user.Profile_pic == null || user.Profile_pic == "")
+                            {
+                                user.Profile_pic = "profile.png";
+                            }
                             var stars = new List<string>();
                             switch (r.Stars)
                             {
@@ -197,7 +201,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             bool firstReview = true;
             foreach (var i in ModelData)
             {
-                if (i.Review.User_id == 1)
+                if (i.Review.User_id == userid)
                 {
                     firstReview = false;
                     break;
@@ -216,21 +220,10 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                 try
                 {
                     var reviewService = RestService.For<IReviewApi>(RestClient.BaseUrl);
-                    var reviewData = new Dictionary<string, object>() { { "comments", MyReview }, { "user_id", 1 }, { "shop_id", Shop.Id }, { "stars", starcount }, {"review_type", "shop" } };
-                    if (firstReview)
+                    var reviewData = new Dictionary<string, object>() { { "comments", MyReview }, { "user_id", userid }, { "shop_id", Shop.Id }, { "stars", starcount }, { "review_type", "shop" } }; var response = firstReview ? await reviewService.CreateReview(reviewData) : await reviewService.UpdateReview(reviewData);
+                    if (response.StatusCode == System.Net.HttpStatusCode.Created || response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
-                        var response = await reviewService.CreateReview(reviewData);
-                        if (response.StatusCode == System.Net.HttpStatusCode.Created || response.StatusCode == System.Net.HttpStatusCode.OK)
-                        {
-                            await ExeLoadShopCommand();
-                        }
-                    } else
-                    {
-                        var response = await reviewService.UpdateReview(reviewData);
-                        if (response.StatusCode == System.Net.HttpStatusCode.Created || response.StatusCode == System.Net.HttpStatusCode.OK)
-                        {
-                            await ExeLoadShopCommand();
-                        }
+                        await ExeLoadShopCommand();
                     }
                 }
                 catch (Exception ex)

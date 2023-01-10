@@ -78,7 +78,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             set { SetProperty(ref _selected5, value); }
         }
 
-        public List<string> Actions => new List<string> { "Giá: thấp đến cao", "Giá: cao đến thấp", "Giảm giá: cao đến thấp"};
+        public List<string> Actions => new List<string> { "Giá: thấp đến cao", "Giá: cao đến thấp", "Giảm giá: cao đến thấp" };
 
         private string _selected = "Giá: cao đến thấp";
         public string Selected
@@ -201,10 +201,15 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             {
                 Raucus.Clear();
                 var apiClient = RestService.For<IRaucuApi>(RestClient.BaseUrl);
-                var raucus = await apiClient.GetRaucuList();
-
-                //var apiService = new RaucuService();
-                //var raucus = await apiService.getRaucuList();
+                var raucus = new List<Raucu>();
+                if (SelectedCategory == "all")
+                {
+                    raucus = await apiClient.GetRaucuList();
+                }
+                else
+                {
+                    raucus = await apiClient.GetRaucuByType(new Dictionary<string, object>() { { "raucu_type", SelectedCategory } });
+                }
                 foreach (var raucu in raucus)
                 {
                     raucu.PriceAfterDiscount = raucu.Price * (1 - raucu.Discount);
@@ -222,22 +227,9 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                 {
                     sortedItems = raucus.OrderByDescending(i => i.Discount).ToList();
                 }
-                if (SelectedCategory == "all")
+                foreach (var raucu in sortedItems)
                 {
-                    foreach (var raucu in sortedItems)
-                    {
-                        Raucus.Add(raucu);
-                    }
-                }
-                else
-                {
-                    foreach (var raucu in sortedItems)
-                    {
-                        if (raucu.Raucu_type == SelectedCategory)
-                        {
-                            Raucus.Add(raucu);
-                        }
-                    }
+                    Raucus.Add(raucu);
                 }
             }
             catch (Exception ex)
@@ -279,7 +271,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         {
             var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
 
-            var response = await cartService.CreateCart(new Cart() { Quantity = 1, Raucu_id = r.Id, User_id = 1});
+            var response = await cartService.CreateCart(new Cart() { Quantity = 1, Raucu_id = r.Id, User_id = 1 });
             if (response.StatusCode == System.Net.HttpStatusCode.Created)
             {
                 await App.Current.MainPage.DisplayAlert("Thành công", "Thêm vào giỏ hàng thành công!", "OK");

@@ -37,7 +37,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
 
             Receipt r = new Receipt()
             {
-                User_id = 1,
+                User_id = userid,
                 Shipping_addr = $"{Province}, {District}, {Block}, {Road}",
                 Shipping_cost = (int)Math.Round(ShippingCost),
                 Total_price = (int)Math.Round(TotalCost)

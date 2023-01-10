@@ -47,7 +47,7 @@ namespace RauCuXanh.ViewModels.FavoriteViewModels
                 var bookmarks = await apiClient.GetBookmarks();
                 foreach (var bookmark in bookmarks)
                 {
-                    if (bookmark.User_id == 1)
+                    if (bookmark.User_id == userid)
                     {
                         ModelData.Add(new FavoriteViewModel() { Raucu = await raucuClient.GetRaucuById(bookmark.Raucu_id), Bookmark = bookmark });
                     }
@@ -83,7 +83,7 @@ namespace RauCuXanh.ViewModels.FavoriteViewModels
         {
             var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
 
-            var response = await cartService.CreateCart(new Cart() { Quantity = 1, Raucu_id = r.Id, User_id = 1 });
+            var response = await cartService.CreateCart(new Cart() { Quantity = 1, Raucu_id = r.Id, User_id = userid });
             if (response.StatusCode == System.Net.HttpStatusCode.Created)
             {
                 await App.Current.MainPage.DisplayAlert("Thành công", "Thêm vào giỏ hàng thành công!", "OK");

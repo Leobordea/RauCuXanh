@@ -140,7 +140,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                 var bookmarks = await bookmarkClient.GetBookmarks();
                 foreach (var bookmark in bookmarks)
                 {
-                    if (bookmark.Raucu_id == Raucu.Id && bookmark.User_id == 1)
+                    if (bookmark.Raucu_id == Raucu.Id && bookmark.User_id == userid)
                     {
                         BookmarkIcon = "bookmarked_icon.png";
                         break;
@@ -154,6 +154,10 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                         if (r.Raucu_id == Raucu.Id)
                         {
                             var user = await userClient.GetUserById(r.User_id);
+                            if (user.Profile_pic == null || user.Profile_pic == "")
+                            {
+                                user.Profile_pic = "profile.png";
+                            }
                             AverageStar += r.Stars;
                             var stars = new List<string>();
                             switch (r.Stars)
@@ -215,9 +219,9 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                 var carts = await cartService.GetCarts();
                 foreach (Cart cart in carts)
                 {
-                    if (cart.Raucu_id == Raucu.Id && cart.User_id == 1)
+                    if (cart.Raucu_id == Raucu.Id && cart.User_id == userid)
                     {
-                        var response = await cartService.UpdateCart(new Cart() { Raucu_id = Raucu.Id, User_id = 1, Quantity = cart.Quantity + Quantity });
+                        var response = await cartService.UpdateCart(new Cart() { Raucu_id = Raucu.Id, User_id = userid, Quantity = cart.Quantity + Quantity });
                         if (response.StatusCode == System.Net.HttpStatusCode.OK)
                         {
                             await App.Current.MainPage.DisplayAlert("Thành công", "Thêm vào giỏ hàng thành công!", "OK");
@@ -232,7 +236,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                     {
                         Quantity = Quantity,
                         Raucu_id = Raucu.Id,
-                        User_id = 1
+                        User_id = userid
                     });
 
                     if (response.StatusCode == System.Net.HttpStatusCode.Created)
@@ -257,7 +261,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                     var response = await bookmarkClient.CreateBookmark(new Bookmark()
                     {
                         Raucu_id = Raucu.Id,
-                        User_id = 1,
+                        User_id = userid,
                     });
                     BookmarkIcon = "bookmarked_icon.png";
                 }
@@ -274,7 +278,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                     var response = await bookmarkClient.DeleteBookmark(new Bookmark()
                     {
                         Raucu_id = Raucu.Id,
-                        User_id = 1,
+                        User_id = userid,
                     });
                     BookmarkIcon = "bookmark_icon.png";
                 }
@@ -343,7 +347,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             bool firstReview = true;
             foreach (var i in ModelData)
             {
-                if (i.Review.User_id == 1)
+                if (i.Review.User_id == userid)
                 {
                     firstReview = false; 
                     break;
@@ -362,7 +366,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                 try
                 {
                     var reviewService = RestService.For<IReviewApi>(RestClient.BaseUrl);
-                    var reviewData = new Dictionary<string, object>() { { "comments", MyReview }, { "user_id", 1 }, { "raucu_id", Raucu.Id }, { "stars", starcount }, { "review_type", "raucu" } }; var response = firstReview ? await reviewService.CreateReview(reviewData) : await reviewService.UpdateReview(reviewData);
+                    var reviewData = new Dictionary<string, object>() { { "comments", MyReview }, { "user_id", userid }, { "raucu_id", Raucu.Id }, { "stars", starcount }, { "review_type", "raucu" } }; var response = firstReview ? await reviewService.CreateReview(reviewData) : await reviewService.UpdateReview(reviewData);
                     if (response.StatusCode == System.Net.HttpStatusCode.Created || response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         await ExeLoadDetailCommand();

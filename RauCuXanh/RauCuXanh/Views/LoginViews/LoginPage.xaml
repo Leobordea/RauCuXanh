@@ -1,71 +1,68 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="RauCuXanh.Views.LoginPage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="clr-namespace:RauCuXanh.ViewModels"
-    x:DataType="viewmodels:LoginViewModel"
-    BackgroundColor="White"
-    NavigationPage.HasNavigationBar="false"
-    mc:Ignorable="d">
+<ContentPage x:Class="RauCuXanh.Views.LoginPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewmodels="clr-namespace:RauCuXanh.ViewModels"
+             x:DataType="viewmodels:LoginViewModel"
+             BackgroundColor="White"
+             NavigationPage.HasNavigationBar="false"
+             mc:Ignorable="d">
     <ContentPage.Content>
         <StackLayout Margin="0,10,0,0">
             <Image Source="logo.png" />
-            <Label
-                FontAttributes="Bold"
-                FontSize="36"
-                HorizontalOptions="CenterAndExpand"
-                Text="RAU CỦ XANH"
-                TextColor="{StaticResource Primary}" />
-            <StackLayout Margin="20,10" Spacing="10">
-                <material:MaterialTextField
-                    ErrorText="Tài khoản không được trống"
-                    HasError="{Binding UsernameError}"
-                    InputType="Text"
-                    Placeholder="Tên tài khoản"
-                    Text="{Binding Username}"
-                    TintColor="{StaticResource PrimaryLight}" />
-                <material:MaterialTextField
-                    ErrorText="Mật khẩu không hợp lệ"
-                    HasError="{Binding PasswordError}"
-                    InputType="Password"
-                    Placeholder="Mật khẩu"
-                    Text="{Binding Password}"
-                    TintColor="{StaticResource PrimaryLight}" />
+            <Label FontAttributes="Bold"
+                   FontSize="36"
+                   HorizontalOptions="CenterAndExpand"
+                   Text="RAU CỦ XANH"
+                   TextColor="{StaticResource Primary}" />
+            <StackLayout Margin="20,10"
+                         Spacing="10">
+                <material:MaterialTextField ErrorText="Tài khoản không được trống"
+                                            HasError="{Binding UsernameError}"
+                                            InputType="Text"
+                                            Placeholder="Tên tài khoản"
+                                            Text="{Binding Username}"
+                                            TintColor="{StaticResource PrimaryLight}" />
+                <material:MaterialTextField ErrorText="Mật khẩu không hợp lệ"
+                                            HasError="{Binding PasswordError}"
+                                            InputType="Password"
+                                            Placeholder="Mật khẩu"
+                                            Text="{Binding Password}"
+                                            TintColor="{StaticResource PrimaryLight}" />
             </StackLayout>
-            <StackLayout
-                Margin="16,0"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand">
-                <Button
-                    BackgroundColor="{StaticResource Primary}"
-                    Command="{Binding LoginBtn}"
-                    CornerRadius="20"
-                    Text="Đăng nhập"
-                    TextColor="{StaticResource TextOnPrimary}" />
-                <Button
-                    BackgroundColor="Transparent"
-                    Command="{Binding ForgetPasswordBtn}"
-                    CornerRadius="20"
-                    Text="Bạn quên mật khẩu ?"
-                    TextColor="{StaticResource Primary}" />
+            <StackLayout Margin="16,0"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal" Margin="0, 0, 0, 5">
+                    <CheckBox IsChecked="{Binding RememberMe}"/>
+                    <Label Text="Ghi nhớ tài khoản"
+                           VerticalTextAlignment="Center" />
+                </StackLayout>
+                <Button BackgroundColor="{StaticResource Primary}"
+                        Command="{Binding LoginBtn}"
+                        CornerRadius="20"
+                        Text="Đăng nhập"
+                        TextColor="{StaticResource TextOnPrimary}" />
+                <Button BackgroundColor="Transparent"
+                        Command="{Binding ForgetPasswordBtn}"
+                        CornerRadius="20"
+                        Text="Bạn quên mật khẩu ?"
+                        TextColor="{StaticResource Primary}" />
             </StackLayout>
             <StackLayout Margin="10">
                 <FlexLayout JustifyContent="SpaceBetween">
-                    <Label
-                        Text="Chưa có tài khoản ?"
-                        TextColor="#BDBDBD"
-                        VerticalTextAlignment="Center" />
-                    <Button
-                        BackgroundColor="Transparent"
-                        BorderColor="Transparent"
-                        Command="{Binding CreateNewAccountBtn}"
-                        HorizontalOptions="EndAndExpand"
-                        Text="Tạo tài khoản mới"
-                        TextColor="{StaticResource Primary}" />
+                    <Label Text="Chưa có tài khoản ?"
+                           TextColor="#BDBDBD"
+                           VerticalTextAlignment="Center" />
+                    <Button BackgroundColor="Transparent"
+                            BorderColor="Transparent"
+                            Command="{Binding CreateNewAccountBtn}"
+                            HorizontalOptions="EndAndExpand"
+                            Text="Tạo tài khoản mới"
+                            TextColor="{StaticResource Primary}" />
                 </FlexLayout>
             </StackLayout>
         </StackLayout>

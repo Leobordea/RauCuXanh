@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace RauCuXanh.ViewModels
@@ -11,6 +12,7 @@ namespace RauCuXanh.ViewModels
     public class BaseViewModel : INotifyPropertyChanged
     {
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        protected int userid = Preferences.Get("UID", 1);
 
         bool isBusy = false;
         public bool IsBusy

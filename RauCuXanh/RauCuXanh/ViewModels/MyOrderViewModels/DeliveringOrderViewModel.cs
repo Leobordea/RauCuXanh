@@ -40,7 +40,7 @@ namespace RauCuXanh.ViewModels.MyOrderViewModels
             {
                 DeliveringOrders.Clear();
                 var receiptService = RestService.For<IReceiptApi>(RestClient.BaseUrl);
-                var receipts = await receiptService.GetReceiptsByUser(new Dictionary<string, object>() { { "user_id", 1 } });
+                var receipts = await receiptService.GetReceiptsByUser(new Dictionary<string, object>() { { "user_id", userid } });
                 foreach (Receipt receipt in receipts)
                 {
                     if (receipt.Order_status == "chuathanhtoan")
@@ -74,19 +74,23 @@ namespace RauCuXanh.ViewModels.MyOrderViewModels
 
         public async void ExeCancelOrder(Receipt r)
         {
-            try
+            var res = await App.Current.MainPage.DisplayAlert("Thông báo", "Bạn có muốn hủy đơn không!", "Có", "Không");
+            if (res)
             {
-                var receiptService = RestService.For<IReceiptApi>(RestClient.BaseUrl);  
-                var response = await receiptService.UpdateReceipt(new Dictionary<string, object>() { { "id", r.Id }, { "order_status", "dahuy" } });
-
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                try
                 {
-                    await ExeLoadReceiptCommand();
+                    var receiptService = RestService.For<IReceiptApi>(RestClient.BaseUrl);
+                    var response = await receiptService.UpdateReceipt(new Dictionary<string, object>() { { "id", r.Id }, { "order_status", "dahuy" } });
+
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        await ExeLoadReceiptCommand();
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+                catch (Exception ex)
+                {
+                    await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+                }
             }
         }
 

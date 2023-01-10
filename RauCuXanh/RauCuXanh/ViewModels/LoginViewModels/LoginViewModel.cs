@@ -8,7 +8,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 using XF.Material.Forms.UI.Dialogs;
+using Newtonsoft.Json;
 
 namespace RauCuXanh.ViewModels
 {
@@ -33,6 +35,15 @@ namespace RauCuXanh.ViewModels
             set { SetProperty(ref _usernameError, value); }
         }
 
+        public bool RememberMe 
+        { 
+            get => Preferences.Get(nameof(RememberMe), false); 
+            set { 
+                Preferences.Set(nameof(RememberMe), value); 
+                OnPropertyChanged(nameof(RememberMe)); 
+            } 
+        }
+
         public LoginViewModel(INavigation navigation)
         {
             Navigation = navigation;
@@ -51,7 +62,7 @@ namespace RauCuXanh.ViewModels
                 if (!string.IsNullOrEmpty(value))
                 {
                     UsernameError = false;
-                } 
+                }
             }
         }
 
@@ -81,11 +92,11 @@ namespace RauCuXanh.ViewModels
 
         private async Task OnLoginClicked()
         {
-            if(string.IsNullOrEmpty(Username))
+            if (string.IsNullOrEmpty(Username))
             {
                 UsernameError = true;
             }
-            if(string.IsNullOrEmpty(Password))
+            if (string.IsNullOrEmpty(Password))
             {
                 PasswordError = true;
             }
@@ -102,6 +113,9 @@ namespace RauCuXanh.ViewModels
                     var response = await userService.Login(user);
                     if (response.IsSuccessStatusCode)
                     {
+                        var feedback = await response.Content.ReadAsStringAsync();
+                        User result = JsonConvert.DeserializeObject<User>(feedback);
+                        Preferences.Set("UID", result.Id);
                         await Navigation.PushAsync(new CheckingPage());
                     }
                     else

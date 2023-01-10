@@ -30,6 +30,9 @@ namespace RauCuXanh.Services
         [Get("/rauculist")]
         Task<List<Raucu>> GetRaucuList();
 
+        [Get("/rauculist")]
+        Task<List<Raucu>> GetRaucuByType([Body] Dictionary<string, object> payload);
+
         [Get("/raucu/{id}")]
         Task<Raucu> GetRaucuById(int id);
     }

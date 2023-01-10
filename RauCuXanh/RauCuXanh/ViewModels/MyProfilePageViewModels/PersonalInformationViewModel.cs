@@ -14,8 +14,6 @@ namespace RauCuXanh.ViewModels
 {
     public class PersonalInformationViewModel : BaseViewModel
     {
-        private int userid = 1;
-
         public List<string> Genderlist { get; set; }
         public Command LoadUserDetail { get; set; }
         public Command UpdateCommand { get; set; }
@@ -26,6 +24,23 @@ namespace RauCuXanh.ViewModels
             get { return _user; }
             set { SetProperty(ref _user, value); }
         }
+        private string _profilepic = string.Empty;
+        public string Profile_pic { get => _profilepic; set { SetProperty(ref _profilepic, value); } }
+
+        private string _username = string.Empty;
+        public string Username { get => _username; set { SetProperty(ref _username, value); } }
+
+        private string _email = string.Empty;
+        public string Email { get => _email; set { SetProperty(ref _email, value); } }
+
+        private string _phone = string.Empty;
+        public string Phone { get => _phone; set { SetProperty(ref _phone, value); } }
+
+        private string _birthday = string.Empty;
+        public string Birthday { get => _birthday; set { SetProperty(ref _birthday, value); } }
+
+        private string _gender = string.Empty;
+        public string Gender { get => _gender; set { SetProperty(ref _gender, value); } }
 
         private int _selectedgender = 0;
         public int SelectedGender 
@@ -33,11 +48,6 @@ namespace RauCuXanh.ViewModels
             get { return _selectedgender; } 
             set { 
                 SetProperty(ref _selectedgender, value);
-                if (value == 0)
-                {
-                    User.Gender = "male";
-                }
-                else User.Gender = "female";
             } 
         }
 
@@ -57,11 +67,12 @@ namespace RauCuXanh.ViewModels
                 var apiClient = RestService.For<IUserApi>(RestClient.BaseUrl);
                 var user = await apiClient.GetUserById(userid);
                 User = user;
-                SelectedGender = 0;
-                if (user.Gender == "female")
-                {
-                    SelectedGender = 1;
-                }
+                Profile_pic = string.IsNullOrEmpty(user.Profile_pic) ? "profile.png" : user.Profile_pic;
+                Username = user.Username;
+                Email = user.Email;
+                Phone = user.Phone_no ?? string.Empty;
+                Birthday = user.Birthday ?? DateTime.Today.ToString();
+                Gender = user.Gender ?? string.Empty;
             }
             catch (Exception ex)
             {
@@ -77,12 +88,12 @@ namespace RauCuXanh.ViewModels
                 var userService = RestService.For<IUserApi>(RestClient.BaseUrl);
                 var response = await userService.UpdateUser(userid, new User()
                 {
-                    Profile_pic = User.Profile_pic,
-                    Username = User.Username,
-                    Email = User.Email,
-                    Phone_no = User.Phone_no,
-                    Gender = User.Gender,
-                    Birthday = DateTime.Parse(User.Birthday).ToString("MM-dd-yyyy")
+                    Profile_pic = Profile_pic,
+                    Username = Username,
+                    Email = Email,
+                    Phone_no = Phone,
+                    Gender = Gender,
+                    Birthday = DateTime.Parse(Birthday).ToString("MM-dd-yyyy")
                 });
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)

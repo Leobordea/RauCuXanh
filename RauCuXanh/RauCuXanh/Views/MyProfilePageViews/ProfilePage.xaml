@@ -32,7 +32,7 @@
                                WidthRequest="100">
                             <Image Aspect="AspectFill"
                                    HorizontalOptions="FillAndExpand"
-                                   Source="profile.png"
+                                   Source="{Binding User.Profile_pic}"
                                    VerticalOptions="FillAndExpand" />
                         </Frame>
                         <StackLayout Margin="20"
