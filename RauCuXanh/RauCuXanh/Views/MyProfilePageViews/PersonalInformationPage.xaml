@@ -1,119 +1,145 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage x:Class="RauCuXanh.Views.PersonalInformationPage"
-             xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:util="clr-namespace:RauCuXanh.Utils"
-             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-             xmlns:vm="clr-namespace:RauCuXanh.ViewModels"
-             Title="{Binding Title}"
-             x:DataType="vm:PersonalInformationViewModel"
-             Shell.TabBarIsVisible="False">
+<ContentPage
+    x:Class="RauCuXanh.Views.PersonalInformationPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+    xmlns:util="clr-namespace:RauCuXanh.Utils"
+    xmlns:vm="clr-namespace:RauCuXanh.ViewModels"
+    Title="{Binding Title}"
+    x:DataType="vm:PersonalInformationViewModel"
+    Shell.TabBarIsVisible="False">
     <ContentPage.Content>
-        <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
-                     Command="{Binding LoadUserDetail}">
+        <RefreshView Command="{Binding LoadUserDetail}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
             <ScrollView>
-                <StackLayout Margin="0, 10">
-                    <Frame Margin="0, 20"
-                           Padding="0"
-                           CornerRadius="50"
-                           HeightRequest="100"
-                           HorizontalOptions="Center"
-                           IsClippedToBounds="True"
-                           WidthRequest="100">
-                        <Image Aspect="AspectFill"
-                               Source="{Binding Profile_pic}" />
+                <StackLayout Margin="0,10">
+                    <Frame
+                        Margin="0,20"
+                        Padding="0"
+                        CornerRadius="50"
+                        HeightRequest="100"
+                        HorizontalOptions="Center"
+                        IsClippedToBounds="True"
+                        WidthRequest="100">
+                        <Image Aspect="AspectFill" Source="{Binding Profile_pic}" />
                     </Frame>
-                    <material:MaterialCard Margin="20,0,20,15"
-                                           CornerRadius="10"
-                                           Elevation="2"
-                                           HeightRequest="40"
-                                           HorizontalOptions="FillAndExpand">
+                    <material:MaterialCard
+                        Margin="20,0,20,15"
+                        CornerRadius="10"
+                        Elevation="2"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand">
                         <FlexLayout AlignItems="Center">
-                            <Label FontSize="16"
-                                   Text="Username:"
-                                   TextColor="#B0B0B0" />
-                            <material:MaterialTextField Margin="0,0,0,4"
-                                                        BackgroundColor="White"
-                                                        FlexLayout.Grow="1"
-                                                        FloatingPlaceholderEnabled="False"
-                                                        ShouldAnimateUnderline="False"
-                                                        Text="{Binding Username}" />
+                            <Label
+                                FontSize="16"
+                                Text="Tên người dùng:"
+                                TextColor="#B0B0B0" />
+                            <material:MaterialTextField
+                                Margin="0,0,0,4"
+                                BackgroundColor="White"
+                                FlexLayout.Grow="1"
+                                FloatingPlaceholderEnabled="False"
+                                ShouldAnimateUnderline="False"
+                                Text="{Binding Username}" />
                         </FlexLayout>
                     </material:MaterialCard>
-                    <material:MaterialCard Margin="20,0,20,15"
-                                           CornerRadius="10"
-                                           Elevation="2"
-                                           HeightRequest="40"
-                                           HorizontalOptions="FillAndExpand">
+                    <material:MaterialCard
+                        Margin="20,0,20,15"
+                        CornerRadius="10"
+                        Elevation="2"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand">
                         <FlexLayout AlignItems="Center">
-                            <Label FontSize="16"
-                                   Text="Email:"
-                                   TextColor="#B0B0B0" />
-                            <material:MaterialTextField Margin="0,0,0,4"
-                                                        BackgroundColor="White"
-                                                        FlexLayout.Grow="1"
-                                                        FloatingPlaceholderEnabled="False"
-                                                        InputType="Email"
-                                                        ShouldAnimateUnderline="False"
-                                                        Text="{Binding Email}" />
+                            <Label
+                                FontSize="16"
+                                Text="Email:"
+                                TextColor="#B0B0B0" />
+                            <material:MaterialTextField
+                                Margin="0,0,0,4"
+                                BackgroundColor="White"
+                                FlexLayout.Grow="1"
+                                FloatingPlaceholderEnabled="False"
+                                InputType="Email"
+                                ShouldAnimateUnderline="False"
+                                Text="{Binding Email}" />
                         </FlexLayout>
                     </material:MaterialCard>
-                    <material:MaterialCard Margin="20,0,20,15"
-                                           CornerRadius="10"
-                                           Elevation="2"
-                                           HeightRequest="40"
-                                           HorizontalOptions="FillAndExpand">
+                    <material:MaterialCard
+                        Margin="20,0,20,15"
+                        CornerRadius="10"
+                        Elevation="2"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand">
                         <FlexLayout AlignItems="Center">
-                            <Image Source="country_flag.png" />
-                            <BoxView Margin="5"
-                                     WidthRequest="1"
-                                     Color="#C7CAD3" />
-                            <material:MaterialTextField Margin="0,0,0,4"
-                                                        BackgroundColor="White"
-                                                        FlexLayout.Grow="1"
-                                                        FloatingPlaceholderEnabled="False"
-                                                        InputType="Telephone"
-                                                        ShouldAnimateUnderline="False"
-                                                        Text="{Binding Phone}" />
+                            <Image Source="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/1280px-Flag_of_Vietnam.svg.png" />
+                            <BoxView
+                                Margin="5"
+                                WidthRequest="1"
+                                Color="#C7CAD3" />
+                            <material:MaterialTextField
+                                Margin="0,0,0,4"
+                                BackgroundColor="White"
+                                FlexLayout.Grow="1"
+                                FloatingPlaceholderEnabled="False"
+                                InputType="Telephone"
+                                ShouldAnimateUnderline="False"
+                                Text="{Binding Phone}" />
                         </FlexLayout>
                     </material:MaterialCard>
 
-                    <material:MaterialCard Margin="20,0,20,15"
-                                           CornerRadius="10"
-                                           Elevation="2"
-                                           HeightRequest="40"
-                                           HorizontalOptions="FillAndExpand">
+                    <material:MaterialCard
+                        Margin="20,0,20,15"
+                        CornerRadius="10"
+                        Elevation="2"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand">
                         <FlexLayout AlignItems="Center">
-                            <Label FontSize="16"
-                                   Text="Giới tính:"
-                                   TextColor="#B0B0B0" />
-                            <Picker Margin="10,0,0,0"
-                                    BackgroundColor="White"
-                                    ItemsSource="{Binding Genderlist}"
-                                    FlexLayout.Grow="1"
-                                    SelectedItem="{Binding Gender}" />
+                            <Label
+                                FontSize="16"
+                                HorizontalOptions="FillAndExpand"
+                                Text="Giới tính:"
+                                TextColor="#B0B0B0" />
+                            <material:MaterialTextField
+                                Margin="0,0,0,4"
+                                BackgroundColor="White"
+                                FlexLayout.Grow="1"
+                                FloatingPlaceholderEnabled="False"
+                                InputTransparent="True"
+                                ShouldAnimateUnderline="False"
+                                Text="{Binding Gender}" />
+                            <material:MaterialMenuButton
+                                ButtonType="Text"
+                                Choices="{Binding Genderlist}"
+                                Command="{Binding ChangeGenderCommand}"
+                                CornerRadius="24"
+                                Image="arrow_down.png" />
                         </FlexLayout>
                     </material:MaterialCard>
-                    <material:MaterialCard Margin="20,0,20,15"
-                                           CornerRadius="10"
-                                           Elevation="2"
-                                           HeightRequest="40"
-                                           HorizontalOptions="FillAndExpand">
+                    <material:MaterialCard
+                        Margin="20,0,20,15"
+                        CornerRadius="10"
+                        Elevation="2"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand">
                         <FlexLayout AlignItems="Center">
-                            <Label FontSize="16"
-                                   Text="Ngày sinh:"
-                                   TextColor="#B0B0B0" />
-                            <DatePicker Margin="10,0,0,0"
-                                        FlexLayout.Grow="1"
-                                        Date="{Binding Birthday}" />
+                            <Label
+                                FontSize="16"
+                                Text="Ngày sinh:"
+                                TextColor="#B0B0B0" />
+                            <DatePicker
+                                Margin="10,0,0,0"
+                                Date="{Binding Birthday}"
+                                FlexLayout.Grow="1"
+                                Format="dd/MM/yyyy" />
                         </FlexLayout>
                     </material:MaterialCard>
-                    <material:MaterialButton Text="Cập nhật"
-                                             HeightRequest="60"
-                                             Margin="10"
-                                             CornerRadius="10"
-                                             BackgroundColor="{StaticResource Primary}"
-                                             Command="{Binding UpdateCommand}" />
+                    <material:MaterialButton
+                        Margin="10"
+                        BackgroundColor="{StaticResource Primary}"
+                        Command="{Binding UpdateCommand}"
+                        CornerRadius="10"
+                        HeightRequest="60"
+                        Text="Cập nhật" />
                 </StackLayout>
             </ScrollView>
         </RefreshView>

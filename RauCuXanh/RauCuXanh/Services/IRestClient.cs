@@ -22,6 +22,9 @@ namespace RauCuXanh.Services
         [Put("/login")]
         Task<HttpResponseMessage> Login([Body] User user);
 
+        [Put("/changepassword")]
+        Task<HttpResponseMessage> ChangePassword([Body] User user);
+
         [Post("/resetpassword")]
         Task<HttpResponseMessage> ResetPassword([Body] User user);
     }

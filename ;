@@ -1,4 +1,4 @@
-﻿using RauCuXanh.Models;
+using RauCuXanh.Models;
 using RauCuXanh.Services;
 using RauCuXanh.Utils;
 using Refit;
@@ -94,7 +94,7 @@ namespace RauCuXanh.ViewModels
             {
                 User user = new User()
                 {
-                    Username = "Phuc",
+                    Username = "Phucpros",
                     Password = OldPassword
                 };
                 var userService = RestService.For<IUserApi>(RestClient.BaseUrl);

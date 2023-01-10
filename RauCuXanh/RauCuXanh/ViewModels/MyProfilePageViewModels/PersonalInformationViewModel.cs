@@ -4,10 +4,14 @@ using Refit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
+using XF.Material.Forms.Models;
+using XF.Material.Forms.UI;
 using XF.Material.Forms.UI.Dialogs;
 
 namespace RauCuXanh.ViewModels
@@ -17,6 +21,24 @@ namespace RauCuXanh.ViewModels
         public List<string> Genderlist { get; set; }
         public Command LoadUserDetail { get; set; }
         public Command UpdateCommand { get; set; }
+        public ICommand ChangeGenderCommand => new Command<MaterialMenuResult>((s) => GenderSelected(s));
+
+        private void GenderSelected(MaterialMenuResult i)
+        {
+            switch (i.Index)
+            {
+                case 0:
+                    {
+                        Gender = "male";
+                        break;
+                    }
+                case 1:
+                    {
+                        Gender = "female";
+                        break;
+                    }
+            }
+        }
 
         private User _user;
         public User User
@@ -41,15 +63,6 @@ namespace RauCuXanh.ViewModels
 
         private string _gender = string.Empty;
         public string Gender { get => _gender; set { SetProperty(ref _gender, value); } }
-
-        private int _selectedgender = 0;
-        public int SelectedGender 
-        { 
-            get { return _selectedgender; } 
-            set { 
-                SetProperty(ref _selectedgender, value);
-            } 
-        }
 
         public PersonalInformationViewModel()
         {
@@ -96,17 +109,22 @@ namespace RauCuXanh.ViewModels
                     Birthday = DateTime.Parse(Birthday).ToString("MM-dd-yyyy")
                 });
 
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                if (response.IsSuccessStatusCode)
                 {
-                    await App.Current.MainPage.DisplayAlert("Thành công", "Cập nhật thành công", "OK");
+                    await MaterialDialog.Instance.SnackbarAsync(message: "Cập nhật thành công.", actionButtonText: "OK",
+                                            msDuration: MaterialSnackbar.DurationShort);
                     IsBusy = true;
+                }
+                else
+                {
+                    await MaterialDialog.Instance.AlertAsync(message: response.ReasonPhrase);
                 }
             }
             catch (Exception ex)
             {
                 await MaterialDialog.Instance.AlertAsync(message: ex.Message);
             }
-            
+
         }
 
         internal void OnAppearing()

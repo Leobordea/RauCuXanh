@@ -1,17 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage x:Class="RauCuXanh.Views.InsightsPage"
-             xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:RauCuXanh.ViewModels"
-             Title="{Binding Title}"
-             Shell.TabBarIsVisible="False">
+<ContentPage
+    x:Class="RauCuXanh.Views.InsightsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:RauCuXanh.ViewModels"
+    Title="{Binding Title}"
+    Shell.TabBarIsVisible="False">
     <ContentPage.BindingContext>
         <vm:InsightsViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <DatePicker />
+            <StackLayout Orientation="Horizontal">
+                <Label
+                    Margin="20"
+                    FontSize="Large"
+                    Text="Thống kê tháng:"
+                    VerticalOptions="CenterAndExpand" />
+                <DatePicker
+                    Margin="20"
+                    Format="MM-yyyy"
+                    HorizontalOptions="FillAndExpand" />
+            </StackLayout>
 
+            <Image
+                HorizontalOptions="FillAndExpand"
+                Source="https://d138zd1ktt9iqe.cloudfront.net/media/seo_landing_files/example2-of-pie-charts-1622134163.png"
+                VerticalOptions="FillAndExpand" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
