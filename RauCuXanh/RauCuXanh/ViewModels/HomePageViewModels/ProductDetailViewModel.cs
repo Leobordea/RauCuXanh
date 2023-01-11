@@ -224,7 +224,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
                         var response = await cartService.UpdateCart(new Cart() { Raucu_id = Raucu.Id, User_id = userid, Quantity = cart.Quantity + Quantity });
                         if (response.StatusCode == System.Net.HttpStatusCode.OK)
                         {
-                            await App.Current.MainPage.DisplayAlert("Thành công", "Thêm vào giỏ hàng thành công!", "OK");
+                            await MaterialDialog.Instance.AlertAsync(message: "Thêm vào giỏ hàng thành công.");
                             flag = true;
                         }
                         break;
@@ -241,7 +241,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
 
                     if (response.StatusCode == System.Net.HttpStatusCode.Created)
                     {
-                        await App.Current.MainPage.DisplayAlert("Thành công", "Thêm vào giỏ hàng thành công!", "OK");
+                        await MaterialDialog.Instance.AlertAsync(message: "Thêm vào giỏ hàng thành công.");
                     }
                 }
             }
@@ -349,7 +349,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             {
                 if (i.Review.User_id == userid)
                 {
-                    firstReview = false; 
+                    firstReview = false;
                     break;
                 }
             }

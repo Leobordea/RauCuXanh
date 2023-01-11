@@ -272,13 +272,14 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
             var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
 
             var response = await cartService.CreateCart(new Cart() { Quantity = 1, Raucu_id = r.Id, User_id = 1 });
-            if (response.StatusCode == System.Net.HttpStatusCode.Created)
+            if (response.IsSuccessStatusCode)
             {
-                await App.Current.MainPage.DisplayAlert("Thành công", "Thêm vào giỏ hàng thành công!", "OK");
+                await MaterialDialog.Instance.SnackbarAsync(message: "Thêm vào giỏ hàng thành công.",
+                                            msDuration: MaterialSnackbar.DurationShort);
             }
             else
             {
-                await App.Current.MainPage.DisplayAlert("Lỗi", "Có lỗi xảy ra!", "OK");
+                await App.Current.MainPage.DisplayAlert("Lỗi", response.ReasonPhrase, "OK");
             }
         }
     }

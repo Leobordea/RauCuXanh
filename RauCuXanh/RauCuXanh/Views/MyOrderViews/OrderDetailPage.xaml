@@ -1,45 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RauCuXanh.Views.MyOrderViews.OrderDetailPage"
-             xmlns:vm="clr-namespace:RauCuXanh.ViewModels.MyOrderViewModels"
-             x:DataType="vm:OrderDetailViewModel"
-             Title="{Binding Title}">
+<ContentPage
+    x:Class="RauCuXanh.Views.MyOrderViews.OrderDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:RauCuXanh.ViewModels.MyOrderViewModels"
+    Title="{Binding Title}"
+    x:DataType="vm:OrderDetailViewModel">
     <ContentPage.Content>
-        <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
-                     Command="{Binding LoadReceiptDetail}">
-            <CollectionView ItemsSource="{Binding ModelData}"
-                            SelectionMode="Single">
+        <RefreshView Command="{Binding LoadReceiptDetail}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+            <CollectionView ItemsSource="{Binding ModelData}" SelectionMode="Single">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="vm:OrderDetailViewModel">
-                        <Frame Padding="20"
-                               HeightRequest="150">
+                        <Frame Padding="20" HeightRequest="150">
                             <Grid ColumnDefinitions="*, 1.2*">
-                                <Frame Padding="0"
-                                       HasShadow="False"
-                                       CornerRadius="5"
-                                       Grid.Column="0">
-                                    <Image Source="{Binding Raucu.Product_pic}"
-                                           Aspect="AspectFill"
-                                           Grid.Column="0" />
+                                <Frame
+                                    Grid.Column="0"
+                                    Padding="0"
+                                    CornerRadius="5"
+                                    HasShadow="False">
+                                    <Image
+                                        Grid.Column="0"
+                                        Aspect="AspectFill"
+                                        Source="{Binding Raucu.Product_pic}" />
                                 </Frame>
-                                <StackLayout  Grid.Column="1"
-                                              VerticalOptions="Center">
-                                    <Label Text="{Binding Raucu.Name}"
-                                           FontAttributes="Bold"
-                                           FontSize="20"
-                                           LineBreakMode="WordWrap" />
-                                    <Label Text="{Binding Raucu.Price, StringFormat='{0:0,0 vnd}' }"
-                                           FontAttributes="Bold"
-                                           FontSize="18"
-                                           TextColor="Red" />
-                                    <Label Text="{Binding Detail.Quantity, StringFormat='Số lượng: {0}'}"
-                                           VerticalTextAlignment="Center" />
+                                <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="20"
+                                        LineBreakMode="WordWrap"
+                                        Text="{Binding Raucu.Name}" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="18"
+                                        Text="{Binding Raucu.Price, StringFormat='{0:0,0 vnd}'}"
+                                        TextColor="Red" />
+                                    <Label Text="{Binding Detail.Quantity, StringFormat='Số lượng: {0}'}" VerticalTextAlignment="Center" />
                                     <Label Text="(Thong tin chi tiet)" />
                                 </StackLayout>
                                 <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:OrderDetailViewModel}}}"
-                                                          CommandParameter="{Binding Raucu}" />
+                                    <TapGestureRecognizer Command="{Binding NavigateToDetailPage, Source={RelativeSource AncestorType={x:Type vm:OrderDetailViewModel}}}" CommandParameter="{Binding Raucu}" />
                                 </Grid.GestureRecognizers>
                             </Grid>
                         </Frame>

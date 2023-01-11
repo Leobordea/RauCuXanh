@@ -74,7 +74,10 @@ namespace RauCuXanh.ViewModels.MyOrderViewModels
 
         public async void ExeCancelOrder(Receipt r)
         {
-            var res = await App.Current.MainPage.DisplayAlert("Thông báo", "Bạn có muốn hủy đơn không!", "Có", "Không");
+            bool res = (bool)await MaterialDialog.Instance.ConfirmAsync(message: "Bạn có muốn hủy đơn không?",
+                                    title: "Thông báo",
+                                    confirmingText: "Có",
+                                    dismissiveText: "Không");
             if (res)
             {
                 try
@@ -82,9 +85,10 @@ namespace RauCuXanh.ViewModels.MyOrderViewModels
                     var receiptService = RestService.For<IReceiptApi>(RestClient.BaseUrl);
                     var response = await receiptService.UpdateReceipt(new Dictionary<string, object>() { { "id", r.Id }, { "order_status", "dahuy" } });
 
-                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    if (response.IsSuccessStatusCode)
                     {
-                        await ExeLoadReceiptCommand();
+                        await MaterialDialog.Instance.SnackbarAsync(message: "Hủy thành công",
+                                            msDuration: MaterialSnackbar.DurationShort);
                     }
                 }
                 catch (Exception ex)
