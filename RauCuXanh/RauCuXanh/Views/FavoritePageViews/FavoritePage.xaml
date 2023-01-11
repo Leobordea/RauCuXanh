@@ -1,64 +1,70 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage x:Class="RauCuXanh.Views.FavoritePage"
-             xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-             xmlns:vm="clr-namespace:RauCuXanh.ViewModels.FavoriteViewModels"
-             x:Name="BrowseItemsPage"
-             Title="{Binding Title}"
-             x:DataType="vm:FavoriteViewModel">
+<ContentPage
+    x:Class="RauCuXanh.Views.FavoritePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:RauCuXanh.ViewModels.FavoriteViewModels"
+    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+    xmlns:model="clr-namespace:RauCuXanh.Models"
+    x:Name="BrowseItemsPage"
+    Title="{Binding Title}">
 
     <ContentPage.Content>
-        <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
-                     Command="{Binding LoadBookmarksCommand}">
-            <CollectionView x:Name="ItemsListView"
-                            ItemsSource="{Binding ModelData}"
-                            SelectionMode="None">
+        <RefreshView
+            x:DataType="local:FavoriteViewModel"
+            Command="{Binding LoadBookmarksCommand}"
+            IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+            <CollectionView
+                x:Name="ItemsListView"
+                ItemsSource="{Binding Raucus}"
+                SelectionMode="None">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="vm:FavoriteViewModel">
-                        <material:MaterialCard CornerRadius="2"
-                                               Elevation="1"
-                                               HeightRequest="120"
-                                               HorizontalOptions="FillAndExpand"
-                                               IsClickable="True">
-                            <StackLayout Orientation="Horizontal">
-                                <Image Aspect="AspectFill"
-                                       HeightRequest="120"
-                                       HorizontalOptions="Center"
-                                       Source="{Binding Raucu.Product_pic}"
-                                       VerticalOptions="Center"
-                                       WidthRequest="100" />
-                                <StackLayout HorizontalOptions="StartAndExpand"
-                                             VerticalOptions="Start">
-                                    <Label FontAttributes="Bold"
-                                           FontSize="Medium"
-                                           Text="{Binding Raucu.Name}"
-                                           TextColor="{StaticResource TextOnSecondary}" />
-                                    <Label FontAttributes="Bold"
-                                           FontSize="Medium"
-                                           Text="{Binding Raucu.Price, StringFormat='{0:0,0} vnd'}"
-                                           TextColor="PaleVioletRed" />
+                    <DataTemplate>
+                        <material:MaterialCard
+                            CornerRadius="2"
+                            Elevation="1"
+                            HeightRequest="120"
+                            HorizontalOptions="FillAndExpand"
+                            IsClickable="True">
+                            <StackLayout x:DataType="model:Raucu" Orientation="Horizontal">
+                                <Image
+                                    Aspect="AspectFill"
+                                    HeightRequest="120"
+                                    HorizontalOptions="Center"
+                                    Source="{Binding Product_pic}"
+                                    VerticalOptions="Center"
+                                    WidthRequest="100" />
+                                <StackLayout HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="Medium"
+                                        Text="{Binding Name}"
+                                        TextColor="{StaticResource TextOnSecondary}" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="Medium"
+                                        Text="{Binding Price, StringFormat='{0:0,0} vnd'}"
+                                        TextColor="PaleVioletRed" />
                                 </StackLayout>
-                                <FlexLayout Direction="Column"
-                                            JustifyContent="SpaceAround">
-                                    <Frame Padding="0"
-                                           HasShadow="False">
-                                        <Image Source="cancel_icon.png"
-                                               WidthRequest="30"
-                                               Aspect="AspectFill" />
+                                <FlexLayout
+                                    Direction="Column"
+                                    JustifyContent="SpaceAround">
+                                    <Frame Padding="0" HasShadow="False">
+                                        <Image
+                                            Aspect="AspectFill"
+                                            Source="cancel_icon.png"
+                                            WidthRequest="30" />
                                         <Frame.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding RemoveBookmark}"
-                                                                  CommandParameter="{Binding Bookmark}" />
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.RemoveBookmark, Source={x:Reference ItemsListView}}" CommandParameter="{Binding .}" />
                                         </Frame.GestureRecognizers>
                                     </Frame>
-                                    <Frame Padding="0"
-                                           HasShadow="False">
-                                        <Image Source="shopping_bag_icon.png"
-                                               WidthRequest="30"
-                                               Aspect="AspectFill" />
+                                    <Frame Padding="0" HasShadow="False">
+                                        <Image
+                                            Aspect="AspectFill"
+                                            Source="shopping_bag_icon.png"
+                                            WidthRequest="30" />
                                         <Frame.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding AddToCart}"
-                                                                  CommandParameter="{Binding Raucu}" />
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.AddToCart, Source={x:Reference ItemsListView}}" CommandParameter="{Binding .}" />
                                         </Frame.GestureRecognizers>
                                     </Frame>
                                 </FlexLayout>

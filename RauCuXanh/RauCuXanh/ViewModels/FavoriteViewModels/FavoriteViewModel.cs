@@ -15,25 +15,22 @@ namespace RauCuXanh.ViewModels.FavoriteViewModels
     {
         public Command LoadBookmarksCommand { get; }
         public Command RemoveBookmark { get; set; }
-        private ObservableCollection<FavoriteViewModel> _modelData;
-        public ObservableCollection<FavoriteViewModel> ModelData
-        {
-            get { return _modelData; }
-            set { SetProperty(ref _modelData, value); }
-        }
+        public ObservableCollection<Bookmark> Bookmarks { get; }
 
-        public Raucu Raucu { get; set; }
-        public Bookmark Bookmark { get; set; }
+        public ObservableCollection<Raucu> Raucus { get; }
 
         public Command AddToCart { get; set; }
 
         public FavoriteViewModel()
         {
             Title = "Favorite";
-            ModelData = new ObservableCollection<FavoriteViewModel>();
+            Bookmarks = new ObservableCollection<Bookmark>();
+            Raucus = new ObservableCollection<Raucu>();
             LoadBookmarksCommand = new Command(async () => await ExecuteLoadBookmarksCommand());
-            RemoveBookmark = new Command<Bookmark>(ExeRemoveBookmark);
-            AddToCart = new Command<Raucu>(ExeAddToCart);
+
+
+            RemoveBookmark = new Command<Raucu>(async (r) => await ExeRemoveBookmark(r));
+            AddToCart = new Command<Raucu>(async (r) => await ExeAddToCart(r));
         }
 
         async Task ExecuteLoadBookmarksCommand()
@@ -41,7 +38,8 @@ namespace RauCuXanh.ViewModels.FavoriteViewModels
             IsBusy = true;
             try
             {
-                ModelData.Clear();
+                Bookmarks.Clear();
+                Raucus.Clear();
                 var apiClient = RestService.For<IBookmarkApi>(RestClient.BaseUrl);
                 var raucuClient = RestService.For<IRaucuApi>(RestClient.BaseUrl);
                 var bookmarks = await apiClient.GetBookmarks();
@@ -49,7 +47,8 @@ namespace RauCuXanh.ViewModels.FavoriteViewModels
                 {
                     if (bookmark.User_id == userid)
                     {
-                        ModelData.Add(new FavoriteViewModel() { Raucu = await raucuClient.GetRaucuById(bookmark.Raucu_id), Bookmark = bookmark });
+                        var raucu = await raucuClient.GetRaucuById(bookmark.Raucu_id);
+                        Raucus.Add(raucu);
                     }
                 }
             }
@@ -63,14 +62,29 @@ namespace RauCuXanh.ViewModels.FavoriteViewModels
             }
         }
 
-        public async void ExeRemoveBookmark(Bookmark bm)
+        public async
+        Task
+ExeRemoveBookmark(Raucu r)
         {
-            var bookmarkClient = RestService.For<IBookmarkApi>(RestClient.BaseUrl);
-            var response = await bookmarkClient.DeleteBookmark(bm);
-
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            try
             {
-                await ExecuteLoadBookmarksCommand();
+                var bookmarkClient = RestService.For<IBookmarkApi>(RestClient.BaseUrl);
+                Bookmark bm = new Bookmark()
+                {
+                    User_id = userid,
+                    Raucu_id = r.Id
+                };
+                var response = await bookmarkClient.DeleteBookmark(bm);
+                if (response.IsSuccessStatusCode)
+                {
+                    await MaterialDialog.Instance.SnackbarAsync(message: "Xóa thành công!",
+                                                msDuration: MaterialSnackbar.DurationShort);
+                    Raucus.Remove(r);
+                }
+            }
+            catch (Exception ex)
+            {
+                await MaterialDialog.Instance.AlertAsync(message: ex.Message);
             }
         }
 
@@ -79,18 +93,28 @@ namespace RauCuXanh.ViewModels.FavoriteViewModels
             IsBusy = true;
         }
 
-        public async void ExeAddToCart(Raucu r)
+        public async
+        Task
+ExeAddToCart(Raucu r)
         {
-            var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
+            try
+            {
 
-            var response = await cartService.CreateCart(new Cart() { Quantity = 1, Raucu_id = r.Id, User_id = userid });
-            if (response.StatusCode == System.Net.HttpStatusCode.Created)
-            {
-                await App.Current.MainPage.DisplayAlert("Thành công", "Thêm vào giỏ hàng thành công!", "OK");
+                var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
+                var response = await cartService.CreateCart(new Cart() { Quantity = 1, Raucu_id = r.Id, User_id = userid });
+                if (response.IsSuccessStatusCode)
+                {
+                    await MaterialDialog.Instance.SnackbarAsync(message: "Thêm vào giỏ hàng thành công!",
+                                                msDuration: MaterialSnackbar.DurationShort);
+                }
+                else
+                {
+                    await MaterialDialog.Instance.AlertAsync(message: response.ReasonPhrase);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Lỗi", "Có lỗi xảy ra!", "OK");
+                await MaterialDialog.Instance.AlertAsync(message: ex.Message);
             }
         }
     }
