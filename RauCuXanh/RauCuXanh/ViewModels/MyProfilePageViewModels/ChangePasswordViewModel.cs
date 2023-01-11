@@ -94,7 +94,7 @@ namespace RauCuXanh.ViewModels
             {
                 User user = new User()
                 {
-                    Username = "Phuc",
+                    Username = userid.ToString(),
                     Password = OldPassword
                 };
                 var userService = RestService.For<IUserApi>(RestClient.BaseUrl);
