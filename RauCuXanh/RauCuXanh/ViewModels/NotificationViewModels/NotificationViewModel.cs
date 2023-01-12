@@ -31,9 +31,13 @@ namespace RauCuXanh.ViewModels.NotificationViewModels
                 Notifications.Clear();
                 var apiClient = RestService.For<INotificationApi>(RestClient.BaseUrl);
                 var notifications = await apiClient.GetNotifications();
+                notifications.Reverse();
                 foreach (var notification in notifications)
                 {
-                    Notifications.Add(notification);
+                    if (notification.User_id == userid)
+                    {
+                        Notifications.Add(notification);
+                    }
                 }
             }
             catch (Exception ex)
