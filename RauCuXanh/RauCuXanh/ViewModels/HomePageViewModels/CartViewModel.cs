@@ -54,11 +54,17 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
 
         public async void ExeDecrease(Cart cart)
         {
+            var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
             if (cart.Quantity == 1)
             {
+                var response1 = await cartService.DeleteCart(cart);
+
+                if (response1.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    IsBusy = true;
+                }
                 return;
             }
-            var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
             var response = await cartService.UpdateCart(new Cart() { Raucu_id = cart.Raucu_id, User_id = cart.User_id, Quantity = --cart.Quantity });
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
