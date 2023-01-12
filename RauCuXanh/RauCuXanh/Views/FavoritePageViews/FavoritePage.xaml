@@ -45,6 +45,9 @@
                                         FontSize="Medium"
                                         Text="{Binding Price, StringFormat='{0:0,0} vnd'}"
                                         TextColor="PaleVioletRed" />
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.NavToDetailPage, Source={x:Reference ItemsListView}}" CommandParameter="{Binding .}" />
+                                    </StackLayout.GestureRecognizers>
                                 </StackLayout>
                                 <FlexLayout
                                     Direction="Column"
