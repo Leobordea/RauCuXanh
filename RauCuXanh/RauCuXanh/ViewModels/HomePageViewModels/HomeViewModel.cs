@@ -271,7 +271,7 @@ namespace RauCuXanh.ViewModels.HomePageViewModels
         {
             var cartService = RestService.For<ICartApi>(RestClient.BaseUrl);
 
-            var response = await cartService.CreateCart(new Cart() { Quantity = 1, Raucu_id = r.Id, User_id = 1 });
+            var response = await cartService.CreateCart(new Cart() { Quantity = 1, Raucu_id = r.Id, User_id = userid });
             if (response.IsSuccessStatusCode)
             {
                 await MaterialDialog.Instance.SnackbarAsync(message: "Thêm vào giỏ hàng thành công.",
