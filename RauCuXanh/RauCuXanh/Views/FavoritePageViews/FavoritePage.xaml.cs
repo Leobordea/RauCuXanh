@@ -25,6 +25,7 @@ namespace RauCuXanh.Views
 
         protected override void OnAppearing()
         {
+            Shell.SetNavBarIsVisible(this, false);
             base.OnAppearing();
             _viewModel.OnAppearing();
         }

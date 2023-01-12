@@ -18,6 +18,10 @@ namespace RauCuXanh.Views.HomePageViews
             InitializeComponent();
             BindingContext = _viewmodel = new SearchViewModel();
         }
-
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            Shell.SetNavBarIsVisible(this, false);
+        }
     }
 }
